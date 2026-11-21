@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How it works · GroupDrive & SiteCrew</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#F5F7FB;color:#1E2A4A;line-height:1.55}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 18px 48px}
+  h1{font-size:clamp(26px,5vw,36px);margin:0 0 4px}
+  .sub{color:#64748B;margin:0 0 22px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+  .card{background:#fff;border:1px solid #DCE3EE;border-radius:16px;padding:20px;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+  .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;color:#2F6FED;background:#E8F0FE;padding:4px 10px;border-radius:99px}
+  .green .tag{color:#2F6B5E;background:#EAF2EF}
+  h2{margin:10px 0 4px;font-size:22px}
+  h3{margin:16px 0 6px;font-size:15px;text-transform:uppercase;letter-spacing:.05em;color:#64748B}
+  p{margin:0 0 8px}
+  ol,ul{margin:0;padding-left:20px}
+  li{margin:0 0 6px}
+  .one{font-weight:600}
+  a{color:#2F6FED}
+  .green a{color:#2F6B5E}
+  .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  .btn{flex:1 1 130px;text-align:center;text-decoration:none;font-weight:600;padding:11px;border-radius:10px;background:#2F6FED;color:#fff!important}
+  .green .btn{background:#2F6B5E}
+  .note{margin-top:18px}
+  .note ul{columns:2;column-gap:28px}
+  @media(max-width:700px){.note ul{columns:1}}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin-top:4px}
+  td{border-top:1px solid #DCE3EE;padding:6px 4px;vertical-align:top}
+  td:first-child{font-weight:600;white-space:nowrap;padding-right:10px}
+  footer{margin-top:22px;color:#94A3B8;font-size:13px;text-align:center}
+  @media print{body{background:#fff}.card{box-shadow:none}.btns{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>How our two prototypes work</h1>
+  <p class="sub">GroupDrive and SiteCrew · IIM Bangalore Business Plan Challenge · Try them live, no login: <a href="index.html">harit23.github.io/startup-prototypes</a></p>
+
+  <div class="grid">
+    <div class="card">
+      <span class="tag">GROUPDRIVE</span>
+      <h2>Buy together. Pay less.</h2>
+      <p class="one">People who want the same vehicle in the same city join one group. Dealers compete live for the whole group, and the lowest price wins.</p>
+
+      <h3>Who uses it</h3>
+      <ul>
+        <li><b>Admin</b> (laptop): sets up a group deal and watches the live bidding.</li>
+        <li><b>Dealers</b> (phones): bid against each other to win the group.</li>
+      </ul>
+
+      <h3>How a deal runs</h3>
+      <ol>
+        <li>The admin picks a vehicle: a car, bike, truck or bus (e.g. BMW M340i or an Ashok Leyland truck). They set the price, group size, city, payment terms and a timer, then press <b>Start live bidding</b>.</li>
+        <li>Each dealer opens the Dealer page once and sets up their shop, e.g. <i>BMW Dealer Satellite</i>.</li>
+        <li>The dealer taps <b>Join bidding</b>. Their first offer is ₹10,000 below the current lowest price.</li>
+        <li>Dealers lower their price with <b>−₹10,000 / −₹50,000 / −₹1,00,000</b>, raise it back with the + buttons, or type a custom bid. <b>Get out</b> leaves the deal.</li>
+        <li>The admin sees a live 1-2-3 leaderboard, the saving per vehicle and the total saving for the group.</li>
+        <li>When the timer ends (or the admin closes it), the <b>lowest price wins</b>, and the group buys from that dealer.</li>
+      </ol>
+
+      <h3>How we earn</h3>
+      <table>
+        <tr><td>Main fee</td><td>5% of the dealer's margin on every vehicle (about ₹30,500 per BMW M340i).</td></tr>
+        <tr><td>Extra</td><td>Loan and insurance partner commissions, and later demand data for dealers.</td></tr>
+      </table>
+
+      <div class="btns">
+        <a class="btn" href="groupdrive/admin.html">Open Admin</a>
+        <a class="btn" href="groupdrive/dealer.html">Open Dealer</a>
+      </div>
+    </div>
+
+    <div class="card green">
+      <span class="tag">SITECREW</span>
+      <h2>Amazon, but only for builders.</h2>
+      <p class="one">One place where builders buy everything a construction site needs, A to Z, from verified local sellers, and track every delivery.</p>
+
+      <h3>Who uses it</h3>
+      <ul>
+        <li><b>Builders</b>: search, compare sellers and order to their site.</li>
+        <li><b>Sellers</b> (cement depots, brick makers, steel traders, electricians, truck and JCB owners, skilled crews): list products and handle orders from a phone.</li>
+      </ul>
+
+      <h3>How an order runs</h3>
+      <ol>
+        <li>A seller picks their shop (or registers a new one) and adds products with price, unit and stock.</li>
+        <li>A builder enters the company and site name, e.g. <i>Shaligram Builders · Satellite Tower B</i>.</li>
+        <li>The builder searches or picks a category (cement, bricks, steel, sand, electrical, plumbing, tiles, paint, wood, machinery and trucks, skilled services) and compares prices from different sellers.</li>
+        <li>They add items to the cart and press <b>Place order to site</b>.</li>
+        <li>The seller sees the order arrive live, then taps <b>Accept → Dispatched → Delivered</b>.</li>
+        <li>The builder watches each step update in <b>My orders</b>.</li>
+      </ol>
+
+      <h3>How we earn</h3>
+      <table>
+        <tr><td>Main fee</td><td>5% commission on every order.</td></tr>
+        <tr><td>Extra</td><td>Featured listings for sellers, a delivery fee, and later credit for builders through a finance partner.</td></tr>
+      </table>
+
+      <div class="btns">
+        <a class="btn" href="sitecrew/builder.html">Open Builder</a>
+        <a class="btn" href="sitecrew/seller.html">Open Seller</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card note">
+    <h3 style="margin-top:0">How the demo works behind the scenes</h3>
+    <ul>
+      <li>It's a simple website hosted free on GitHub Pages. There's no login: you just pick your role.</li>
+      <li>Every phone and laptop shares one live online database, so a bid or order made on one device shows on the others within seconds.</li>
+      <li>To try it, open Admin (or Builder) on a laptop and Dealer (or Seller) on 2–3 phones at the same time.</li>
+      <li>If the internet fails, add <b>?local=1</b> to the link. It then runs offline in tabs on one device.</li>
+      <li>All prices and shops are sample data. Anyone with the link can add or change them, so don't enter real details.</li>
+      <li>It's a prototype to show the idea. Payments, verification and logins come later if we are selected.</li>
+    </ul>
+    <h3>Questions for the team to think about</h3>
+    <ul>
+      <li>GroupDrive: will dealers agree to give a 5% share of their margin? How do we collect each buyer's token deposit?</li>
+      <li>GroupDrive: which first segment is easiest to win: luxury cars, two-wheelers, or fleet trucks and buses?</li>
+      <li>SiteCrew: what quality checks do we need on sellers before builders trust them?</li>
+      <li>SiteCrew: should we start with one category (e.g. cement and steel) in Ahmedabad and then expand?</li>
+    </ul>
+  </div>
+
+  <footer>Made by Harit Shah · <a href="index.html">← All prototypes</a></footer>
+</div>
+</body>
+</html>
