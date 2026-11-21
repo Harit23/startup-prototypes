@@ -2,6 +2,8 @@
 
 Live, no-login prototypes by **Harit Shah (Harit23)**.
 
+**Live demo:** https://harit23.github.io/startup-prototypes/
+
 | Prototype | What it shows | Open |
 |---|---|---|
 | **GroupDrive** | Group buying of cars, bikes, trucks and buses. The admin starts a group deal; dealers bid live from their phones; the lowest price wins. | `groupdrive/` |
