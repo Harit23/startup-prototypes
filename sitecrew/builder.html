@@ -4,11 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SiteCrew - Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body class="has-bar">
 <header class="top"><div class="wrap">
-  <a class="logo" href="index.html">Site<b>Crew</b></a>
+  <a class="logo" href="index.html">Site<span>Crew</span></a>
+  <span class="tagline">Amazon for builders</span>
   <span class="muted" id="who"></span>
   <span class="spacer"></span>
   <span id="modeBadge" class="badge">● Connecting…</span>
@@ -161,7 +163,7 @@
     var rows = ids.map(function (id) {
       var p = prodById(id), q = cart[id], line = p.price * q; total += line; count += q;
       return '<div class="cart-item" data-id="' + esc(id) + '"><div><b>' + esc(p.name) + '</b><div class="muted">' + esc(p.seller_name) + ' · ' + inr(p.price) + '/' + esc(p.unit) + '</div></div>' +
-        '<b>' + inr(line) + '</b>' +
+        '<b class="num">' + inr(line) + '</b>' +
         '<div class="stepper"><button data-act="dec" aria-label="Less">−</button><span>' + q + '</span><button data-act="inc" aria-label="More">+</button></div>' +
         '<button class="btn bad sm" data-act="rm">Remove</button></div>';
     }).join('');
