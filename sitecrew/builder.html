@@ -61,6 +61,7 @@
   var esc = SC.esc, inr = SC.inr;
   var PKEY = 'sc_builder', CKEY = 'sc_cart';
   var profile = SC.lsGet(PKEY, null);
+  if (profile) profile.site = SC.cleanSite(profile.site);
   var cart = SC.lsGet(CKEY, {});          // productId -> qty
   var products = [], sellers = [], orders = [];
   var cat = '', tab = 'shop', stepQty = {}; // stepQty: pending qty on each card
@@ -76,11 +77,11 @@
     $('setup').classList.toggle('hide', !!profile);
     $('app').classList.toggle('hide', !profile);
     $('change').classList.toggle('hide', !profile);
-    $('who').textContent = profile ? profile.name + ' · ' + profile.site : '';
+    $('who').textContent = profile ? profile.name + ' · Site: ' + profile.site : '';
     if (!profile) $('cartbar').classList.add('hide');
   }
   $('saveProfile').onclick = function () {
-    var n = $('bName').value.trim(), s = $('bSite').value.trim();
+    var n = $('bName').value.trim(), s = SC.cleanSite($('bSite').value);
     if (!n || !s) { SC.toast('Please enter both name and site'); return; }
     profile = { name: n, site: s }; SC.lsSet(PKEY, profile); showProfile(); render();
   };
@@ -190,7 +191,7 @@
     var rows = Object.keys(cart).map(function (id) {
       var p = prodById(id); if (!p) return null;
       return { product_id: p.id, product_name: p.name, seller_id: p.seller_id, seller_name: p.seller_name,
-        builder_name: profile.name, site: profile.site, qty: cart[id], total: p.price * cart[id], status: 'placed' };
+        builder_name: profile.name, site: SC.cleanSite(profile.site), qty: cart[id], total: p.price * cart[id], status: 'placed' };
     }).filter(Boolean);
     if (!rows.length) return;
     btn.disabled = true;
@@ -213,7 +214,7 @@
       var labels = STEPS.map(function (s, i) { return '<span class="' + (!rej && i <= idx ? 'done' : '') + '">' + s.charAt(0).toUpperCase() + s.slice(1) + '</span>'; }).join('');
       return '<article class="card"><div class="row"><b style="flex:1">' + esc(o.product_name) + '</b><span class="st ' + esc(o.status) + '">' + esc(o.status) + '</span></div>' +
         '<div class="muted">' + esc(o.seller_name) + ' · Qty ' + esc(o.qty) + ' · ' + inr(o.total) + '</div>' +
-        '<div class="muted">To: ' + esc(o.site) + '</div>' +
+        '<div class="muted">To: ' + esc(SC.cleanSite(o.site)) + '</div>' +
         (rej ? '<div class="progress rej">' + bar + '</div><div class="muted" style="color:var(--bad)">Seller could not accept this order.</div>' :
           '<div class="progress">' + bar + '</div><div class="steps">' + labels + '</div>') + '</article>';
     }).join('') || '<p class="muted">No orders yet. Add items and place an order.</p>';

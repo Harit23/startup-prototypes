@@ -136,6 +136,8 @@
     SC[m] = function () { return be[m].apply(be, arguments); };
   });
   SC.onChange = function (f) { listeners.push(f); };
+  // strip a leading "Site:" so we never show "Site: Site: ..."
+  SC.cleanSite = function (s) { return String(s == null ? '' : s).replace(/^\s*site\s*:\s*/i, '').trim(); };
   SC.emoji = function (cat) { return CATS[cat] || '📦'; };
 
   function paintBadge() {

@@ -161,7 +161,7 @@
       }).join('');
       return '<article class="card' + (flashIds[o.id] ? ' flash' : '') + '" data-id="' + esc(o.id) + '"><div class="row"><b style="flex:1">' + esc(o.product_name) + '</b><span class="st ' + esc(o.status) + '">' + esc(o.status) + '</span></div>' +
         '<div class="muted">Qty ' + esc(o.qty) + ' · ' + inr(o.total) + '</div>' +
-        '<div class="muted">From ' + esc(o.builder_name) + '<br>Deliver to: ' + esc(o.site) + '</div>' +
+        '<div class="muted">From ' + esc(o.builder_name) + '<br>Deliver to: ' + esc(SC.cleanSite(o.site)) + '</div>' +
         (btns ? '<div class="btns">' + btns + '</div>' : '') + '</article>';
     }).join('') || '<p class="muted">No orders yet. They appear here live.</p>';
   }
