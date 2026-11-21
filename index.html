@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Harit's Startup Prototypes · IIM Bangalore</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#F5F7FB;color:#1E2A4A}
+  .wrap{max-width:960px;margin:0 auto;padding:32px 20px 48px}
+  h1{font-size:clamp(28px,5vw,40px);margin:0 0 6px}
+  .sub{color:#64748B;margin:0 0 28px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+  .card{background:#fff;border:1px solid #DCE3EE;border-radius:16px;padding:22px;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+  .tag{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.06em;color:#2F6FED;background:#E8F0FE;padding:4px 10px;border-radius:99px}
+  .card h2{margin:12px 0 6px;font-size:24px}
+  .card p{color:#475569;line-height:1.5;margin:0 0 16px}
+  .btns{display:flex;flex-wrap:wrap;gap:10px}
+  a.btn{flex:1 1 140px;text-align:center;text-decoration:none;font-weight:600;padding:14px;border-radius:12px;border:2px solid #2F6FED;color:#2F6FED}
+  a.btn.main{background:#2F6FED;color:#fff}
+  .green .tag{color:#15803D;background:#DCFCE7}
+  .green a.btn{border-color:#15803D;color:#15803D}.green a.btn.main{background:#15803D;color:#fff}
+  footer{margin-top:28px;color:#94A3B8;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Startup Prototypes</h1>
+  <p class="sub">Live demos by Harit Shah · IIM Bangalore Business Plan Challenge · No login needed</p>
+  <div class="grid">
+    <div class="card">
+      <span class="tag">GROUPDRIVE</span>
+      <h2>Buy together. Pay less.</h2>
+      <p>Buyers of the same car, bike, truck or bus join one group. Dealers bid live; the lowest price wins.</p>
+      <div class="btns">
+        <a class="btn main" href="groupdrive/admin.html">I am the Admin</a>
+        <a class="btn" href="groupdrive/dealer.html">I am a Dealer</a>
+      </div>
+    </div>
+    <div class="card green">
+      <span class="tag">SITECREW</span>
+      <h2>Amazon for builders.</h2>
+      <p>Everything a construction site needs, A to Z: cement, bricks, steel, electricals, trucks and skilled crews.</p>
+      <div class="btns">
+        <a class="btn main" href="sitecrew/builder.html">I am a Builder</a>
+        <a class="btn" href="sitecrew/seller.html">I am a Seller</a>
+      </div>
+    </div>
+  </div>
+  <footer>Prototype for demo only. Prices are approximate. Data is shared live between all devices.</footer>
+</div>
+</body>
+</html>
