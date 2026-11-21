@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SiteCrew - Builder</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="has-bar">
+<header class="top"><div class="wrap">
+  <a class="logo" href="index.html">Site<b>Crew</b></a>
+  <span class="muted" id="who"></span>
+  <span class="spacer"></span>
+  <span id="modeBadge" class="badge">● Connecting…</span>
+</div></header>
+
+<main class="wrap">
+  <!-- first-visit profile form -->
+  <section id="setup" class="card hide" style="margin-top:14px">
+    <h2>Welcome, builder</h2>
+    <p class="muted">Tell us who is ordering and where to deliver.</p>
+    <label for="bName">Builder / company name</label>
+    <input id="bName" placeholder="e.g. Shaligram Builders" maxlength="60">
+    <label for="bSite">Site name</label>
+    <input id="bSite" placeholder="e.g. Site: Satellite Tower B" maxlength="60">
+    <div class="btns"><button class="btn" id="saveProfile">Start shopping</button></div>
+  </section>
+
+  <section id="app" class="hide">
+    <div class="tabs" role="tablist">
+      <button class="tab on" data-tab="shop">Shop</button>
+      <button class="tab" data-tab="orders">My orders <span id="ordCount"></span></button>
+    </div>
+
+    <div id="shopView" class="layout two">
+      <div>
+        <div class="bar">
+          <input id="q" type="search" placeholder="Search cement, tiles, JCB…" aria-label="Search">
+          <select id="sort" aria-label="Sort"><option value="">Sort: A to Z</option><option value="asc">Price: low to high</option><option value="desc">Price: high to low</option></select>
+        </div>
+        <div class="chips" id="chips"></div>
+        <p class="muted" id="resultInfo"></p>
+        <div class="grid" id="grid"></div>
+      </div>
+      <aside class="cart" id="cart"></aside>
+    </div>
+
+    <div id="ordersView" class="hide"><div class="orders-list" id="orders"></div></div>
+  </section>
+  <p style="margin:16px 0"><a href="#" id="change" class="hide">Change builder / site</a> · <a href="index.html">Home</a></p>
+</main>
+
+<div class="cartbar hide" id="cartbar"><button class="btn" id="openCart"></button></div>
+
+<script src="../vendor/supabase.js"></script>
+<script src="../vendor/config.js"></script>
+<script src="app.js"></script>
+<script>
+(function () {
+  'use strict';
+  var esc = SC.esc, inr = SC.inr;
+  var PKEY = 'sc_builder', CKEY = 'sc_cart';
+  var profile = SC.lsGet(PKEY, null);
+  var cart = SC.lsGet(CKEY, {});          // productId -> qty
+  var products = [], sellers = [], orders = [];
+  var cat = '', tab = 'shop', stepQty = {}; // stepQty: pending qty on each card
+  var STEPS = ['placed', 'accepted', 'dispatched', 'delivered'];
+  var $ = function (id) { return document.getElementById(id); };
+
+  function saveCart() { SC.lsSet(CKEY, cart); }
+  function area(sid) { var s = sellers.filter(function (x) { return x.id === sid; })[0]; return s ? s.area : ''; }
+  function prodById(id) { return products.filter(function (p) { return p.id === id; })[0]; }
+
+  /* ----- profile ----- */
+  function showProfile() {
+    $('setup').classList.toggle('hide', !!profile);
+    $('app').classList.toggle('hide', !profile);
+    $('change').classList.toggle('hide', !profile);
+    $('who').textContent = profile ? profile.name + ' · ' + profile.site : '';
+    if (!profile) $('cartbar').classList.add('hide');
+  }
+  $('saveProfile').onclick = function () {
+    var n = $('bName').value.trim(), s = $('bSite').value.trim();
+    if (!n || !s) { SC.toast('Please enter both name and site'); return; }
+    profile = { name: n, site: s }; SC.lsSet(PKEY, profile); showProfile(); render();
+  };
+  $('change').onclick = function (e) {
+    e.preventDefault();
+    $('bName').value = profile ? profile.name : ''; $('bSite').value = profile ? profile.site : '';
+    profile = null; showProfile();
+  };
+
+  /* ----- tabs ----- */
+  document.querySelectorAll('.tab').forEach(function (b) {
+    b.onclick = function () {
+      tab = b.dataset.tab;
+      document.querySelectorAll('.tab').forEach(function (x) { x.classList.toggle('on', x === b); });
+      $('shopView').classList.toggle('hide', tab !== 'shop');
+      $('ordersView').classList.toggle('hide', tab !== 'orders');
+      render();
+    };
+  });
+  function gotoTab(t) { document.querySelector('.tab[data-tab="' + t + '"]').click(); }
+
+  /* ----- shop ----- */
+  function renderChips() {
+    var h = '<button class="chip' + (cat === '' ? ' on' : '') + '" data-cat="">All</button>';
+    Object.keys(SC.CATS).sort().forEach(function (c) {
+      h += '<button class="chip' + (cat === c ? ' on' : '') + '" data-cat="' + esc(c) + '">' + SC.CATS[c] + ' ' + esc(c) + '</button>';
+    });
+    $('chips').innerHTML = h;
+  }
+  $('chips').onclick = function (e) { var b = e.target.closest('.chip'); if (b) { cat = b.dataset.cat; renderChips(); renderGrid(); } };
+  $('q').oninput = renderGrid; $('sort').onchange = renderGrid;
+
+  function renderGrid() {
+    var q = $('q').value.trim().toLowerCase(), sort = $('sort').value;
+    var list = products.filter(function (p) {
+      if (cat && p.category !== cat) return false;
+      return !q || (p.name + ' ' + p.seller_name + ' ' + p.category + ' ' + (p.description || '')).toLowerCase().indexOf(q) >= 0;
+    });
+    list.sort(function (a, b) {
+      if (sort === 'asc') return a.price - b.price;
+      if (sort === 'desc') return b.price - a.price;
+      return a.name.localeCompare(b.name);
+    });
+    $('resultInfo').textContent = list.length + ' product' + (list.length === 1 ? '' : 's') + (cat ? ' in ' + cat : '') +
+      (cat ? ' · compare sellers by price' : '');
+    $('grid').innerHTML = list.map(function (p) {
+      var q0 = stepQty[p.id] || 1, out = Number(p.stock) <= 0;
+      return '<article class="card prod" data-id="' + esc(p.id) + '">' +
+        '<div class="em" aria-hidden="true">' + SC.emoji(p.category) + '</div>' +
+        '<h3>' + esc(p.name) + '</h3>' +
+        '<div class="muted">' + esc(p.seller_name) + (area(p.seller_id) ? ' · ' + esc(area(p.seller_id)) : '') + '</div>' +
+        '<div class="price">' + inr(p.price) + ' <small>/ ' + esc(p.unit) + '</small></div>' +
+        '<div class="stock' + (p.stock < 10 ? ' low' : '') + '">' + (out ? 'Out of stock' : 'In stock: ' + esc(p.stock)) + '</div>' +
+        (p.description ? '<div class="muted">' + esc(p.description) + '</div>' : '') +
+        '<div class="row" style="margin-top:auto;padding-top:6px">' +
+        '<div class="stepper"><button data-act="dec" aria-label="Less">−</button><span>' + q0 + '</span><button data-act="inc" aria-label="More">+</button></div>' +
+        '<button class="btn sm" data-act="add" style="flex:1"' + (out ? ' disabled' : '') + '>Add to cart</button></div></article>';
+    }).join('') || '<p class="muted">No products match. Try another search.</p>';
+  }
+  $('grid').onclick = function (e) {
+    var b = e.target.closest('button[data-act]'); if (!b) return;
+    var id = b.closest('.prod').dataset.id, p = prodById(id); if (!p) return;
+    var q = stepQty[id] || 1, act = b.dataset.act;
+    if (act === 'inc') stepQty[id] = Math.min(q + 1, Math.max(1, p.stock));
+    else if (act === 'dec') stepQty[id] = Math.max(1, q - 1);
+    else if (act === 'add') {
+      cart[id] = Math.min((cart[id] || 0) + q, Math.max(1, p.stock)); stepQty[id] = 1; saveCart();
+      SC.toast('Added ' + p.name + ' to cart', true);
+    }
+    renderGrid(); renderCart();
+  };
+
+  /* ----- cart ----- */
+  function renderCart() {
+    var ids = Object.keys(cart).filter(function (id) { return prodById(id); });
+    var total = 0, count = 0;
+    var rows = ids.map(function (id) {
+      var p = prodById(id), q = cart[id], line = p.price * q; total += line; count += q;
+      return '<div class="cart-item" data-id="' + esc(id) + '"><div><b>' + esc(p.name) + '</b><div class="muted">' + esc(p.seller_name) + ' · ' + inr(p.price) + '/' + esc(p.unit) + '</div></div>' +
+        '<b>' + inr(line) + '</b>' +
+        '<div class="stepper"><button data-act="dec" aria-label="Less">−</button><span>' + q + '</span><button data-act="inc" aria-label="More">+</button></div>' +
+        '<button class="btn bad sm" data-act="rm">Remove</button></div>';
+    }).join('');
+    $('cart').innerHTML = '<div class="row"><h2 style="margin:0;flex:1">Your cart</h2><button class="btn alt sm closecart" id="closeCart">Close</button></div>' +
+      (rows || '<p class="muted">Cart is empty. Add items from the list.</p>') +
+      '<div class="total"><span>Total</span><span>' + inr(total) + '</span></div>' +
+      '<p class="muted">Deliver to: ' + esc(profile ? profile.site : '') + '</p>' +
+      '<button class="btn big" id="place"' + (ids.length ? '' : ' disabled') + '>Place order to site</button>';
+    var bar = $('cartbar');
+    bar.classList.toggle('hide', !profile || tab !== 'shop' || !count);
+    $('openCart').textContent = '🛒 ' + count + ' item' + (count === 1 ? '' : 's') + ' · ' + inr(total) + ' — View cart';
+    if (!ids.length) document.body.classList.remove('cart-open');
+  }
+  $('openCart').onclick = function () { document.body.classList.add('cart-open'); };
+  $('cart').onclick = async function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    if (b.id === 'closeCart') { document.body.classList.remove('cart-open'); return; }
+    if (b.id === 'place') { return place(b); }
+    var item = b.closest('.cart-item'); if (!item) return;
+    var id = item.dataset.id, p = prodById(id);
+    if (b.dataset.act === 'inc') cart[id] = Math.min(cart[id] + 1, Math.max(1, p.stock));
+    if (b.dataset.act === 'dec') cart[id] = Math.max(1, cart[id] - 1);
+    if (b.dataset.act === 'rm') delete cart[id];
+    saveCart(); renderCart();
+  };
+  async function place(btn) {
+    var rows = Object.keys(cart).map(function (id) {
+      var p = prodById(id); if (!p) return null;
+      return { product_id: p.id, product_name: p.name, seller_id: p.seller_id, seller_name: p.seller_name,
+        builder_name: profile.name, site: profile.site, qty: cart[id], total: p.price * cart[id], status: 'placed' };
+    }).filter(Boolean);
+    if (!rows.length) return;
+    btn.disabled = true;
+    try {
+      await SC.insertOrders(rows);
+      cart = {}; saveCart(); document.body.classList.remove('cart-open');
+      SC.toast('Order placed with ' + rows.length + ' seller item(s)', true);
+      await refresh(); gotoTab('orders');
+    } catch (err) { console.error(err); SC.toast('Could not place order. Try again.'); btn.disabled = false; }
+  }
+
+  /* ----- orders ----- */
+  function renderOrders() {
+    var mine = orders.filter(function (o) { return profile && o.builder_name === profile.name; })
+      .sort(function (a, b) { return String(b.created_at).localeCompare(String(a.created_at)); });
+    $('ordCount').textContent = mine.length ? '(' + mine.length + ')' : '';
+    $('orders').innerHTML = mine.map(function (o) {
+      var idx = STEPS.indexOf(o.status), rej = o.status === 'rejected';
+      var bar = STEPS.map(function (s, i) { return '<i class="' + (!rej && i <= idx ? 'done' : '') + '"></i>'; }).join('');
+      var labels = STEPS.map(function (s, i) { return '<span class="' + (!rej && i <= idx ? 'done' : '') + '">' + s.charAt(0).toUpperCase() + s.slice(1) + '</span>'; }).join('');
+      return '<article class="card"><div class="row"><b style="flex:1">' + esc(o.product_name) + '</b><span class="st ' + esc(o.status) + '">' + esc(o.status) + '</span></div>' +
+        '<div class="muted">' + esc(o.seller_name) + ' · Qty ' + esc(o.qty) + ' · ' + inr(o.total) + '</div>' +
+        '<div class="muted">To: ' + esc(o.site) + '</div>' +
+        (rej ? '<div class="progress rej">' + bar + '</div><div class="muted" style="color:var(--bad)">Seller could not accept this order.</div>' :
+          '<div class="progress">' + bar + '</div><div class="steps">' + labels + '</div>') + '</article>';
+    }).join('') || '<p class="muted">No orders yet. Add items and place an order.</p>';
+  }
+
+  /* ----- data refresh: re-render only when data changed ----- */
+  var sig = '';
+  function render() { if (!profile) return; renderChips(); renderGrid(); renderCart(); renderOrders(); }
+  async function refresh() {
+    try {
+      var r = await Promise.all([SC.products(), SC.sellers(), SC.orders()]);
+      var s = JSON.stringify(r);
+      products = r[0]; sellers = r[1]; orders = r[2];
+      if (s !== sig) {
+        sig = s;
+        if (document.activeElement && document.activeElement.id === 'q') { renderGrid(); renderCart(); renderOrders(); } else render();
+      }
+    } catch (e) { console.error(e); }
+  }
+
+  SC.init().then(function () {
+    showProfile(); return refresh();
+  }).then(function () { SC.onChange(refresh); });
+})();
+</script>
+</body>
+</html>

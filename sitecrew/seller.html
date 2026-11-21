@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SiteCrew - Seller</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="logo" href="index.html">Site<b>Crew</b></a>
+  <span class="muted" id="who"></span>
+  <span class="spacer"></span>
+  <span id="modeBadge" class="badge">● Connecting…</span>
+</div></header>
+
+<main class="wrap">
+  <!-- first visit: pick or register shop -->
+  <section id="setup" class="hide" style="margin-top:14px">
+    <div class="card">
+      <h2>Pick your shop</h2>
+      <label for="pick">Existing shop</label>
+      <select id="pick"></select>
+      <div class="btns"><button class="btn" id="usePick">Continue as this shop</button></div>
+    </div>
+    <div class="card" style="margin-top:12px">
+      <h2>Or register a new shop</h2>
+      <label for="rName">Shop name</label><input id="rName" maxlength="60">
+      <label for="rTrade">Trade</label><input id="rTrade" placeholder="e.g. Tile shop, Plumber, JCB rental" maxlength="60">
+      <label for="rArea">Area</label><input id="rArea" placeholder="e.g. Naroda" maxlength="40">
+      <label for="rPhone">Phone</label><input id="rPhone" type="tel" maxlength="20">
+      <div class="btns"><button class="btn" id="register">Register shop</button></div>
+    </div>
+  </section>
+
+  <section id="app" class="hide">
+    <div class="tabs" role="tablist">
+      <button class="tab on" data-tab="listings">My listings</button>
+      <button class="tab" data-tab="add">Add product</button>
+      <button class="tab" data-tab="orders">Orders <span id="newCount"></span></button>
+    </div>
+
+    <div id="v-listings"><div class="list" id="listings"></div></div>
+
+    <div id="v-add" class="hide"><form class="card" id="addForm">
+      <label for="pCat">Category</label><select id="pCat"></select>
+      <label for="pName">Product name</label><input id="pName" required maxlength="80">
+      <label for="pUnit">Unit</label><input id="pUnit" required placeholder="e.g. bag, tonne, box, hour" maxlength="30">
+      <label for="pPrice">Price per unit (₹)</label><input id="pPrice" type="number" min="1" step="any" inputmode="decimal" required>
+      <label for="pStock">Stock</label><input id="pStock" type="number" min="0" step="1" inputmode="numeric" required>
+      <label for="pDesc">Description</label><textarea id="pDesc" maxlength="200"></textarea>
+      <div class="btns"><button class="btn" type="submit">Add product</button></div>
+    </form></div>
+
+    <div id="v-orders" class="hide">
+      <div id="flashBanner" class="banner hide"></div>
+      <div class="stats" id="stats"></div>
+      <div class="list" id="orders"></div>
+    </div>
+  </section>
+  <p style="margin:16px 0"><a href="#" id="change" class="hide">Change shop</a> · <a href="index.html">Home</a></p>
+</main>
+
+<script src="../vendor/supabase.js"></script>
+<script src="../vendor/config.js"></script>
+<script src="app.js"></script>
+<script>
+(function () {
+  'use strict';
+  var esc = SC.esc, inr = SC.inr, KEY = 'sc_seller';
+  var me = SC.lsGet(KEY, null);              // {id,name,trade,area,phone}
+  var sellers = [], products = [], orders = [];
+  var seen = null;                           // set of known order ids (to flash new ones)
+  var flashIds = {};
+  var $ = function (id) { return document.getElementById(id); };
+
+  /* ----- setup ----- */
+  function showSetup() {
+    $('setup').classList.toggle('hide', !!me);
+    $('app').classList.toggle('hide', !me);
+    $('change').classList.toggle('hide', !me);
+    $('who').textContent = me ? me.name : '';
+    $('pick').innerHTML = sellers.map(function (s) { return '<option value="' + esc(s.id) + '">' + esc(s.name) + ' (' + esc(s.area) + ')</option>'; }).join('');
+  }
+  $('usePick').onclick = function () {
+    var s = sellers.filter(function (x) { return x.id === $('pick').value; })[0];
+    if (!s) return; me = s; SC.lsSet(KEY, me); sig = ''; showSetup(); refresh();
+  };
+  $('register').onclick = async function () {
+    var s = { name: $('rName').value.trim(), trade: $('rTrade').value.trim(), area: $('rArea').value.trim(), phone: $('rPhone').value.trim() };
+    if (!s.name || !s.trade || !s.area) { SC.toast('Please fill shop name, trade and area'); return; }
+    try { me = await SC.addSeller(s); SC.lsSet(KEY, me); sig = ''; await refresh(); showSetup(); SC.toast('Shop registered', true); }
+    catch (e) { console.error(e); SC.toast('Could not register. Try again.'); }
+  };
+  $('change').onclick = function (e) { e.preventDefault(); me = null; showSetup(); };
+
+  /* ----- tabs ----- */
+  var tab = 'listings';
+  document.querySelectorAll('.tab').forEach(function (b) {
+    b.onclick = function () {
+      tab = b.dataset.tab;
+      document.querySelectorAll('.tab').forEach(function (x) { x.classList.toggle('on', x === b); });
+      ['listings', 'add', 'orders'].forEach(function (t) { $('v-' + t).classList.toggle('hide', t !== tab); });
+      if (tab === 'orders') { $('newCount').textContent = ''; flashIds = {}; }
+    };
+  });
+
+  /* ----- add product ----- */
+  $('pCat').innerHTML = Object.keys(SC.CATS).sort().map(function (c) { return '<option>' + esc(c) + '</option>'; }).join('');
+  $('addForm').onsubmit = async function (e) {
+    e.preventDefault();
+    var price = Number($('pPrice').value), stock = parseInt($('pStock').value, 10);
+    if (!(price > 0) || !(stock >= 0)) { SC.toast('Enter a valid price and stock'); return; }
+    try {
+      await SC.addProduct({ seller_id: me.id, seller_name: me.name, category: $('pCat').value, name: $('pName').value.trim(),
+        unit: $('pUnit').value.trim(), price: price, stock: stock, description: $('pDesc').value.trim() });
+      $('addForm').reset(); SC.toast('Product listed. Builders can see it now.', true);
+      await refresh(); document.querySelector('.tab[data-tab="listings"]').click();
+    } catch (err) { console.error(err); SC.toast('Could not add product.'); }
+  };
+
+  /* ----- listings ----- */
+  function renderListings() {
+    var mine = products.filter(function (p) { return me && p.seller_id === me.id; });
+    $('listings').innerHTML = mine.map(function (p) {
+      return '<article class="card" data-id="' + esc(p.id) + '"><div class="row"><span style="font-size:1.6rem">' + SC.emoji(p.category) + '</span>' +
+        '<div style="flex:1"><b>' + esc(p.name) + '</b><div class="muted">' + esc(p.category) + ' · per ' + esc(p.unit) + '</div></div></div>' +
+        '<div class="edit"><div><label>Price (₹)</label><input type="number" min="1" step="any" data-f="price" value="' + esc(p.price) + '"></div>' +
+        '<div><label>Stock</label><input type="number" min="0" step="1" data-f="stock" value="' + esc(p.stock) + '"></div></div>' +
+        '<div class="btns"><button class="btn sm" data-act="save">Save</button><button class="btn bad sm" data-act="del">Delete</button></div></article>';
+    }).join('') || '<p class="muted">No listings yet. Use "Add product".</p>';
+  }
+  $('listings').onclick = async function (e) {
+    var b = e.target.closest('button[data-act]'); if (!b) return;
+    var card = b.closest('article'), id = card.dataset.id;
+    try {
+      if (b.dataset.act === 'save') {
+        var price = Number(card.querySelector('[data-f=price]').value), stock = parseInt(card.querySelector('[data-f=stock]').value, 10);
+        if (!(price > 0) || !(stock >= 0)) { SC.toast('Enter a valid price and stock'); return; }
+        await SC.updateProduct(id, { price: price, stock: stock }); SC.toast('Saved', true);
+      } else if (b.dataset.act === 'del' && confirm('Delete this listing?')) {
+        await SC.deleteProduct(id); SC.toast('Deleted');
+      }
+      sig = ''; refresh();
+    } catch (err) { console.error(err); SC.toast('Action failed. Try again.'); }
+  };
+
+  /* ----- orders ----- */
+  var NEXT = { placed: [['accepted', 'Accept'], ['rejected', 'Reject']], accepted: [['dispatched', 'Mark dispatched']], dispatched: [['delivered', 'Mark delivered']] };
+  function renderOrders() {
+    var mine = orders.filter(function (o) { return me && o.seller_id === me.id; })
+      .sort(function (a, b) { return String(b.created_at).localeCompare(String(a.created_at)); });
+    var done = mine.filter(function (o) { return o.status === 'delivered'; }).reduce(function (s, o) { return s + Number(o.total); }, 0);
+    var open = mine.filter(function (o) { return o.status !== 'delivered' && o.status !== 'rejected'; }).length;
+    $('stats').innerHTML = '<div class="stat"><b>' + inr(done) + '</b><span>Delivered value</span></div>' +
+      '<div class="stat"><b>' + inr(done * 0.05) + '</b><span>SiteCrew commission (5%)</span></div>' +
+      '<div class="stat"><b>' + open + '</b><span>Open orders</span></div>';
+    $('orders').innerHTML = mine.map(function (o) {
+      var btns = (NEXT[o.status] || []).map(function (n, i) {
+        return '<button class="btn sm' + (n[0] === 'rejected' ? ' bad' : '') + '" data-to="' + n[0] + '">' + n[1] + '</button>';
+      }).join('');
+      return '<article class="card' + (flashIds[o.id] ? ' flash' : '') + '" data-id="' + esc(o.id) + '"><div class="row"><b style="flex:1">' + esc(o.product_name) + '</b><span class="st ' + esc(o.status) + '">' + esc(o.status) + '</span></div>' +
+        '<div class="muted">Qty ' + esc(o.qty) + ' · ' + inr(o.total) + '</div>' +
+        '<div class="muted">From ' + esc(o.builder_name) + '<br>Deliver to: ' + esc(o.site) + '</div>' +
+        (btns ? '<div class="btns">' + btns + '</div>' : '') + '</article>';
+    }).join('') || '<p class="muted">No orders yet. They appear here live.</p>';
+  }
+  $('orders').onclick = async function (e) {
+    var b = e.target.closest('button[data-to]'); if (!b) return;
+    b.disabled = true;
+    try { await SC.updateOrder(b.closest('article').dataset.id, { status: b.dataset.to }); sig = ''; refresh(); }
+    catch (err) { console.error(err); SC.toast('Could not update order.'); b.disabled = false; }
+  };
+
+  /* ----- refresh loop ----- */
+  var sig = '';
+  async function refresh() {
+    try {
+      var r = await Promise.all([SC.sellers(), SC.products(), SC.orders()]);
+      var s = JSON.stringify(r);
+      sellers = r[0]; products = r[1]; orders = r[2];
+      // flash newly arrived orders for this shop (skip first load)
+      var mineIds = orders.filter(function (o) { return me && o.seller_id === me.id; }).map(function (o) { return o.id; });
+      var fresh = [];
+      if (me) {
+        if (seen === null || seen.__for !== me.id) { seen = { __for: me.id }; mineIds.forEach(function (id) { seen[id] = 1; }); }
+        else { fresh = mineIds.filter(function (id) { return !seen[id]; }); mineIds.forEach(function (id) { seen[id] = 1; }); }
+      }
+      if (fresh.length) {
+        fresh.forEach(function (id) { flashIds[id] = 1; });
+        var o = orders.filter(function (x) { return x.id === fresh[0]; })[0];
+        var msg = '🔔 New order: ' + o.product_name + ' from ' + o.builder_name;
+        $('flashBanner').textContent = msg; $('flashBanner').classList.remove('hide');
+        SC.toast(msg, true);
+        if (tab !== 'orders') $('newCount').textContent = '(new)';
+        setTimeout(function () { $('flashBanner').classList.add('hide'); }, 6000);
+      }
+      if (s !== sig || fresh.length) {
+        sig = s;
+        var typing = document.activeElement && /INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName) && $('listings').contains(document.activeElement);
+        if (!me) showSetup();
+        if (me) { if (!typing) renderListings(); renderOrders(); }
+      }
+    } catch (e) { console.error(e); }
+  }
+
+  SC.init().then(refresh).then(function () { showSetup(); if (me) { sig = ''; return refresh(); } }).then(function () { SC.onChange(refresh); });
+})();
+</script>
+</body>
+</html>
