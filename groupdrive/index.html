@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GroupDrive — Buy together. Pay less.</title>
+<link rel="stylesheet" href="style.css">
+<script src="../vendor/supabase.js"></script>
+<script src="../vendor/config.js"></script>
+<script src="app.js"></script>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="index.html">GroupDrive</a><span class="sp"></span>
+  <span id="modeBadge" class="badge"></span>
+</header>
+<main>
+  <p><a href="../index.html">← All prototypes</a></p>
+  <section class="hero">
+    <h1>GroupDrive — Buy together. Pay less.</h1>
+    <p>Buyers form a group for the same vehicle, and dealers compete in a live reverse auction. The lowest price wins.</p>
+  </section>
+  <div class="choose">
+    <a class="btn" href="admin.html">I am the Admin</a>
+    <a class="btn alt" href="dealer.html">I am a Dealer</a>
+  </div>
+  <h2>How it works</h2>
+  <div class="steps">
+    <div class="card step"><b class="n">1</b><h3>Form a group</h3><p class="muted">Admin picks a vehicle, group size, city and payment terms, then starts live bidding.</p></div>
+    <div class="card step"><b class="n">2</b><h3>Dealers bid down</h3><p class="muted">Dealers on their phones keep lowering their price. Everyone sees the lowest bid live.</p></div>
+    <div class="card step"><b class="n">3</b><h3>Group saves</h3><p class="muted">When time is up, the lowest bid wins. Every buyer in the group gets that price.</p></div>
+  </div>
+</main>
+<script>GD.init();</script>
+</body>
+</html>

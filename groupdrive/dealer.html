@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GroupDrive — Dealer</title>
+<link rel="stylesheet" href="style.css">
+<script src="../vendor/supabase.js"></script>
+<script src="../vendor/config.js"></script>
+<script src="app.js"></script>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="index.html">GroupDrive</a><span class="muted">Dealer</span><span class="sp"></span>
+  <span id="modeBadge" class="badge"></span>
+</header>
+<main>
+  <div id="setup" hidden>
+    <div class="card">
+      <h2 style="margin-top:0">Set up your dealership</h2>
+      <form id="setupForm">
+        <p><label for="sBrand">Dealership brand</label><input id="sBrand" required maxlength="40" placeholder="e.g. BMW"></p>
+        <p><label for="sArea">Area</label><input id="sArea" required maxlength="40" placeholder="e.g. Satellite"></p>
+        <p><label for="sName">Dealer name (optional)</label><input id="sName" maxlength="60" placeholder="e.g. Rakesh Shah"></p>
+        <button class="btn block" type="submit">Continue</button>
+      </form>
+    </div>
+  </div>
+  <div id="app" hidden>
+    <p class="note">Lowest price wins. The group buys from the winning dealer.</p>
+    <p>You are <b id="me"></b> · <a href="#" id="change">Change dealership</a></p>
+    <div id="live"></div>
+    <h2 id="closedH" hidden>Recently closed</h2>
+    <div id="closed"></div>
+  </div>
+</main>
+<script>
+/* Dealer page logic (mobile first) */
+(function () {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const esc = GD.esc, fmt = GD.fmt;
+  const KEY = 'gd_dealer';
+  let dealer = null, auctions = [], bids = [];
+
+  function loadDealer() { try { dealer = JSON.parse(localStorage.getItem(KEY)); } catch (e) { dealer = null; } }
+  function show() {
+    $('setup').hidden = !!dealer; $('app').hidden = !dealer;
+    if (dealer) $('me').textContent = dealer.label;
+  }
+
+  // ---------- Setup ----------
+  $('setupForm').onsubmit = async (e) => {
+    e.preventDefault();
+    const brand = $('sBrand').value.trim(), area = $('sArea').value.trim(), name = $('sName').value.trim();
+    if (!brand || !area) return GD.toast('Enter brand and area', 'err');
+    const label = brand + ' Dealer ' + area;
+    try {
+      const row = await GD.registerDealer({ name: name || label, brand, area });
+      dealer = { id: row.id, label };
+      localStorage.setItem(KEY, JSON.stringify(dealer));
+      show(); refresh();
+    } catch (err) { GD.toast('Could not register: ' + (err.message || err), 'err'); }
+  };
+  $('change').onclick = (e) => {
+    e.preventDefault();
+    if (!confirm('Change dealership? You will set up a new one.')) return;
+    localStorage.removeItem(KEY); dealer = null; show();
+  };
+
+  // ---------- Data ----------
+  async function refresh() {
+    if (!dealer) return;
+    try { [auctions, bids] = await Promise.all([GD.listAuctions(), GD.listBids()]); render(); }
+    catch (err) { console.error(err); }
+  }
+  const myBid = (aid) => bids.find((b) => b.auction_id === aid && b.dealer_id === dealer.id);
+  const bidsFor = (aid) => bids.filter((b) => b.auction_id === aid);
+
+  // ---------- Render ----------
+  function liveCard(a) {
+    const act = GD.ranked(bidsFor(a.id)), mine = myBid(a.id);
+    const top = act[0];
+    const rankIdx = mine && mine.status === 'active' ? act.findIndex((b) => b.dealer_id === dealer.id) : -1;
+    let body;
+    if (!mine) {
+      body = '<button class="btn block" data-act="join" data-id="' + a.id + '">Join bidding</button>' +
+        '<p class="small muted">Opening bid: ' + fmt(Math.max(1, (top ? Number(top.amount) : Number(a.base_price)) - 10000)) + '</p>';
+    } else if (mine.status === 'out') {
+      body = '<div class="result lost">You left this deal</div><p><button class="btn block" data-act="rejoin" data-id="' + a.id + '">Rejoin</button></p>';
+    } else {
+      const d = (sign, amt, label) => '<button class="btn ' + (sign < 0 ? 'dn' : 'up') + '" data-act="delta" data-id="' + a.id + '" data-d="' + (sign * amt) + '">' + label + '</button>';
+      body = '<div class="stats"><div class="stat"><div class="k">Your bid</div><div class="v">' + fmt(mine.amount) + '</div></div>' +
+        '<div class="stat"><div class="k">Your rank</div><div class="v"><span class="rank' + (rankIdx === 0 ? ' first' : '') + '">#' + (rankIdx + 1) + '</span></div></div></div>' +
+        '<div class="small muted">Lower your price = better offer</div><div class="bidgrid">' +
+        d(-1, 10000, '− ₹10,000') + d(1, 10000, '+ ₹10,000') + d(-1, 50000, '− ₹50,000') + d(1, 50000, '+ ₹50,000') +
+        d(-1, 100000, '− ₹1,00,000') + d(1, 100000, '+ ₹1,00,000') + '</div>' +
+        '<div class="custom"><input class="cust" id="cust-' + a.id + '" type="number" inputmode="numeric" placeholder="Custom bid (₹)">' +
+        '<button class="btn" data-act="custom" data-id="' + a.id + '">Place</button></div>' +
+        '<p><button class="btn red block" data-act="out" data-id="' + a.id + '">Get out of this deal</button></p>';
+    }
+    return '<div class="card" data-card="' + a.id + '"><div class="auc-head"><div><h3>' + esc(a.brand + ' ' + a.model) + '</h3>' +
+      '<div class="tags"><span class="tag">' + esc(a.city) + '</span><span class="tag">Group of ' + a.group_size + '</span><span class="tag">' +
+      esc(a.payment_terms || '—') + '</span></div></div><div class="timer" data-ends="' + esc(a.ends_at || '') + '">' + GD.countdown(a.ends_at) + '</div></div>' +
+      '<div class="stats"><div class="stat big"><div class="k">Current lowest bid</div><div class="v">' + (top ? fmt(top.amount) : '—') + '</div>' +
+      '<div class="small">' + (top ? 'Held by ' + esc(top.dealer_label) + (rankIdx === 0 ? ' (you)' : '') : 'No bids yet') + '</div></div>' +
+      '<div class="stat"><div class="k">Base price</div><div class="v">' + fmt(a.base_price) + '</div></div></div>' + body + '</div>';
+  }
+
+  function closedCard(a) {
+    const act = GD.ranked(bidsFor(a.id)), mine = myBid(a.id);
+    let res;
+    if (a.status === 'cancelled') res = '<div class="result lost">Auction cancelled</div>';
+    else if (a.winner_amount == null) res = '<div class="result lost">Closed with no bids</div>';
+    else if (act[0] && act[0].dealer_id === dealer.id) res = '<div class="result">You won! 🎉<br>' + fmt(a.winner_amount) + '</div>';
+    else res = '<div class="result lost">Winner: ' + esc(a.winner_label) + ' at ' + fmt(a.winner_amount) +
+      (mine ? '<br><span class="small muted">Your last bid: ' + fmt(mine.amount) + '</span>' : '') + '</div>';
+    return '<div class="card"><h3>' + esc(a.brand + ' ' + a.model) + '</h3><div class="tags"><span class="tag">' + esc(a.city) +
+      '</span><span class="tag">Group of ' + a.group_size + '</span></div>' + res + '</div>';
+  }
+
+  function render() {
+    // preserve custom input value + focus across re-render
+    const ae = document.activeElement;
+    const keepId = ae && ae.classList && ae.classList.contains('cust') ? ae.id : null;
+    const keepVal = keepId ? ae.value : null;
+    const vals = {}; document.querySelectorAll('.cust').forEach((i) => { if (i.value) vals[i.id] = i.value; });
+
+    const live = auctions.filter((a) => a.status === 'live');
+    $('live').innerHTML = live.length ? live.map(liveCard).join('') :
+      '<div class="card muted">No live auctions right now. This page updates automatically.</div>';
+    const done = auctions.filter((a) => a.status !== 'live').slice(0, 5);
+    $('closedH').hidden = !done.length;
+    $('closed').innerHTML = done.map(closedCard).join('');
+
+    Object.keys(vals).forEach((id) => { if ($(id)) $(id).value = vals[id]; });
+    if (keepId && $(keepId)) $(keepId).focus();
+  }
+
+  // ---------- Bidding ----------
+  async function put(a, amount, status) {
+    try {
+      await GD.placeBid(a.id, dealer.id, dealer.label, amount, status);
+      await refresh();
+    } catch (err) { GD.toast('Bid failed: ' + (err.message || err), 'err'); }
+  }
+  function validate(a, amount) {
+    if (!(amount > 0)) { GD.toast('Bid must be more than ₹0', 'err'); return false; }
+    if (amount > Number(a.base_price)) { GD.toast('Bid cannot be above the base price ' + fmt(a.base_price), 'err'); return false; }
+    return true;
+  }
+
+  $('live').addEventListener('click', async (e) => {
+    const btn = e.target.closest('button[data-act]'); if (!btn) return;
+    await refresh(); // use freshest data
+    const a = auctions.find((x) => x.id === btn.dataset.id);
+    if (!a || a.status !== 'live') return GD.toast('This auction has ended', 'err');
+    const mine = myBid(a.id), act = btn.dataset.act;
+    if (act === 'join') {
+      const top = GD.ranked(bidsFor(a.id))[0];
+      const amt = (top ? Number(top.amount) : Number(a.base_price)) - 10000;
+      if (validate(a, amt)) put(a, amt, 'active');
+    } else if (act === 'rejoin') {
+      put(a, mine ? mine.amount : a.base_price, 'active');
+    } else if (act === 'delta') {
+      const amt = Number(mine.amount) + Number(btn.dataset.d);
+      if (validate(a, amt)) put(a, amt, 'active');
+    } else if (act === 'custom') {
+      const raw = $('cust-' + a.id).value;
+      if (raw === '' || isNaN(Number(raw))) return GD.toast('Enter an amount', 'err');
+      const amt = Math.round(Number(raw));
+      if (validate(a, amt)) { put(a, amt, 'active'); $('cust-' + a.id).value = ''; }
+    } else if (act === 'out') {
+      if (confirm('Leave this deal? You can rejoin later.')) put(a, mine.amount, 'out');
+    }
+  });
+
+  setInterval(() => {
+    document.querySelectorAll('.timer[data-ends]').forEach((el) => {
+      const ends = el.dataset.ends;
+      el.textContent = GD.countdown(ends || null);
+      el.classList.toggle('low', !!ends && new Date(ends) - Date.now() < 30000);
+    });
+  }, 1000);
+
+  GD.init().then(() => { loadDealer(); show(); refresh(); GD.subscribe(refresh); });
+})();
+</script>
+</body>
+</html>
