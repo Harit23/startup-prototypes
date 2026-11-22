@@ -255,11 +255,30 @@
     'maruti suzuki dzire': 'commons:Maruti Suzuki Dzire VXi VVT.JPG',
     'maruti suzuki brezza': 'commons:2021 Maruti Suzuki Vitara Brezza VXI.jpg',
     'hyundai creta': 'commons:2021 Hyundai Creta SX(O) CRDi (India) front view.jpg',
-    'tata nexon ev': 'commons:Tata Nexon EV in Hyderabad 01.jpg',
+    'tata nexon': 'commons:Tata Nexon Blue Dual Tone.jpg',
     'tata punch': 'commons:2021 Tata Punch Creative (India) front view 01.png',
     'honda city': 'commons:2022 Honda City ZX i-VTEC (India) front view.jpg',
     'toyota fortuner': 'commons:Toyota Fortuner India.jpg',
     'mahindra scorpio-n': 'commons:Mahindra Scorpio 2014.JPG',
+    'maruti suzuki ertiga': 'commons:Maruti Suzuki Ertiga(1).jpg',
+    'maruti suzuki grand vitara': 'commons:2022 Maruti Suzuki Grand Vitara Zeta Smart Hybrid (India) front view.jpg',
+    'kia seltos': 'commons:Kia Seltos IMG 9152.jpg',
+    'kia sonet': 'commons:Kia Sonet IMG001.jpg',
+    'kia carens': 'commons:Kia Carens 2024 Model.jpg',
+    'mahindra thar': 'commons:Mahindra Thar 2.5 CRDe 2011.jpg',
+    'mahindra xuv700': 'commons:2021 Mahindra XUV700 2.2 AX7 (India) front view.png',
+    'hyundai i20': 'commons:2021 Hyundai i20 N Line (BI3; India) front view.png',
+    'hyundai venue': 'commons:2020 Hyundai Venue Ultimate 2019-12-13 2.jpg',
+    'skoda kushaq': 'commons:Skoda Kushaq Front.jpg',
+    'volkswagen virtus': 'commons:2023 Volkswagen Virtus Topline front 20230520.jpg',
+    'mercedes-benz c 200': 'commons:MERCEDES-BENZ C-CLASS LWB (W206) China (17).jpg',
+    'audi q3': 'commons:Audi Q3 F3 DSC 7496.jpg',
+    'ktm 390 duke': 'commons:KTM Duke 390-01.jpg',
+    'tvs apache rtr 160 4v': 'commons:TVS Apache RTR 160 4V.jpg',
+    'suzuki access 125': 'commons:Suzuki Access 125, 2023.jpg',
+    'ola electric s1 pro': 'commons:OLA S1 Pro Gen 1 Electric Scooter.jpg',
+    'tvs iqube': 'commons:Tvs i qube.jpg',
+    'tata ace': 'commons:Tata Ace mini-truck, Bangladesh. (43926311271).jpg',
     // Bikes
     'hero splendor plus': 'commons:Hero Splendor+, Bangalore (2025).jpg',
     'royal enfield classic 350': 'commons:Royal Enfield Classic 350.jpg',
@@ -292,10 +311,23 @@
       : val;
   };
 
+  /* Live rows carry trim names the seed does not ("Creta SX", "Swift ZXi"),
+     so after an exact hit we fall back to the longest key whose model is a
+     prefix of this one. Longest wins, so "pulsar n160" beats "pulsar". */
   GDV.photoFor = function (brand, model) {
     const b = String(brand || '').trim().toLowerCase();
     const m = String(model || '').trim().toLowerCase();
-    return GDV.photoUrl(GDV.PHOTOS[b + ' ' + m] || GDV.PHOTOS[b] || null);
+    const exact = GDV.PHOTOS[b + ' ' + m];
+    if (exact) return GDV.photoUrl(exact);
+    let best = null, bestLen = -1;
+    for (const key of Object.keys(GDV.PHOTOS)) {
+      if (key.indexOf(b + ' ') !== 0) continue;
+      const keyModel = key.slice(b.length + 1);
+      if ((m + ' ').indexOf(keyModel + ' ') === 0 && keyModel.length > bestLen) {
+        best = GDV.PHOTOS[key]; bestLen = keyModel.length;
+      }
+    }
+    return GDV.photoUrl(best || GDV.PHOTOS[b] || null);
   };
 
   // Called by the img onerror: swap a failed photo for the drawing.
