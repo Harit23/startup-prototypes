@@ -237,11 +237,44 @@
   const kindOfV = (v) => GDV.kindOf(v.category, v.brand, v.model);
   GDV.kindOfV = kindOfV;
 
+  // ---------- real photos ----------
+  /* GDV.PHOTOS maps a vehicle to a real photo URL.
+     Keys are matched in this order, all lower-case:
+       1. "brand model"   e.g. "maruti suzuki baleno"
+       2. "brand"         e.g. "mahindra"      (fallback for the whole brand)
+     Values are either a local file in this folder (e.g. "bmw.jpg") or a full
+     https:// URL. Use freely licensed sources (Wikimedia Commons) so the photo
+     is legal to show and the host does not block other sites from loading it.
+     Anything with no entry, or whose photo fails to load, falls back to the
+     built-in drawing automatically - so a dead link can never show a broken
+     image box during a demo. */
+  GDV.PHOTOS = {
+    'bmw': 'bmw.jpg'
+  };
+
+  GDV.photoFor = function (brand, model) {
+    const b = String(brand || '').trim().toLowerCase();
+    const m = String(model || '').trim().toLowerCase();
+    return GDV.PHOTOS[b + ' ' + m] || GDV.PHOTOS[b] || null;
+  };
+
+  // Called by the img onerror: swap a failed photo for the drawing.
+  GDV.fallback = function (img) {
+    const host = img.parentNode;
+    if (!host) return;
+    host.innerHTML = decodeURIComponent(img.getAttribute('data-svg') || '');
+  };
+
   // ---------- picture markup ----------
-  const isBmw = (brand) => /^bmw$/i.test(brand || '');
   GDV.picHtml = function (category, brand, model, extraCls) {
-    if (isBmw(brand)) return '<img src="bmw.jpg" alt="' + String(brand + ' ' + model).replace(/"/g, '') + '" loading="lazy" class="photo">';
-    return GDV.svg(GDV.kindOf(category, brand, model), GDV.colorOf(category));
+    const svg = GDV.svg(GDV.kindOf(category, brand, model), GDV.colorOf(category));
+    const url = GDV.photoFor(brand, model);
+    if (!url) return svg;
+    const alt = String(brand + ' ' + model).replace(/"/g, '');
+    return '<img src="' + url + '" alt="' + alt + '" loading="lazy" class="photo"' +
+      ' referrerpolicy="no-referrer"' +
+      ' data-svg="' + encodeURIComponent(svg) + '"' +
+      ' onerror="GDV.fallback(this)">';
   };
   GDV.pic = (v, cls) => '<span class="vpic ' + (cls || '') + '">' + GDV.picHtml(v.category, v.brand, v.model) + '</span>';
   GDV.thumb = (v) => GDV.pic(v, 'thumb');
