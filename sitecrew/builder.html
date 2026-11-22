@@ -7,14 +7,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-<body class="has-bar">
-<header class="top"><div class="wrap">
-  <a class="logo" href="index.html">Site<span>Crew</span></a>
-  <span class="tagline">Amazon for builders</span>
-  <span class="muted" id="who"></span>
-  <span class="spacer"></span>
-  <span id="modeBadge" class="badge">● Connecting…</span>
+<body class="store has-bar">
+<header class="sbar" id="sbar"><div class="swrap">
+  <div class="sb-brand"><a class="logo" href="builder.html" id="logo">Site<span>Crew</span></a><span id="modeBadge" class="badge">● Connecting…</span></div>
+  <button class="sb-deliver" id="deliver" type="button" title="Change builder / site"><small>Deliver to</small><span>📍 <b id="deliverTo">Set your site</b></span></button>
+  <form class="sb-search" id="searchForm" role="search">
+    <select id="catSel" aria-label="Search category"><option value="">All</option></select>
+    <input id="q" type="search" placeholder="Search cement, tiles, JCB…" aria-label="Search" autocomplete="off">
+    <button class="sb-go" type="submit" aria-label="Search">🔍</button>
+  </form>
+  <div class="sb-hello"><small>Hello, <span id="hello">builder</span></small><span>Your account</span></div>
+  <button class="tab sb-orders" data-tab="orders" type="button"><small>Track</small><span>My orders <span id="ordCount"></span></span></button>
+  <button class="sb-cart" id="navCart" type="button" aria-label="Open cart">🛒<b class="cnt num" id="navCount">0</b><span>Cart</span></button>
 </div></header>
+<nav class="snav" id="snav" aria-label="Categories"><div class="swrap">
+  <button class="tab" data-tab="shop" type="button">☰ All</button>
+  <button type="button" data-go="Cement">Cement</button><button type="button" data-go="Bricks &amp; Blocks">Bricks &amp; Blocks</button><button type="button" data-go="Steel &amp; TMT">Steel &amp; TMT</button><button type="button" data-go="Sand &amp; Aggregates">Sand &amp; Aggregates</button><button type="button" data-go="Electrical">Electrical</button><button type="button" data-go="Plumbing">Plumbing</button><button type="button" data-go="Tiles &amp; Flooring">Tiles &amp; Flooring</button><button type="button" data-go="Paint">Paint</button><button type="button" data-go="Wood &amp; Plywood">Wood &amp; Plywood</button><button type="button" data-go="Machinery &amp; Trucks">Machinery &amp; Trucks</button><button type="button" data-go="Skilled Services">Skilled Services</button>
+</div></nav>
 
 <main class="wrap">
   <!-- first-visit profile form -->
@@ -29,30 +38,54 @@
   </section>
 
   <section id="app" class="hide">
-    <div class="tabs" role="tablist">
-      <button class="tab on" data-tab="shop">Shop</button>
-      <button class="tab" data-tab="orders">My orders <span id="ordCount"></span></button>
-    </div>
+    <div id="shopView">
+      <!-- hero carousel -->
+      <div class="hero-s" id="hero" aria-roledescription="carousel" aria-label="Promotions">
+        <div class="slides">
+          <div class="slide s1 on"><div class="st-txt"><span class="kick">This week only</span><h2>Up to 12% off TMT bars</h2><p>ISI-marked Fe 550D from verified steel traders.</p><button class="btn" data-go="Steel &amp; TMT" type="button">Shop steel &amp; TMT</button></div><div class="st-em" aria-hidden="true">🔩</div></div>
+          <div class="slide s2"><div class="st-txt"><span class="kick">From ₹1,200/hr</span><h2>Book a JCB by the hour</h2><p>With operator, delivered to your site.</p><button class="btn" data-go="Machinery &amp; Trucks" type="button">Book machinery</button></div><div class="st-em" aria-hidden="true">🚜</div></div>
+          <div class="slide s3"><div class="st-txt"><span class="kick">500+ bags</span><h2>Bulk cement deal</h2><p>Free site delivery on large orders.</p><button class="btn" data-go="Cement" type="button">Shop cement</button></div><div class="st-em" aria-hidden="true">🏗️</div></div>
+          <div class="slide s4"><div class="st-txt"><span class="kick">Book a crew</span><h2>Verified electricians &amp; plumbers</h2><p>Skilled crews, fixed quotes, on your schedule.</p><button class="btn" data-go="Skilled Services" type="button">Find a crew</button></div><div class="st-em" aria-hidden="true">👷</div></div>
+        </div>
+        <button class="hnav prev" id="hPrev" type="button" aria-label="Previous promotion">‹</button>
+        <button class="hnav next" id="hNext" type="button" aria-label="Next promotion">›</button>
+        <div class="dots" id="hDots"></div>
+      </div>
+      <div class="promos" id="promos"></div>
+      <div class="hcards" id="hcards"></div>
+      <section class="deals-s" aria-labelledby="dealsH">
+        <h2 id="dealsH">Deals of the day</h2>
+        <div class="deals" id="deals"></div>
+      </section>
 
-    <div id="shopView" class="layout two">
-      <div>
+      <section id="allProducts" class="allp">
+        <h2>All products</h2>
         <div class="bar">
-          <input id="q" type="search" placeholder="Search cement, tiles, JCB…" aria-label="Search">
+          <span class="muted" id="resultInfo"></span>
           <select id="sort" aria-label="Sort"><option value="">Sort: A to Z</option><option value="asc">Price: low to high</option><option value="desc">Price: high to low</option></select>
         </div>
         <div class="chips" id="chips"></div>
-        <p class="muted" id="resultInfo"></p>
         <div class="grid" id="grid"></div>
-      </div>
-      <aside class="cart" id="cart"></aside>
+      </section>
     </div>
 
-    <div id="ordersView" class="hide"><div class="orders-list" id="orders"></div></div>
+    <div id="ordersView" class="hide"><h2 style="margin-top:16px">My orders</h2><div class="orders-list" id="orders"></div></div>
   </section>
-  <p style="margin:16px 0"><a href="#" id="change" class="hide">Change builder / site</a> · <a href="index.html">Home</a></p>
 </main>
 
+<aside class="cart" id="cart"></aside>
+<div class="scrim" id="scrim"></div>
 <div class="cartbar hide" id="cartbar"><button class="btn" id="openCart"></button></div>
+
+<footer class="sfoot">
+  <a class="backtop" href="#" id="backTop">Back to top</a>
+  <div class="swrap fcols">
+    <div><h3>Get to know us</h3><a href="index.html">About SiteCrew</a><a href="builder.html">Shop for your site</a></div>
+    <div><h3>Sell on SiteCrew</h3><a href="seller.html">Sell on SiteCrew</a><a href="seller.html">List your products</a></div>
+    <div><h3>Help</h3><a href="#" id="change" class="hide">Change builder / site</a><a href="index.html">Home</a><a href="../index.html">All prototypes</a></div>
+  </div>
+  <div class="fbase"><span class="logo">Site<span>Crew</span></span> · A student prototype</div>
+</footer>
 
 <script src="../vendor/supabase.js"></script>
 <script src="../vendor/config.js"></script>
@@ -79,7 +112,9 @@
     $('setup').classList.toggle('hide', !!profile);
     $('app').classList.toggle('hide', !profile);
     $('change').classList.toggle('hide', !profile);
-    $('who').textContent = profile ? profile.name + ' · Site: ' + profile.site : '';
+    document.body.classList.toggle('noprof', !profile);
+    $('deliverTo').textContent = profile ? profile.name + ' · ' + profile.site : 'Set your site';
+    $('hello').textContent = profile ? profile.name : 'builder';
     if (!profile) $('cartbar').classList.add('hide');
   }
   $('saveProfile').onclick = function () {
@@ -93,17 +128,112 @@
     profile = null; showProfile();
   };
 
+  $('deliver').onclick = function () { $('change').click(); window.scrollTo(0, 0); };
+
   /* ----- tabs ----- */
   document.querySelectorAll('.tab').forEach(function (b) {
     b.onclick = function () {
       tab = b.dataset.tab;
-      document.querySelectorAll('.tab').forEach(function (x) { x.classList.toggle('on', x === b); });
+      document.querySelectorAll('.tab').forEach(function (x) { x.classList.toggle('on', x.dataset.tab === tab); });
       $('shopView').classList.toggle('hide', tab !== 'shop');
       $('ordersView').classList.toggle('hide', tab !== 'orders');
       render();
     };
   });
   function gotoTab(t) { document.querySelector('.tab[data-tab="' + t + '"]').click(); }
+
+  /* ----- storefront: category nav, search bar, hero, home cards, deals ----- */
+  var NAVCATS = ['Cement', 'Bricks & Blocks', 'Steel & TMT', 'Sand & Aggregates', 'Electrical', 'Plumbing',
+    'Tiles & Flooring', 'Paint', 'Wood & Plywood', 'Machinery & Trucks', 'Skilled Services'];
+  $('catSel').innerHTML = '<option value="">All</option>' + NAVCATS.map(function (c) { return '<option value="' + esc(c) + '">' + esc(c) + '</option>'; }).join('');
+  function toGrid() {
+    if (tab !== 'shop') gotoTab('shop');
+    $('allProducts').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  function setCat(c, go) {
+    cat = c; $('catSel').value = c;
+    document.querySelectorAll('#snav [data-go]').forEach(function (b) { b.classList.toggle('on', b.dataset.go === c); });
+    renderChips(); renderGrid(); if (go) toGrid();
+  }
+  $('catSel').onchange = function () { setCat($('catSel').value, true); };
+  $('searchForm').onsubmit = function (e) { e.preventDefault(); toGrid(); };
+  $('q').addEventListener('input', function () {
+    if ($('q').value.trim() && ($('allProducts').getBoundingClientRect().top > window.innerHeight * 0.8 || tab !== 'shop')) toGrid();
+  });
+  $('navCart').onclick = function () { document.body.classList.add('cart-open'); };
+  $('scrim').onclick = function () { document.body.classList.remove('cart-open'); };
+  $('backTop').onclick = function (e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  $('logo').onclick = function (e) { e.preventDefault(); setCat('', false); $('q').value = ''; renderGrid(); gotoTab('shop'); window.scrollTo(0, 0); };
+  document.addEventListener('click', function (e) {
+    var g = e.target.closest('[data-go]'); if (g) { setCat(g.dataset.go, true); return; }
+    var d = e.target.closest('[data-deal]');
+    if (d) {
+      var p = prodById(d.dataset.deal); if (!p || Number(p.stock) <= 0) return;
+      cart[p.id] = Math.min((cart[p.id] || 0) + 1, Math.max(1, p.stock)); saveCart();
+      SC.toast('Added ' + p.name + ' to cart', true); renderCart();
+    }
+  });
+
+  /* hero carousel: auto-rotate every 4 s */
+  var hi = 0, htimer = null, slides = document.querySelectorAll('#hero .slide');
+  $('hDots').innerHTML = Array.prototype.map.call(slides, function (_, i) { return '<button type="button" data-i="' + i + '" aria-label="Show promotion ' + (i + 1) + '"></button>'; }).join('');
+  function heroShow(i) {
+    hi = (i + slides.length) % slides.length;
+    slides.forEach(function (el, k) { el.classList.toggle('on', k === hi); el.setAttribute('aria-hidden', k === hi ? 'false' : 'true'); });
+    document.querySelectorAll('#hDots button').forEach(function (d, k) { d.classList.toggle('on', k === hi); });
+  }
+  function heroStart() {
+    clearInterval(htimer);
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    htimer = setInterval(function () { heroShow(hi + 1); }, 4000);
+  }
+  $('hPrev').onclick = function () { heroShow(hi - 1); heroStart(); };
+  $('hNext').onclick = function () { heroShow(hi + 1); heroStart(); };
+  $('hDots').onclick = function (e) { var b = e.target.closest('button'); if (b) { heroShow(+b.dataset.i); heroStart(); } };
+  $('hero').onmouseenter = function () { clearInterval(htimer); };
+  $('hero').onmouseleave = heroStart;
+  heroShow(0); heroStart();
+
+  function minOf(c) {
+    var l = products.filter(function (p) { return p.category === c && Number(p.stock) > 0; })
+      .sort(function (a, b) { return a.price - b.price; });
+    return l[0];
+  }
+  function from(c, label) {
+    var p = minOf(c); return p ? 'From ' + inr(p.price) + '/' + esc(p.unit) : label;
+  }
+  function mini4(title, cats) {
+    return '<div class="hc"><h3>' + esc(title) + '</h3><div class="mg">' + cats.map(function (c) {
+      return '<button type="button" data-go="' + esc(c) + '"><span aria-hidden="true">' + SC.emoji(c) + '</span>' + esc(c) + '</button>';
+    }).join('') + '</div></div>';
+  }
+  function big1(title, c, line) {
+    return '<div class="hc"><h3>' + esc(title) + '</h3><button type="button" class="big1" data-go="' + esc(c) + '"><span class="bigem" aria-hidden="true">' + SC.emoji(c) + '</span><span class="num">' + line + '</span><em>See all ' + esc(c) + '</em></button></div>';
+  }
+  var DEAL_NAMES = ['OPC 53 Grade Cement', 'PPC Cement', 'TMT Bar Fe 550D 12 mm', 'Vitrified Tile 600×600', 'LED Panel 18W', 'Anti-skid Tile', 'CPVC Pipe 1 inch', 'BWP Plywood 18 mm'];
+  function pct(id) { var h = 0; for (var i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) % 97; return 5 + (h % 8); }
+  function renderHome() {
+    $('promos').innerHTML = [['Cement', '🏗️', 'pm1'], ['Tiles & Flooring', '🟫', 'pm2'], ['Paint', '🎨', 'pm3'], ['Electrical', '⚡', 'pm4']].map(function (x) {
+      var p = minOf(x[0]);
+      return '<button type="button" class="pm ' + x[2] + '" data-go="' + esc(x[0]) + '"><span class="pe" aria-hidden="true">' + x[1] + '</span><span><b class="num">' +
+        (p ? 'Starting ' + inr(p.price) : 'Great prices') + '</b><small>' + esc(x[0]) + '</small></span></button>';
+    }).join('');
+    $('hcards').innerHTML = mini4('Popular for your site', ['Cement', 'Steel & TMT', 'Bricks & Blocks', 'Sand & Aggregates']) +
+      mini4('Finish your interiors', ['Tiles & Flooring', 'Paint', 'Wood & Plywood', 'Plumbing']) +
+      big1('Hire machinery by the hour', 'Machinery & Trucks', esc(from('Machinery & Trucks', 'Rent by the hour'))) +
+      big1('Need a crew?', 'Skilled Services', esc(from('Skilled Services', 'Verified crews')));
+    var picks = [];
+    DEAL_NAMES.forEach(function (n) { var p = products.filter(function (x) { return x.name === n && Number(x.stock) > 0; })[0]; if (p) picks.push(p); });
+    if (picks.length < 6) products.slice().sort(function (a, b) { return a.price - b.price; }).forEach(function (p) {
+      if (picks.length < 8 && Number(p.stock) > 0 && picks.indexOf(p) < 0) picks.push(p);
+    });
+    $('deals').innerHTML = picks.map(function (p) {
+      return '<article class="deal"><span class="tag">−' + pct(String(p.id)) + '% deal</span><div class="em" aria-hidden="true">' + SC.emoji(p.category) + '</div>' +
+        '<h3>' + esc(p.name) + '</h3><div class="muted">' + esc(p.seller_name) + '</div>' +
+        '<div class="price">' + inr(p.price) + ' <small>/ ' + esc(p.unit) + '</small></div>' +
+        '<button class="btn sm" type="button" data-deal="' + esc(p.id) + '">Add to cart</button></article>';
+    }).join('') || '<p class="muted">Deals load with the catalogue.</p>';
+  }
 
   /* ----- shop ----- */
   function renderChips() {
@@ -113,7 +243,7 @@
     });
     $('chips').innerHTML = h;
   }
-  $('chips').onclick = function (e) { var b = e.target.closest('.chip'); if (b) { cat = b.dataset.cat; renderChips(); renderGrid(); } };
+  $('chips').onclick = function (e) { var b = e.target.closest('.chip'); if (b) setCat(b.dataset.cat, false); };
   $('q').oninput = renderGrid; $('sort').onchange = renderGrid;
 
   function renderGrid() {
@@ -174,6 +304,7 @@
       '<button class="btn big" id="place"' + (ids.length ? '' : ' disabled') + '>Place order to site</button>';
     var bar = $('cartbar');
     bar.classList.toggle('hide', !profile || tab !== 'shop' || !count);
+    $('navCount').textContent = ids.length; $('navCount').classList.toggle('zero', !ids.length);
     $('openCart').textContent = '🛒 ' + count + ' item' + (count === 1 ? '' : 's') + ' · ' + inr(total) + ' — View cart';
     if (!ids.length) document.body.classList.remove('cart-open');
   }
@@ -224,7 +355,7 @@
 
   /* ----- data refresh: re-render only when data changed ----- */
   var sig = '';
-  function render() { if (!profile) return; renderChips(); renderGrid(); renderCart(); renderOrders(); }
+  function render() { if (!profile) return; renderChips(); renderGrid(); renderCart(); renderOrders(); renderHome(); }
   async function refresh() {
     try {
       var r = await Promise.all([SC.products(), SC.sellers(), SC.orders()]);
@@ -232,7 +363,7 @@
       products = r[0]; sellers = r[1]; orders = r[2];
       if (s !== sig) {
         sig = s;
-        if (document.activeElement && document.activeElement.id === 'q') { renderGrid(); renderCart(); renderOrders(); } else render();
+        if (document.activeElement && document.activeElement.id === 'q') { renderGrid(); renderCart(); renderOrders(); renderHome(); } else render();
       }
     } catch (e) { console.error(e); }
   }
