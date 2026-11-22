@@ -252,6 +252,13 @@
     'bmw': 'bmw.jpg',
     // --- Photos Harit supplied (local files, highest quality match) ---
     'audi a4': 'img/audi-a4.jpg',
+    'toyota innova hycross': 'img/toyota-innova-hycross.jpg',
+    'maruti suzuki swift': 'img/maruti-swift.jpg',
+    'tata punch': 'img/tata-punch.jpg',
+    'tata harrier': 'img/tata-harrier.jpg',
+    'hyundai verna': 'img/hyundai-verna.jpg',
+    'mahindra xuv 3xo': 'img/mahindra-xuv3xo.jpg',
+    'mg hector': 'img/mg-hector.jpg',
     'bmw x1': 'img/bmw-x1.jpg',
     'honda elevate': 'img/honda-elevate.jpg',
     'mg windsor ev': 'img/mg-windsor-ev.jpg',
@@ -280,7 +287,6 @@
     'maruti suzuki brezza': 'commons:2021 Maruti Suzuki Vitara Brezza VXI.jpg',
     'hyundai creta': 'commons:2021 Hyundai Creta SX(O) CRDi (India) front view.jpg',
     'tata nexon': 'commons:Tata Nexon Blue Dual Tone.jpg',
-    'tata punch': 'commons:2021 Tata Punch Creative (India) front view 01.png',
     'honda city': 'commons:2022 Honda City ZX i-VTEC (India) front view.jpg',
     'toyota fortuner': 'commons:Toyota Fortuner India.jpg',
     'mahindra scorpio-n': 'commons:Mahindra Scorpio 2014.JPG',
@@ -297,11 +303,9 @@
     'volkswagen virtus': 'commons:2023 Volkswagen Virtus Topline front 20230520.jpg',
     'mercedes-benz c 200': 'commons:MERCEDES-BENZ C-CLASS LWB (W206) China (17).jpg',
     'audi q3': 'commons:Audi Q3 F3 DSC 7496.jpg',
-    'ktm 390 duke': 'commons:KTM Duke 390-01.jpg',
     'tvs apache rtr 160': 'commons:TVS Apache RTR 160 4V.jpg',
     'suzuki access 125': 'commons:Suzuki Access 125, 2023.jpg',
     'ola electric s1 pro': 'commons:OLA S1 Pro Gen 1 Electric Scooter.jpg',
-    'tvs iqube': 'commons:Tvs i qube.jpg',
     'tata ace': 'commons:Tata Ace mini-truck, Bangladesh. (43926311271).jpg',
     // Bikes
     'hero splendor plus': 'commons:Hero Splendor+, Bangalore (2025).jpg',
@@ -310,7 +314,6 @@
     'yamaha r15 v4': 'commons:Yamaha YZF-R15.jpg',
     // Scooters
     'honda activa 6g': 'commons:Honda Activa 6G.jpg',
-    'tvs jupiter 110': 'commons:TVS Jupiter Scooter.jpg',
     'bajaj chetak': 'commons:Bajaj Chetak electric scooters (2026) 01.jpg',
     // Three-wheelers
     'bajaj re auto (cng)': 'commons:Auto-rickshaw Bajaj.jpg',
