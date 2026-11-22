@@ -252,6 +252,7 @@
     'bmw': 'bmw.jpg',
     // --- Photos Harit supplied (local files, highest quality match) ---
     'audi a4': 'img/audi-a4.jpg',
+    'bharatbenz 1624': 'img/bharatbenz-bus.jpg',
     'volvo 9600': 'img/volvo-9600-coach.jpg',
     'tata starbus': 'img/tata-starbus.jpg',
     'eicher skyline pro': 'img/eicher-skyline-pro.jpg',
@@ -279,9 +280,9 @@
     'piaggio ape city': 'img/piaggio-ape.jpg',
     'mahindra treo (ev)': 'img/mahindra-treo.jpg',
     'mahindra 575 di': 'img/mahindra-575di.jpg',
-    'tata signa 5530.s': 'img/tata-signa-tipper.jpg',
+    'tata signa': 'img/tata-signa-tipper.jpg',
     'tata ace gold': 'img/tata-ace-gold.jpg',
-    'tata intra v30': 'img/tata-intra-v30.jpg',
+    'tata intra': 'img/tata-intra-v30.jpg',
     'bharatbenz 1917r': 'img/bharatbenz-1917r.jpg',
     'mahindra blazo x 28': 'img/mahindra-blazo.jpg',
     'ashok leyland bada dost': 'img/ashok-leyland-bada-dost.jpg',
@@ -344,8 +345,16 @@
   /* Live rows carry trim names the seed does not ("Creta SX", "Swift ZXi"),
      so after an exact hit we fall back to the longest key whose model is a
      prefix of this one. Longest wins, so "pulsar n160" beats "pulsar". */
+  /* Live rows spell some brands differently from the seed ("Tata Motors",
+     "Force Motors", "Ola"), so brands are normalised before lookup. */
+  const BRAND_ALIAS = { 'ola': 'ola electric', 'maruti': 'maruti suzuki', 'mercedes': 'mercedes-benz', 'royal enfield motors': 'royal enfield' };
+  function normBrand(brand) {
+    let b = String(brand || '').trim().toLowerCase().replace(/\s+motors$/, '');
+    return BRAND_ALIAS[b] || b;
+  }
+
   GDV.photoFor = function (brand, model) {
-    const b = String(brand || '').trim().toLowerCase();
+    const b = normBrand(brand);
     const m = String(model || '').trim().toLowerCase();
     const exact = GDV.PHOTOS[b + ' ' + m];
     if (exact) return GDV.photoUrl(exact);
