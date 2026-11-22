@@ -252,6 +252,7 @@
     'bmw': 'bmw.jpg',
     // --- Photos Harit supplied (local files, highest quality match) ---
     'audi a4': 'img/audi-a4.jpg',
+    'suzuki access 125': 'img/suzuki-access-125.jpg',
     'toyota innova hycross': 'img/toyota-innova-hycross.jpg',
     'maruti suzuki swift': 'img/maruti-swift.jpg',
     'tata punch': 'img/tata-punch.jpg',
@@ -304,7 +305,6 @@
     'mercedes-benz c 200': 'commons:MERCEDES-BENZ C-CLASS LWB (W206) China (17).jpg',
     'audi q3': 'commons:Audi Q3 F3 DSC 7496.jpg',
     'tvs apache rtr 160': 'commons:TVS Apache RTR 160 4V.jpg',
-    'suzuki access 125': 'commons:Suzuki Access 125, 2023.jpg',
     'ola electric s1 pro': 'commons:OLA S1 Pro Gen 1 Electric Scooter.jpg',
     'tata ace': 'commons:Tata Ace mini-truck, Bangladesh. (43926311271).jpg',
     // Bikes
