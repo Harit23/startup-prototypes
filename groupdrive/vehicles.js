@@ -271,6 +271,20 @@
     'bmw m340i': 'bmw.jpg',
     // --- Photos Harit supplied (local files, highest quality match) ---
     'audi a4': 'img/audi-a4.jpg',
+    'ktm rc 390': 'img/ktm-rc-390.jpg',
+    'ktm rc 200': 'img/ktm-rc-390.jpg',
+    'yamaha r3': 'img/yamaha-r3.jpg',
+    'tvs apache rr 310': 'img/tvs-apache-rr310.jpg',
+    'suzuki gixxer sf 250': 'img/suzuki-gixxer-sf250.jpg',
+    'kawasaki ninja 300': 'img/kawasaki-ninja-300.jpg',
+    'kawasaki ninja 650': 'img/kawasaki-ninja-650.jpg',
+    'honda cbr 650r': 'img/honda-cbr-650r.jpg',
+    'royal enfield continental gt 650': 'img/re-continental-gt650.jpg',
+    'triumph speed 400': 'img/triumph-speed-400.jpg',
+    'bajaj chetak': 'img/bajaj-chetak.jpg',
+    'honda activa 6g': 'img/honda-activa-6g.jpg',
+    'ola electric s1 pro': 'img/ola-s1-pro.jpg',
+    'ola s1 pro': 'img/ola-s1-pro.jpg',
     'maruti suzuki ertiga': 'img/maruti-ertiga.jpg',
     'maruti suzuki grand vitara': 'img/maruti-grand-vitara.jpg',
     'hyundai i20': 'img/hyundai-i20.jpg',
@@ -347,13 +361,7 @@
        shots they made the cards look like second-hand listings, so they are
        out until a clean press photo replaces each one. Move a line back into
        the map above to re-enable it.
-       'ola electric s1 pro': 'commons:OLA S1 Pro Gen 1 Electric Scooter.jpg'
        'tata ace': 'commons:Tata Ace mini-truck, Bangladesh. (43926311271).jpg'
-       'hero splendor plus': 'commons:Hero Splendor+, Bangalore (2025).jpg'
-       'bajaj pulsar': 'commons:Red Bajaj Pulsar outside hotel in Goa.jpg'
-       'yamaha r15 v4': 'commons:Yamaha YZF-R15.jpg'
-       'honda activa 6g': 'commons:Honda Activa 6G.jpg'
-       'bajaj chetak': 'commons:Bajaj Chetak electric scooters (2026) 01.jpg'
        'bajaj re auto (cng)': 'commons:Auto-rickshaw Bajaj.jpg'
        'sonalika di 745': 'commons:Sonalika Tractor.jpg'
        'swaraj 744 fe': 'commons:Swaraj 735.png'
