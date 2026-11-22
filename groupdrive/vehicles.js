@@ -249,13 +249,53 @@
      built-in drawing automatically - so a dead link can never show a broken
      image box during a demo. */
   GDV.PHOTOS = {
-    'bmw': 'bmw.jpg'
+    'bmw': 'bmw.jpg',
+    // Cars
+    'maruti suzuki baleno': 'commons:2022 Maruti Suzuki Baleno Alpha (India) front view.jpg',
+    'maruti suzuki dzire': 'commons:Maruti Suzuki Dzire VXi VVT.JPG',
+    'maruti suzuki brezza': 'commons:2021 Maruti Suzuki Vitara Brezza VXI.jpg',
+    'hyundai creta': 'commons:2021 Hyundai Creta SX(O) CRDi (India) front view.jpg',
+    'tata nexon ev': 'commons:Tata Nexon EV in Hyderabad 01.jpg',
+    'tata punch': 'commons:2021 Tata Punch Creative (India) front view 01.png',
+    'honda city': 'commons:2022 Honda City ZX i-VTEC (India) front view.jpg',
+    'toyota fortuner': 'commons:Toyota Fortuner India.jpg',
+    'mahindra scorpio-n': 'commons:Mahindra Scorpio 2014.JPG',
+    // Bikes
+    'hero splendor plus': 'commons:Hero Splendor+, Bangalore (2025).jpg',
+    'royal enfield classic 350': 'commons:Royal Enfield Classic 350.jpg',
+    'bajaj pulsar n160': 'commons:Red Bajaj Pulsar outside hotel in Goa.jpg',
+    'yamaha r15 v4': 'commons:Yamaha YZF-R15.jpg',
+    // Scooters
+    'honda activa 6g': 'commons:Honda Activa 6G.jpg',
+    'tvs jupiter 110': 'commons:TVS Jupiter Scooter.jpg',
+    'bajaj chetak': 'commons:Bajaj Chetak electric scooters (2026) 01.jpg',
+    // Three-wheelers
+    'bajaj re auto (cng)': 'commons:Auto-rickshaw Bajaj.jpg',
+    // Tractors
+    'sonalika di 745': 'commons:Sonalika Tractor.jpg',
+    'swaraj 744 fe': 'commons:Swaraj 735.png',
+    // Trucks
+    'ashok leyland ecomet 1615': 'commons:Ashok Leyland Truck (5478313829).jpg',
+    'eicher pro 2049': 'commons:Eicher Truck at Azadpur Vegetable Market.jpg',
+    'mahindra bolero pik-up': 'commons:Mahindra Bolero Double Cab Front.JPG',
+    // Buses
+    'ashok leyland viking': 'commons:Ashok-Leyland Bus in Goa, India (17018817397).jpg',
+    'volvo 9600': 'commons:WBSTC Volvo Bus Sauhardya-1 - WB 23 B 9223 - Petrapole - North 24 Parganas 2015-05-29 1323.JPG'
+  };
+
+  // "commons:<file name>" becomes a Special:FilePath URL, which is the stable
+  // form Wikimedia publishes for other sites (no hashed path to get wrong).
+  GDV.photoUrl = function (val) {
+    if (!val) return null;
+    return /^commons:/.test(val)
+      ? 'https://commons.wikimedia.org/wiki/Special:FilePath/' + encodeURIComponent(val.slice(8)) + '?width=640'
+      : val;
   };
 
   GDV.photoFor = function (brand, model) {
     const b = String(brand || '').trim().toLowerCase();
     const m = String(model || '').trim().toLowerCase();
-    return GDV.PHOTOS[b + ' ' + m] || GDV.PHOTOS[b] || null;
+    return GDV.photoUrl(GDV.PHOTOS[b + ' ' + m] || GDV.PHOTOS[b] || null);
   };
 
   // Called by the img onerror: swap a failed photo for the drawing.

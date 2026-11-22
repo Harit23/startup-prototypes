@@ -187,3 +187,5 @@ body.store { background:#eef2f9; }
   .deal { flex-basis:78%; } .sec h2 { font-size:1.2rem; }
 }
 @media (max-width:420px) { .cards4 { grid-template-columns:1fr; } }
+
+.bookline { margin:6px 0 2px; padding:6px 8px; border-radius:4px; background:#EAF1FF; color:#1E2A4A; font-size:.8rem; font-weight:600; }

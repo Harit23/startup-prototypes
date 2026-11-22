@@ -55,7 +55,7 @@
   <div class="sec" id="how"><h2>How it works</h2></div>
   <div class="how">
     <div class="hs"><b class="n">1</b><h3>Pick a vehicle</h3><p class="muted small">Admin chooses any car, bike, scooter, auto, tractor, truck or bus, plus group size and city.</p></div>
-    <div class="hs"><b class="n">2</b><h3>Form a group</h3><p class="muted small">Buyers join the same deal and agree on payment terms. The live auction starts.</p></div>
+    <div class="hs"><b class="n">2</b><h3>Book your slot — &#8377;5,000</h3><p class="muted small">Buyers confirm with a &#8377;5,000 booking amount. It is adjusted against the final price, and refunded if the deal does not close.</p></div>
     <div class="hs"><b class="n">3</b><h3>Dealers bid down</h3><p class="muted small">Dealers on their phones keep lowering their price. Everyone sees the lowest bid live.</p></div>
     <div class="hs"><b class="n">4</b><h3>Group saves</h3><p class="muted small">Lowest bid wins when time is up. Every buyer in the group gets that price.</p></div>
   </div>
@@ -183,6 +183,7 @@
         '<span class="small muted">' + esc(a.city) + ' · Group of ' + a.group_size + '</span>' +
         '<span class="small muted">' + (act.length ? 'Current lowest bid' : 'No bids yet · base ' + GD.fmt(a.base_price)) + '</span><span class="low">' + low + '</span>' +
         '<div class="meta"><span>' + act.length + ' dealer' + (act.length === 1 ? '' : 's') + ' bidding</span><span class="timer" data-ends="' + esc(a.ends_at || '') + '">' + GD.countdown(a.ends_at) + '</span></div>' +
+        '<div class="bookline">&#8377;5,000 booking amount confirms a buyer\'s slot</div>' +
         '<a class="btn" href="dealer.html">Bid as dealer</a></div></div>';
     }).join('') + '</div>';
     if (html !== lastDeals) { lastDeals = html; $('dealsRow').innerHTML = html; }
