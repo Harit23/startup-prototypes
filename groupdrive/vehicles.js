@@ -223,8 +223,8 @@
   // ---------- model -> kind ----------
   const RULES = [
     [/Treo/i, 'eauto'], [/Ape\b/i, 'cargoauto'], [/RE Auto/i, 'auto'],
-    [/M340i|C 200|\bE 200|Dzire|Verna|Honda City|Virtus|\bA4\b/i, 'sedan'], [/Swift|Baleno|\bi20\b/i, 'hatchback'], [/Nexon EV|Windsor/i, 'ev'],
-    [/Classic|Himalayan|Hunter/i, 'cruiser'], [/Duke|Pulsar|Apache|R15/i, 'sports'], [/Splendor|HF Deluxe|Shine|Raider/i, 'commuter'],
+    [/M340i|\bC 200\b|\bE 200\b|Dzire|Verna|Honda City|Virtus|\bA4\b/i, 'sedan'], [/Swift|Baleno|\bi20\b/i, 'hatchback'], [/Nexon EV|Windsor/i, 'ev'],
+    [/Classic|Himalayan|Hunter/i, 'cruiser'], [/Continental GT/i, 'cruiser'], [/Duke|Pulsar|Apache|R15|\bRC \d|\bR3\b|Ninja|CBR|Gixxer|\bRR \d|MT-15|Speed 400/i, 'sports'], [/Splendor|HF Deluxe|Shine|Raider/i, 'commuter'],
     [/Activa|Jupiter|Access/i, 'scooter'], [/S1 Pro|Ather|iQube|Chetak/i, 'escooter'],
     [/Dost|\bAce\b|Intra|Pik-?Up/i, 'minitruck'], [/Tipper/i, 'tipper'], [/Signa|Blazo/i, 'heavy'],
     [/Starbus|Skyline/i, 'schoolbus'], [/Traveller/i, 'minibus'], [/9600/i, 'coach']
@@ -249,7 +249,8 @@
      built-in drawing automatically - so a dead link can never show a broken
      image box during a demo. */
   GDV.PHOTOS = {
-    'bmw': 'bmw.jpg',
+    'bmw m340i': 'bmw.jpg',
+    'bmw x5': 'bmw.jpg',
     // --- Photos Harit supplied (local files, highest quality match) ---
     'audi a4': 'img/audi-a4.jpg',
     'bharatbenz 1624': 'img/bharatbenz-bus.jpg',
