@@ -271,6 +271,14 @@
     'bmw m340i': 'bmw.jpg',
     // --- Photos Harit supplied (local files, highest quality match) ---
     'audi a4': 'img/audi-a4.jpg',
+    'bajaj re': 'img/bajaj-re-auto.jpg',
+    'swaraj 744': 'img/swaraj-744.jpg',
+    'sonalika di 745': 'img/sonalika-di745.jpg',
+    'sonalika': 'img/sonalika-di745.jpg',
+    'ashok leyland ecomet': 'img/al-ecomet.jpg',
+    'ashok leyland 4825': 'img/al-4825-tipper.jpg',
+    'eicher pro': 'img/eicher-pro.jpg',
+    'mahindra bolero pik-up': 'img/mahindra-bolero-pikup.jpg',
     'ktm rc 390': 'img/ktm-rc-390.jpg',
     'ktm rc 200': 'img/ktm-rc-390.jpg',
     'yamaha r3': 'img/yamaha-r3.jpg',
@@ -347,7 +355,7 @@
     'tata intra': 'img/tata-intra-v30.jpg',
     'bharatbenz 1917r': 'img/bharatbenz-1917r.jpg',
     'mahindra blazo x 28': 'img/mahindra-blazo.jpg',
-    'ashok leyland bada dost': 'img/ashok-leyland-bada-dost.jpg',
+    'ashok leyland bada dost': 'img/al-bada-dost.jpg',
     'ashok leyland dost+': 'img/ashok-leyland-dost.jpg',
     // Cars
     // Bikes
@@ -361,13 +369,6 @@
        shots they made the cards look like second-hand listings, so they are
        out until a clean press photo replaces each one. Move a line back into
        the map above to re-enable it.
-       'tata ace': 'commons:Tata Ace mini-truck, Bangladesh. (43926311271).jpg'
-       'bajaj re auto (cng)': 'commons:Auto-rickshaw Bajaj.jpg'
-       'sonalika di 745': 'commons:Sonalika Tractor.jpg'
-       'swaraj 744 fe': 'commons:Swaraj 735.png'
-       'ashok leyland ecomet 1615': 'commons:Ashok Leyland Truck (5478313829).jpg'
-       'eicher pro 2049': 'commons:Eicher Truck at Azadpur Vegetable Market.jpg'
-       'mahindra bolero pik-up': 'commons:Mahindra Bolero Double Cab Front.JPG'
        'ashok leyland viking': 'commons:Ashok-Leyland Bus in Goa, India (17018817397).jpg'
     */
   };
