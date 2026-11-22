@@ -80,13 +80,14 @@
     } else if (mine.status === 'out') {
       body = '<div class="result lost">You left this deal</div><p><button class="btn block" data-act="rejoin" data-id="' + a.id + '">Rejoin</button></p>';
     } else {
-      const d = (sign, amt, label) => '<button class="btn ' + (sign < 0 ? 'dn' : 'up') + '" data-act="delta" data-id="' + a.id + '" data-d="' + (sign * amt) + '">' + label + '</button>';
+      const d = (amt, label, wide) => '<button class="btn dn' + (wide ? ' wide' : '') + '" data-act="delta" data-id="' + a.id + '" data-d="-' + amt + '">' + label + '</button>';
       body = '<div class="stats"><div class="stat"><div class="k">Your bid</div><div class="v">' + fmt(mine.amount) + '</div></div>' +
         '<div class="stat"><div class="k">Your rank</div><div class="v"><span class="rank' + (rankIdx === 0 ? ' first' : '') + '">#' + (rankIdx + 1) + '</span></div></div></div>' +
         '<div class="small muted">Lower your price = better offer</div><div class="bidgrid">' +
-        d(-1, 10000, '− ₹10,000') + d(1, 10000, '+ ₹10,000') + d(-1, 50000, '− ₹50,000') + d(1, 50000, '+ ₹50,000') +
-        d(-1, 100000, '− ₹1,00,000') + d(1, 100000, '+ ₹1,00,000') + '</div>' +
-        '<div class="custom"><input class="cust" id="cust-' + a.id + '" type="number" inputmode="numeric" placeholder="Custom bid (₹)">' +
+        d(10000, '− ₹10,000') + d(50000, '− ₹50,000') + d(100000, '− ₹1,00,000', true) + '</div>' +
+        '<div class="small muted">Or type your price (starts at your ongoing bid)</div>' +
+        '<div class="custom"><input class="cust" id="cust-' + a.id + '" type="number" inputmode="numeric"' +
+        ' value="' + mine.amount + '" data-auto="' + mine.amount + '" placeholder="Your price (₹)">' +
         '<button class="btn" data-act="custom" data-id="' + a.id + '">Place</button></div>' +
         '<p><button class="btn red block" data-act="out" data-id="' + a.id + '">Get out of this deal</button></p>';
     }
@@ -116,7 +117,8 @@
     const ae = document.activeElement;
     const keepId = ae && ae.classList && ae.classList.contains('cust') ? ae.id : null;
     const keepVal = keepId ? ae.value : null;
-    const vals = {}; document.querySelectorAll('.cust').forEach((i) => { if (i.value) vals[i.id] = i.value; });
+    // Only keep a value the dealer actually typed; an untouched box follows the ongoing bid.
+    const vals = {}; document.querySelectorAll('.cust').forEach((i) => { if (i.value && i.value !== i.dataset.auto) vals[i.id] = i.value; });
 
     const live = auctions.filter((a) => a.status === 'live');
     $('live').innerHTML = live.length ? live.map(liveCard).join('') :
@@ -161,7 +163,7 @@
       const raw = $('cust-' + a.id).value;
       if (raw === '' || isNaN(Number(raw))) return GD.toast('Enter an amount', 'err');
       const amt = Math.round(Number(raw));
-      if (validate(a, amt)) { put(a, amt, 'active'); $('cust-' + a.id).value = ''; }
+      if (validate(a, amt)) { put(a, amt, 'active'); const box = $('cust-' + a.id); if (box) { box.value = amt; box.dataset.auto = amt; } }
     } else if (act === 'out') {
       if (confirm('Leave this deal? You can rejoin later.')) put(a, mine.amount, 'out');
     }

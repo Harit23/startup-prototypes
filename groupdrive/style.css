@@ -62,7 +62,8 @@ tr.r1 td { background:#fff9e0; font-weight:600; }
 /* dealer bid controls */
 .bidgrid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:12px 0; }
 .bidgrid .btn { min-height:56px; font-size:1.05rem; }
-.bidgrid .dn { background:#fff; color:var(--green); border:2px solid var(--green); } .bidgrid .up { background:#fff; color:var(--orange); border:2px solid var(--orange); }
+.bidgrid .dn { background:#fff; color:var(--green); border:2px solid var(--green); }
+.bidgrid .wide { grid-column:1 / -1; }
 .custom { display:flex; gap:8px; } .custom input { flex:1; min-height:52px; font-size:1.1rem; } .custom .btn { min-width:90px; }
 .rank { display:inline-block; font-weight:800; font-size:1.1rem; padding:2px 12px; border-radius:99px; background:var(--blue-l); color:var(--blue-d); }
 .rank.first { background:#e6f6ea; color:var(--green); }
