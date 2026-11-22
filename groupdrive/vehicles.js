@@ -252,6 +252,10 @@
     'bmw': 'bmw.jpg',
     // --- Photos Harit supplied (local files, highest quality match) ---
     'audi a4': 'img/audi-a4.jpg',
+    'volvo 9600': 'img/volvo-9600-coach.jpg',
+    'tata starbus': 'img/tata-starbus.jpg',
+    'eicher skyline pro': 'img/eicher-skyline-pro.jpg',
+    'force traveller': 'img/force-traveller.jpg',
     'suzuki access 125': 'img/suzuki-access-125.jpg',
     'toyota innova hycross': 'img/toyota-innova-hycross.jpg',
     'maruti suzuki swift': 'img/maruti-swift.jpg',
@@ -326,7 +330,6 @@
     'mahindra bolero pik-up': 'commons:Mahindra Bolero Double Cab Front.JPG',
     // Buses
     'ashok leyland viking': 'commons:Ashok-Leyland Bus in Goa, India (17018817397).jpg',
-    'volvo 9600': 'commons:WBSTC Volvo Bus Sauhardya-1 - WB 23 B 9223 - Petrapole - North 24 Parganas 2015-05-29 1323.JPG'
   };
 
   // "commons:<file name>" becomes a Special:FilePath URL, which is the stable
