@@ -3,15 +3,16 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GroupDrive — Admin</title>
+<title>GroupDrive — Admin | Group buying for every vehicle</title>
 <link rel="stylesheet" href="style.css">
 <script src="../vendor/supabase.js"></script>
 <script src="../vendor/config.js"></script>
 <script src="app.js"></script>
+<script src="vehicles.js"></script>
 </head>
 <body>
 <header class="top">
-  <a class="brand" href="index.html">GroupDrive</a><span class="muted">Admin</span><span class="sp"></span>
+  <a class="brand" href="index.html">Group<b>Drive</b></a><span class="muted">Admin</span><span class="sp"></span>
   <span id="modeBadge" class="badge"></span>
 </header>
 <main>
@@ -19,7 +20,7 @@
     <h2 style="margin-top:0">Start a new group deal</h2>
     <form id="newForm">
       <div class="grid">
-        <div><label for="fCat">Category</label><select id="fCat"><option>Car</option><option>Bike</option><option>Truck</option><option>Bus</option></select></div>
+        <div><label for="fCat">Category</label><select id="fCat"></select></div>
         <div><label for="fBrand">Brand</label><select id="fBrand"></select></div>
         <div><label for="fModel">Model</label><select id="fModel"></select></div>
         <div><label for="fPrice">Base price (ex-showroom, ₹)</label><input id="fPrice" type="number" min="1" inputmode="numeric"><div class="small muted" id="fPriceHint"></div></div>
@@ -30,6 +31,7 @@
         <div><label for="fDur">Auction duration</label><select id="fDur">
           <option value="2">2 minutes</option><option value="5" selected>5 minutes</option><option value="10">10 minutes</option><option value="0">No timer</option></select></div>
       </div>
+      <div class="vprev" id="fPic" aria-label="Selected vehicle picture"></div>
       <p><button class="btn" type="submit">Start live bidding</button></p>
     </form>
   </div>
@@ -56,6 +58,11 @@
   // ---------- New auction form ----------
   $('fCity').innerHTML = CITIES.map((c) => '<option>' + c + '</option>').join('');
   const uniq = (a) => [...new Set(a)];
+  function fillCats() {
+    const cats = GDV.CAT_ORDER.filter((c) => vehicles.some((v) => v.category === c))
+      .concat(uniq(vehicles.map((v) => v.category)).filter((c) => !GDV.CAT_ORDER.includes(c)));
+    $('fCat').innerHTML = cats.map((c) => '<option value="' + esc(c) + '">' + esc(c) + '</option>').join('');
+  }
   function fillBrands() {
     const cat = $('fCat').value;
     $('fBrand').innerHTML = uniq(vehicles.filter((v) => v.category === cat).map((v) => v.brand))
@@ -69,6 +76,7 @@
   }
   function fillPrice() {
     const v = vehicles.find((x) => x.category === $('fCat').value && x.brand === $('fBrand').value && x.model === $('fModel').value);
+    $('fPic').innerHTML = GDV.pic({ category: $('fCat').value, brand: $('fBrand').value, model: $('fModel').value });
     if (v) { $('fPrice').value = Math.round(v.price); $('fPriceHint').textContent = 'Ex-showroom: ' + fmt(v.price) + ' (' + GD.short(v.price) + ')'; }
   }
   $('fCat').onchange = fillBrands; $('fBrand').onchange = fillModels; $('fModel').onchange = fillPrice;
@@ -122,7 +130,7 @@
         '<div class="actions" style="margin:0;align-items:end"><button class="btn sm" data-act="saveedit" data-id="' + a.id + '">Save</button>' +
         '<button class="btn sm grey" data-act="canceledit" data-id="' + a.id + '">Cancel</button></div></div>';
     }
-    return '<div class="card" data-card="' + a.id + '"><div class="auc-head"><div><h3>' + esc(a.brand + ' ' + a.model) + '</h3>' +
+    return '<div class="card" data-card="' + a.id + '"><div class="auc-head">' + GDV.thumb(a) + '<div><h3>' + esc(a.brand + ' ' + a.model) + '</h3>' +
       '<div class="tags"><span class="tag">' + esc(a.category) + '</span><span class="tag">' + esc(a.city) + '</span><span class="tag">Group of ' + a.group_size +
       '</span><span class="tag">' + esc(a.payment_terms || '—') + '</span></div></div>' +
       '<div class="timer" data-ends="' + esc(a.ends_at || '') + '">' + GD.countdown(a.ends_at) + '</div></div>' +
@@ -141,8 +149,8 @@
 
   function closedCard(a) {
     const act = GD.ranked(bidsFor(a.id));
-    const head = '<h3>' + esc(a.brand + ' ' + a.model) + '</h3><div class="tags"><span class="tag">' + esc(a.city) + '</span><span class="tag">Group of ' +
-      a.group_size + '</span><span class="tag">Base ' + fmt(a.base_price) + '</span></div>';
+    const head = '<div class="auc-head">' + GDV.thumb(a) + '<div class="auc-t"><h3>' + esc(a.brand + ' ' + a.model) + '</h3><div class="tags"><span class="tag">' + esc(a.city) + '</span><span class="tag">Group of ' +
+      a.group_size + '</span><span class="tag">Base ' + fmt(a.base_price) + '</span></div></div></div>';
     if (a.status === 'cancelled') return '<div class="card">' + head + '<p class="muted">Cancelled</p></div>';
     if (a.winner_amount == null) return '<div class="card">' + head + '<p class="muted">Closed with no bids</p></div>';
     const w = Number(a.winner_amount), saving = Number(a.base_price) - w;
@@ -222,7 +230,10 @@
   // ---------- Start ----------
   GD.init().then(async () => {
     vehicles = await GD.listVehicles();
-    fillBrands();
+    fillCats(); fillBrands();
+    const pre = new URLSearchParams(location.search).get('v');   // ?v=<vehicle id> preselects category/brand/model
+    const pv = pre && vehicles.find((x) => String(x.id) === pre);
+    if (pv) { $('fCat').value = pv.category; fillBrands(); $('fBrand').value = pv.brand; fillModels(); $('fModel').value = pv.model; fillPrice(); }
     await refresh();
     GD.subscribe(refresh);
   });

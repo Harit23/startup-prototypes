@@ -3,32 +3,23 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GroupDrive — Dealer</title>
+<title>GroupDrive — Dealer | Group buying for every vehicle</title>
 <link rel="stylesheet" href="style.css">
 <script src="../vendor/supabase.js"></script>
 <script src="../vendor/config.js"></script>
 <script src="app.js"></script>
+<script src="vehicles.js"></script>
 </head>
 <body>
 <header class="top">
-  <a class="brand" href="index.html">GroupDrive</a><span class="muted">Dealer</span><span class="sp"></span>
+  <a class="brand" href="index.html">Group<b>Drive</b></a><span class="muted">Dealer</span><span class="sp"></span>
   <span id="modeBadge" class="badge"></span>
 </header>
 <main>
-  <div id="setup" hidden>
-    <div class="card">
-      <h2 style="margin-top:0">Set up your dealership</h2>
-      <form id="setupForm">
-        <p><label for="sBrand">Dealership brand</label><input id="sBrand" required maxlength="40" placeholder="e.g. BMW"></p>
-        <p><label for="sArea">Area</label><input id="sArea" required maxlength="40" placeholder="e.g. Satellite"></p>
-        <p><label for="sName">Dealer name (optional)</label><input id="sName" maxlength="60" placeholder="e.g. Rakesh Shah"></p>
-        <button class="btn block" type="submit">Continue</button>
-      </form>
-    </div>
-  </div>
-  <div id="app" hidden>
+  <div id="app">
     <p class="note">Lowest price wins. The group buys from the winning dealer.</p>
-    <p>You are <b id="me"></b> · <a href="#" id="change">Change dealership</a></p>
+    <p class="small">Your area: <b id="me"></b> · <a href="#" id="change">Change area</a></p>
+    <p><label for="dName" class="small">Your name (just for display, optional)</label><input id="dName" maxlength="30" placeholder="e.g. Rakesh"></p>
     <div id="live"></div>
     <h2 id="closedH" hidden>Recently closed</h2>
     <div id="closed"></div>
@@ -41,31 +32,31 @@
   const $ = (id) => document.getElementById(id);
   const esc = GD.esc, fmt = GD.fmt;
   const KEY = 'gd_dealer';
-  let dealer = null, auctions = [], bids = [];
+  const AREAS = ['Satellite', 'SG Highway', 'Prahlad Nagar', 'Bopal', 'Navrangpura', 'Vastrapur', 'Maninagar', 'Thaltej', 'Bodakdev', 'Chandkheda'];
+  const pickArea = (not) => { const l = AREAS.filter((x) => x !== not); return l[Math.floor(Math.random() * l.length)]; };
+  let dealer = null, auctions = [], bids = [], dispName = localStorage.getItem(KEY + '_name') || '';
 
-  function loadDealer() { try { dealer = JSON.parse(localStorage.getItem(KEY)); } catch (e) { dealer = null; } }
-  function show() {
-    $('setup').hidden = !!dealer; $('app').hidden = !dealer;
-    if (dealer) $('me').textContent = dealer.label;
+  // No setup form: silently auto-assign a random area on first visit.
+  async function ensureDealer() {
+    try { dealer = JSON.parse(localStorage.getItem(KEY)); } catch (e) { dealer = null; }
+    if (dealer && dealer.id && dealer.area) return;
+    const area = pickArea();
+    if (dealer && dealer.id) { dealer.area = area; }       // old format: keep id, add area
+    else {
+      const row = await GD.registerDealer({ name: 'Dealer ' + area, brand: 'Any', area });
+      dealer = { id: row.id, area };
+    }
+    localStorage.setItem(KEY, JSON.stringify(dealer));
   }
-
-  // ---------- Setup ----------
-  $('setupForm').onsubmit = async (e) => {
-    e.preventDefault();
-    const brand = $('sBrand').value.trim(), area = $('sArea').value.trim(), name = $('sName').value.trim();
-    if (!brand || !area) return GD.toast('Enter brand and area', 'err');
-    const label = brand + ' Dealer ' + area;
-    try {
-      const row = await GD.registerDealer({ name: name || label, brand, area });
-      dealer = { id: row.id, label };
-      localStorage.setItem(KEY, JSON.stringify(dealer));
-      show(); refresh();
-    } catch (err) { GD.toast('Could not register: ' + (err.message || err), 'err'); }
-  };
+  const labelFor = (a) => a.brand + ' Dealer ' + dealer.area + (dispName ? ' (' + dispName + ')' : '');
+  function show() { $('me').textContent = dealer.area; }
+  $('dName').value = dispName;
+  $('dName').oninput = () => { dispName = $('dName').value.trim(); localStorage.setItem(KEY + '_name', dispName); render(); };
   $('change').onclick = (e) => {
     e.preventDefault();
-    if (!confirm('Change dealership? You will set up a new one.')) return;
-    localStorage.removeItem(KEY); dealer = null; show();
+    dealer.area = pickArea(dealer.area);
+    localStorage.setItem(KEY, JSON.stringify(dealer)); show(); render();
+    GD.toast('Area changed to ' + dealer.area, 'ok');
   };
 
   // ---------- Data ----------
@@ -99,9 +90,10 @@
         '<button class="btn" data-act="custom" data-id="' + a.id + '">Place</button></div>' +
         '<p><button class="btn red block" data-act="out" data-id="' + a.id + '">Get out of this deal</button></p>';
     }
-    return '<div class="card" data-card="' + a.id + '"><div class="auc-head"><div><h3>' + esc(a.brand + ' ' + a.model) + '</h3>' +
+    return '<div class="card" data-card="' + a.id + '"><div class="auc-head">' + GDV.thumb(a) + '<div class="auc-t"><h3>' + esc(a.brand + ' ' + a.model) + '</h3>' +
       '<div class="tags"><span class="tag">' + esc(a.city) + '</span><span class="tag">Group of ' + a.group_size + '</span><span class="tag">' +
       esc(a.payment_terms || '—') + '</span></div></div><div class="timer" data-ends="' + esc(a.ends_at || '') + '">' + GD.countdown(a.ends_at) + '</div></div>' +
+      '<div class="small muted bidas">You are bidding as: <b>' + esc(labelFor(a)) + '</b></div>' +
       '<div class="stats"><div class="stat big"><div class="k">Current lowest bid</div><div class="v">' + (top ? fmt(top.amount) : '—') + '</div>' +
       '<div class="small">' + (top ? 'Held by ' + esc(top.dealer_label) + (rankIdx === 0 ? ' (you)' : '') : 'No bids yet') + '</div></div>' +
       '<div class="stat"><div class="k">Base price</div><div class="v">' + fmt(a.base_price) + '</div></div></div>' + body + '</div>';
@@ -115,8 +107,8 @@
     else if (act[0] && act[0].dealer_id === dealer.id) res = '<div class="result">You won! 🎉<br>' + fmt(a.winner_amount) + '</div>';
     else res = '<div class="result lost">Winner: ' + esc(a.winner_label) + ' at ' + fmt(a.winner_amount) +
       (mine ? '<br><span class="small muted">Your last bid: ' + fmt(mine.amount) + '</span>' : '') + '</div>';
-    return '<div class="card"><h3>' + esc(a.brand + ' ' + a.model) + '</h3><div class="tags"><span class="tag">' + esc(a.city) +
-      '</span><span class="tag">Group of ' + a.group_size + '</span></div>' + res + '</div>';
+    return '<div class="card"><div class="auc-head">' + GDV.thumb(a) + '<div class="auc-t"><h3>' + esc(a.brand + ' ' + a.model) + '</h3><div class="tags"><span class="tag">' + esc(a.city) +
+      '</span><span class="tag">Group of ' + a.group_size + '</span></div></div></div>' + res + '</div>';
   }
 
   function render() {
@@ -140,7 +132,7 @@
   // ---------- Bidding ----------
   async function put(a, amount, status) {
     try {
-      await GD.placeBid(a.id, dealer.id, dealer.label, amount, status);
+      await GD.placeBid(a.id, dealer.id, labelFor(a), amount, status);
       await refresh();
     } catch (err) { GD.toast('Bid failed: ' + (err.message || err), 'err'); }
   }
@@ -183,7 +175,10 @@
     });
   }, 1000);
 
-  GD.init().then(() => { loadDealer(); show(); refresh(); GD.subscribe(refresh); });
+  GD.init().then(async () => {
+    try { await ensureDealer(); } catch (err) { GD.toast('Could not register: ' + (err.message || err), 'err'); return; }
+    show(); refresh(); GD.subscribe(refresh);
+  });
 })();
 </script>
 </body>

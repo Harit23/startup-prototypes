@@ -23,7 +23,24 @@
     V('Truck','BharatBenz','1917R',3500000), V('Truck','Mahindra','Blazo X 28',3800000),
     V('Bus','Ashok Leyland','Viking',3300000), V('Bus','Ashok Leyland','Falcon',2800000),
     V('Bus','Tata','Starbus',3000000), V('Bus','Eicher','Skyline Pro',2800000),
-    V('Bus','Force','Traveller',1800000), V('Bus','Volvo','9600',20000000)
+    V('Bus','Force','Traveller',1800000), V('Bus','Volvo','9600',20000000),
+    V('Car','Tata','Punch',700000), V('Car','Tata','Harrier',2200000), V('Car','Maruti Suzuki','Baleno',800000),
+    V('Car','Maruti Suzuki','Dzire',850000), V('Car','Maruti Suzuki','Brezza',1150000), V('Car','Maruti Suzuki','Ertiga',1150000),
+    V('Car','Maruti Suzuki','Grand Vitara',1700000), V('Car','Hyundai','i20',900000), V('Car','Hyundai','Venue',1150000),
+    V('Car','Hyundai','Verna',1500000), V('Car','Mahindra','Thar Roxx',1900000), V('Car','Mahindra','Scorpio-N',2100000),
+    V('Car','Mahindra','XUV 3XO',1200000), V('Car','Toyota','Fortuner',4300000), V('Car','Toyota','Innova Crysta',2400000),
+    V('Car','Kia','Sonet',1200000), V('Car','Kia','Carens',1600000), V('Car','Honda','City',1400000),
+    V('Car','Honda','Elevate',1500000), V('Car','MG','Windsor EV',1500000), V('Car','MG','Hector',2000000),
+    V('Car','Skoda','Kushaq',1500000), V('Car','Volkswagen','Virtus',1600000), V('Car','Mercedes-Benz','GLA 200',5200000),
+    V('Car','Mercedes-Benz','E 200',7800000), V('Car','Audi','A4',4900000), V('Car','BMW','X5 xDrive40i',10500000),
+    V('Car','Volvo','XC60',7000000),
+    V('Bike','Hero','HF Deluxe',65000), V('Bike','Honda','Shine 125',90000), V('Bike','Yamaha','R15 V4',200000),
+    V('Bike','Royal Enfield','Hunter 350',170000), V('Bike','Bajaj','Pulsar N160',140000), V('Bike','TVS','Raider 125',100000),
+    V('Scooter','TVS','Jupiter 110',85000), V('Scooter','Suzuki','Access 125',90000), V('Scooter','Ather','450X',160000),
+    V('Scooter','TVS','iQube',120000), V('Scooter','Bajaj','Chetak',130000),
+    V('Three-wheeler','Bajaj','RE Auto (CNG)',300000), V('Three-wheeler','Piaggio','Ape City',290000), V('Three-wheeler','Mahindra','Treo (EV)',350000),
+    V('Tractor','Mahindra','575 DI',800000), V('Tractor','Swaraj','744 FE',750000), V('Tractor','Sonalika','DI 745',720000),
+    V('Truck','Tata','Intra V30 (pickup)',850000), V('Truck','Mahindra','Bolero Pik-Up',950000), V('Truck','Ashok Leyland','Bada Dost',950000)
   ];
 
   // ---------- Helpers ----------

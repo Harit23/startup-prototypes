@@ -3,34 +3,242 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GroupDrive — Buy together. Pay less.</title>
+<title>GroupDrive — Group buying for every vehicle</title>
 <link rel="stylesheet" href="style.css">
 <script src="../vendor/supabase.js"></script>
 <script src="../vendor/config.js"></script>
 <script src="app.js"></script>
+<script src="vehicles.js"></script>
 </head>
-<body>
-<header class="top">
-  <a class="brand" href="index.html">GroupDrive</a><span class="sp"></span>
-  <span id="modeBadge" class="badge"></span>
-</header>
-<main>
-  <p><a href="../index.html">← All prototypes</a></p>
-  <section class="hero">
-    <h1>GroupDrive — Buy together. Pay less.</h1>
-    <p>Buyers form a group for the same vehicle, and dealers compete in a live reverse auction. The lowest price wins.</p>
-  </section>
-  <div class="choose">
-    <a class="btn" href="admin.html">I am the Admin</a>
-    <a class="btn alt" href="dealer.html">I am a Dealer</a>
+<body class="store" id="top">
+<header class="st-top">
+  <div class="wrap st-row1">
+    <a class="st-logo" href="index.html">Group<b>Drive</b></a>
+    <span class="st-city" title="City">📍 Ahmedabad</span>
+    <form class="st-search" id="searchForm" role="search">
+      <select id="qCat" aria-label="Category"><option value="">All</option></select>
+      <input id="qText" type="search" placeholder="Search brand or model, e.g. Creta, Splendor, tractor" autocomplete="off" aria-label="Search vehicles">
+      <button type="submit" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 L21 21"/></svg></button>
+    </form>
+    <div class="st-right">
+      <span id="modeBadge" class="badge"></span>
+      <a class="st-btn" href="admin.html">Admin</a>
+      <a class="st-btn pri" href="dealer.html">Dealer</a>
+    </div>
   </div>
-  <h2>How it works</h2>
-  <div class="steps">
-    <div class="card step"><b class="n">1</b><h3>Form a group</h3><p class="muted">Admin picks a vehicle, group size, city and payment terms, then starts live bidding.</p></div>
-    <div class="card step"><b class="n">2</b><h3>Dealers bid down</h3><p class="muted">Dealers on their phones keep lowering their price. Everyone sees the lowest bid live.</p></div>
-    <div class="card step"><b class="n">3</b><h3>Group saves</h3><p class="muted">When time is up, the lowest bid wins. Every buyer in the group gets that price.</p></div>
+  <nav class="st-nav" aria-label="Categories"><div class="wrap" id="nav">
+    <a href="#vehicles" data-cats="Car">Cars</a><a href="#vehicles" data-cats="Bike">Bikes</a><a href="#vehicles" data-cats="Scooter">Scooters</a>
+    <a href="#vehicles" data-cats="Three-wheeler">Autos</a><a href="#vehicles" data-cats="Tractor">Tractors</a><a href="#vehicles" data-cats="Truck">Trucks</a>
+    <a href="#vehicles" data-cats="Bus">Buses</a><a href="#vehicles" data-cats="Truck,Bus,Three-wheeler,Tractor" data-label="Fleet deals">Fleet deals</a><a href="#how">How it works</a>
+  </div></nav>
+</header>
+<div class="st-strap">Group buying for every vehicle — cars, bikes, scooters, autos, tractors, trucks and buses.</div>
+
+<section class="hero-c" id="hero" aria-roledescription="carousel" aria-label="Featured group deals">
+  <div id="slides"></div>
+  <button class="hero-nav prev" id="hPrev" aria-label="Previous slide">‹</button>
+  <button class="hero-nav next" id="hNext" aria-label="Next slide">›</button>
+  <div class="dots" id="dots"></div>
+</section>
+
+<main class="wrap">
+  <div class="cards4" id="cards"></div>
+
+  <div class="sec" id="deals"><h2>Open group deals right now</h2><span class="muted small" id="dealsNote"></span></div>
+  <div id="dealsRow"></div>
+
+  <div class="sec" id="vehicles"><h2>All vehicles</h2><span class="muted small" id="vCount"></span></div>
+  <div class="chips" id="chips" hidden></div>
+  <div class="vgrid" id="vgrid"></div>
+  <div class="panel empty" id="vempty" hidden><p>No vehicles match your search.</p><button class="btn" id="vclear" type="button">Show all vehicles</button></div>
+
+  <div class="sec" id="how"><h2>How it works</h2></div>
+  <div class="how">
+    <div class="hs"><b class="n">1</b><h3>Pick a vehicle</h3><p class="muted small">Admin chooses any car, bike, scooter, auto, tractor, truck or bus, plus group size and city.</p></div>
+    <div class="hs"><b class="n">2</b><h3>Form a group</h3><p class="muted small">Buyers join the same deal and agree on payment terms. The live auction starts.</p></div>
+    <div class="hs"><b class="n">3</b><h3>Dealers bid down</h3><p class="muted small">Dealers on their phones keep lowering their price. Everyone sees the lowest bid live.</p></div>
+    <div class="hs"><b class="n">4</b><h3>Group saves</h3><p class="muted small">Lowest bid wins when time is up. Every buyer in the group gets that price.</p></div>
   </div>
 </main>
-<script>GD.init();</script>
+
+<footer class="st-foot">
+  <a class="backtop" href="#top">↑ Back to top</a>
+  <div class="fl"><a href="../index.html">All prototypes</a><a href="../guide.html">How it works guide</a><a href="admin.html">Admin</a><a href="dealer.html">Dealer</a></div>
+  <p class="cp">GroupDrive prototype — Ahmedabad. Prices are indicative ex-showroom figures; savings are estimates.</p>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const esc = GD.esc;
+  let vehicles = [], auctions = [], bids = [];
+  const F = { cats: null, kinds: null, q: '', label: '' };
+
+  // ---------- helpers ----------
+  const catLabel = (c) => GDV.CAT_LABEL[c] || c;
+  const kindOf = (v) => GDV.kindOf(v.category, v.brand, v.model);
+  const findV = (cat, brand, model) => vehicles.find((v) => v.brand === brand && v.model === model);
+  const hay = (v) => (v.brand + ' ' + v.model + ' ' + catLabel(v.category) + ' ' + v.category + ' ' + (GDV.KIND_LABEL[kindOf(v)] || '')).toLowerCase();
+  const saving = (v) => Math.round(Number(v.price) * 0.04);
+  const adminHref = (v) => v ? 'admin.html?v=' + encodeURIComponent(v.id) : 'admin.html';
+
+  // ---------- store cards ----------
+  const CARDS = [
+    { t: 'Cars for your family', tiles: [['hatchback', 'Hatchback'], ['sedan', 'Sedan'], ['suv', 'SUV'], ['ev', 'Electric']] },
+    { t: 'Bikes & scooters', tiles: [['commuter', 'Commuter'], ['cruiser', 'Cruiser'], ['sports', 'Sports'], ['escooter', 'Electric scooter']] },
+    { t: 'Trucks for business', tiles: [['minitruck', 'Pickups & mini'], ['truck', 'Cargo trucks'], ['tipper', 'Tippers'], ['heavy', 'Heavy haul']] },
+    { t: 'Buses for schools & fleets', tiles: [['schoolbus', 'School bus'], ['bus', 'Staff / intercity'], ['minibus', 'Minibus'], ['coach', 'Luxury coach']] },
+    { t: 'Autos & tractors for work', tiles: [['auto', 'Auto-rickshaw'], ['eauto', 'Electric auto'], ['cargoauto', 'Cargo auto'], ['tractor', 'Tractors']] }
+  ];
+  function renderCards() {
+    $('cards').innerHTML = CARDS.map((c) => '<div class="scard"><h3>' + c.t + '</h3><div class="tiles">' + c.tiles.map(([k, label]) => {
+      const list = vehicles.filter((v) => kindOf(v) === k);
+      const from = list.length ? 'From ' + GD.short(Math.min(...list.map((v) => Number(v.price)))) : '&nbsp;';
+      return '<button class="tile" type="button" data-kind="' + k + '" data-label="' + esc(label) + '"><span class="vpic">' +
+        GDV.svg(k, GDV.colorOf(GDV.CAT_OF_KIND[k])) + '</span><b>' + label + '</b><span class="pr">' + from + '</span></button>';
+    }).join('') + '</div></div>').join('');
+  }
+  $('cards').addEventListener('click', (e) => {
+    const t = e.target.closest('.tile'); if (!t) return;
+    F.cats = null; F.kinds = [t.dataset.kind]; F.q = ''; F.label = t.dataset.label;
+    $('qText').value = ''; $('qCat').value = ''; applyFilter(true);
+  });
+
+  // ---------- nav + search ----------
+  function fillCats() {
+    const cats = GDV.CAT_ORDER.filter((c) => vehicles.some((v) => v.category === c))
+      .concat([...new Set(vehicles.map((v) => v.category))].filter((c) => !GDV.CAT_ORDER.includes(c)));
+    $('qCat').innerHTML = '<option value="">All</option>' + cats.map((c) => '<option value="' + esc(c) + '">' + esc(catLabel(c)) + '</option>').join('');
+  }
+  $('nav').addEventListener('click', (e) => {
+    const a = e.target.closest('a'); if (!a) return;
+    if (!a.dataset.cats) return;            // plain anchor (How it works)
+    e.preventDefault();
+    F.cats = a.dataset.cats.split(','); F.kinds = null; F.q = ''; F.label = a.dataset.label || a.textContent;
+    $('qText').value = ''; $('qCat').value = F.cats.length === 1 ? F.cats[0] : '';
+    applyFilter(true);
+  });
+  $('searchForm').addEventListener('submit', (e) => { e.preventDefault(); searchNow(true); });
+  $('qText').addEventListener('input', () => searchNow(false));
+  $('qCat').addEventListener('change', () => searchNow(false));
+  function searchNow(scroll) {
+    F.cats = $('qCat').value ? [$('qCat').value] : null; F.kinds = null; F.q = $('qText').value.trim().toLowerCase(); F.label = '';
+    applyFilter(scroll);
+  }
+  $('vclear').onclick = clearFilter;
+  function clearFilter() { F.cats = null; F.kinds = null; F.q = ''; F.label = ''; $('qText').value = ''; $('qCat').value = ''; applyFilter(false); }
+  function applyFilter(scroll) {
+    renderGrid();
+    document.querySelectorAll('#nav a[data-cats]').forEach((a) => a.classList.toggle('on', !!F.cats && a.dataset.cats === F.cats.join(',')));
+    if (scroll) $('vehicles').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ---------- vehicle grid ----------
+  function matches(v) {
+    if (F.cats && !F.cats.includes(v.category)) return false;
+    if (F.kinds && !F.kinds.includes(kindOf(v))) return false;
+    if (F.q) { const h = hay(v); if (!F.q.split(/\s+/).every((t) => h.includes(t))) return false; }
+    return true;
+  }
+  function vCard(v) {
+    return '<div class="vcard" data-vid="' + esc(v.id) + '"><span class="vpic">' + GDV.picHtml(v.category, v.brand, v.model) + '</span><div class="bd">' +
+      '<span class="br">' + esc(v.brand) + '</span><span class="md">' + esc(v.model) + '</span>' +
+      '<span class="pr">' + GD.fmt(v.price) + ' <small>(' + GD.short(v.price) + ')</small></span>' +
+      '<span class="small muted">Ex-showroom</span>' +
+      '<span class="sv">Group of 10 · est. saving ' + GD.short(saving(v)) + '</span>' +
+      '<a class="btn" href="' + adminHref(v) + '">Start group deal</a></div></div>';
+  }
+  function renderGrid() {
+    const list = vehicles.filter(matches);
+    $('vgrid').innerHTML = list.map(vCard).join('');
+    $('vempty').hidden = list.length > 0;
+    $('vCount').textContent = 'Showing ' + list.length + ' of ' + vehicles.length;
+    const ch = $('chips'), on = !!(F.cats || F.kinds || F.q);
+    ch.hidden = !on;
+    if (on) {
+      const what = F.label || (F.cats ? F.cats.map(catLabel).join(', ') : '') || '';
+      ch.innerHTML = '<span class="chip">Filter: ' + esc([what, F.q ? '“' + F.q + '”' : ''].filter(Boolean).join(' · ')) +
+        ' <button type="button" aria-label="Clear filter" id="chipX">✕</button></span>';
+      $('chipX').onclick = clearFilter;
+    }
+  }
+
+  // ---------- live deals ----------
+  const vFor = (a) => ({ category: a.category, brand: a.brand, model: a.model });
+  let lastDeals = '';
+  function renderDeals() {
+    const live = auctions.filter((a) => a.status === 'live');
+    $('dealsNote').textContent = live.length ? live.length + ' live' : '';
+    if (!live.length) {
+      lastDeals = '';
+      $('dealsRow').innerHTML = '<div class="panel empty"><p>No live deals — the admin can start one.</p><a class="btn" href="admin.html">Admin</a></div>';
+      return;
+    }
+    const html = '<div class="deals">' + live.map((a) => {
+      const act = GD.ranked(bids.filter((b) => b.auction_id === a.id));
+      const low = act.length ? GD.fmt(act[0].amount) : '—';
+      return '<div class="deal" data-aid="' + esc(a.id) + '"><span class="vpic">' + GDV.picHtml(a.category, a.brand, a.model) + '<span class="livebadge">● LIVE</span></span>' +
+        '<div class="bd"><span class="nm">' + esc(a.brand + ' ' + a.model) + '</span>' +
+        '<span class="small muted">' + esc(a.city) + ' · Group of ' + a.group_size + '</span>' +
+        '<span class="small muted">' + (act.length ? 'Current lowest bid' : 'No bids yet · base ' + GD.fmt(a.base_price)) + '</span><span class="low">' + low + '</span>' +
+        '<div class="meta"><span>' + act.length + ' dealer' + (act.length === 1 ? '' : 's') + ' bidding</span><span class="timer" data-ends="' + esc(a.ends_at || '') + '">' + GD.countdown(a.ends_at) + '</span></div>' +
+        '<a class="btn" href="dealer.html">Bid as dealer</a></div></div>';
+    }).join('') + '</div>';
+    if (html !== lastDeals) { lastDeals = html; $('dealsRow').innerHTML = html; }
+  }
+  setInterval(() => document.querySelectorAll('#dealsRow .timer[data-ends]').forEach((el) => {
+    el.textContent = GD.countdown(el.dataset.ends || null);
+    el.classList.toggle('low', !!el.dataset.ends && new Date(el.dataset.ends) - Date.now() < 30000);
+  }), 1000);
+
+  // ---------- hero carousel ----------
+  const SLIDES = [
+    { photo: 'bmw.jpg', kick: 'Cars', h: 'BMW M340i group deal', p: '10 buyers · Save up to ₹3 lakh each*', find: ['BMW', 'M340i xDrive'] },
+    { kind: 'cruiser', cat: 'Bike', kick: 'Bikes', h: 'Royal Enfield Classic 350', p: 'Join a group of 20 riders', find: ['Royal Enfield', 'Classic 350'] },
+    { kind: 'truck', cat: 'Truck', kick: 'Fleet deal', h: 'Ashok Leyland trucks for transporters', p: 'Fleet deal: group pricing for transport operators', find: ['Ashok Leyland', 'Ecomet 1615'] },
+    { kind: 'schoolbus', cat: 'Bus', kick: 'Buses', h: 'School & staff buses', p: 'Group buying for operators', find: ['Ashok Leyland', 'Viking'] },
+    { kind: 'tractor', cat: 'Tractor', kick: 'Tractors & autos', h: 'Tractors & autos for work', p: 'Farmers and auto owners buy together and pay less', find: ['Mahindra', '575 DI'] }
+  ];
+  let cur = 0, timer = null, paused = false;
+  $('slides').innerHTML = SLIDES.map((s, i) => '<div class="slide' + (i === 0 ? ' on' : '') + '" data-i="' + i + '">' +
+    (s.photo ? '<img class="bgimg" src="' + s.photo + '" alt="BMW M340i"><div class="shade"></div>' : '<div class="art">' + GDV.svg(s.kind, GDV.colorOf(s.cat)) + '</div>') +
+    '<div class="txt"><div class="kick">' + s.kick + '</div><h2>' + s.h + '</h2><p>' + s.p + '</p>' +
+    '<a class="btn" href="admin.html" data-slide-cta="' + i + '">Start this deal (Admin)</a>' +
+    (s.photo ? '<div class="fine">*Illustrative estimate; the final price is set by live dealer bidding.</div>' : '') + '</div></div>').join('');
+  $('dots').innerHTML = SLIDES.map((s, i) => '<button type="button" data-i="' + i + '" aria-label="Go to slide ' + (i + 1) + '"' + (i === 0 ? ' class="on"' : '') + '></button>').join('');
+  function go(i) {
+    cur = (i + SLIDES.length) % SLIDES.length;
+    document.querySelectorAll('.slide').forEach((el, n) => el.classList.toggle('on', n === cur));
+    document.querySelectorAll('#dots button').forEach((el, n) => el.classList.toggle('on', n === cur));
+  }
+  function restart() { clearInterval(timer); timer = setInterval(() => { if (!paused) go(cur + 1); }, 4000); }
+  $('hPrev').onclick = () => { go(cur - 1); restart(); };
+  $('hNext').onclick = () => { go(cur + 1); restart(); };
+  $('dots').addEventListener('click', (e) => { const b = e.target.closest('button'); if (b) { go(+b.dataset.i); restart(); } });
+  $('hero').addEventListener('mouseenter', () => { paused = true; });
+  $('hero').addEventListener('mouseleave', () => { paused = false; });
+  let tx = null;
+  $('hero').addEventListener('touchstart', (e) => { tx = e.touches[0].clientX; }, { passive: true });
+  $('hero').addEventListener('touchend', (e) => { if (tx == null) return; const d = e.changedTouches[0].clientX - tx; tx = null; if (Math.abs(d) > 40) { go(cur + (d < 0 ? 1 : -1)); restart(); } });
+  restart();
+  function slideLinks() {
+    SLIDES.forEach((s, i) => {
+      const v = findV(null, s.find[0], s.find[1]); const a = document.querySelector('[data-slide-cta="' + i + '"]');
+      if (a && v) a.href = adminHref(v);
+    });
+  }
+
+  // ---------- data ----------
+  async function refresh() {
+    try { [auctions, bids] = await Promise.all([GD.listAuctions(), GD.listBids()]); renderDeals(); } catch (e) { console.error(e); }
+  }
+  GD.init().then(async () => {
+    vehicles = await GD.listVehicles();
+    fillCats(); renderCards(); renderGrid(); slideLinks();
+    await refresh(); GD.subscribe(refresh);
+  });
+})();
+</script>
 </body>
 </html>
