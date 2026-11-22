@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GroupDrive — Group buying for every vehicle</title>
-<link rel="stylesheet" href="style.css?v=4">
+<link rel="stylesheet" href="style.css?v=6">
 <script src="../vendor/supabase.js"></script>
 <script src="../vendor/config.js"></script>
-<script src="app.js?v=4"></script>
-<script src="vehicles.js?v=5"></script>
+<script src="app.js?v=6"></script>
+<script src="vehicles.js?v=6"></script>
 </head>
 <body class="store" id="top">
 <header class="st-top">
@@ -151,7 +151,15 @@
   }
   function renderGrid() {
     const list = vehicles.filter(matches);
-    $('vgrid').innerHTML = list.map(vCard).join('');
+    // Grouped by category, in the same order as the nav, so the page reads
+    // Cars -> Bikes -> Scooters -> Autos -> Tractors -> Trucks -> Buses.
+    const groups = GDV.CAT_ORDER.map((cat) => [cat, list.filter((v) => v.category === cat)]).filter(([, vs]) => vs.length);
+    const loose = list.filter((v) => GDV.CAT_ORDER.indexOf(v.category) === -1);
+    if (loose.length) groups.push(['Other', loose]);
+    $('vgrid').innerHTML = groups.map(([cat, vs]) =>
+      '<section class="vcat"><h3>' + esc(GDV.CAT_LABEL[cat] || cat) +
+      '<span class="n">' + vs.length + '</span></h3>' +
+      '<div class="vgrid-row">' + vs.map(vCard).join('') + '</div></section>').join('');
     $('vempty').hidden = list.length > 0;
     $('vCount').textContent = 'Showing ' + list.length + ' of ' + vehicles.length;
     const ch = $('chips'), on = !!(F.cats || F.kinds || F.q);
