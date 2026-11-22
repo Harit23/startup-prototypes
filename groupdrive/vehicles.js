@@ -94,15 +94,22 @@
       line('M44 72 L90 70', 4, INK) + line('M56 72 L110 80', 5, '#8A94AB'));
   }
   function sports(c) {
+    const dark = shade(c, -30);
     return wrap(spokeWheel(46, 72, 19) + spokeWheel(156, 72, 19) +
-      line('M156 72 L128 44', 4, STEEL) + line('M120 38 L134 40', 4, INK) +
-      '<path d="M118 36 L152 50 L148 64 L102 64 L96 48 Z" fill="' + c + '"/>' +
-      '<path d="M118 36 L128 27 L133 31 L125 41 Z" fill="' + GLASS + '"/>' +
-      '<path d="M68 46 Q90 38 110 46 L104 60 L68 60 Z" fill="' + shade(c, -25) + '"/>' +
-      '<path d="M26 50 L66 44 L74 60 L38 64 Z" fill="' + c + '"/><path d="M60 50 L90 50 L90 56 L62 58 Z" fill="' + SEAT + '"/>' +
-      '<rect x="88" y="62" width="26" height="14" rx="3" fill="#4A5675"/>' +
-      line('M46 72 L90 71', 4, INK) + line('M50 76 L100 80', 4, '#8A94AB') +
-      '<rect x="144" y="46" width="6" height="4" rx="1.5" fill="' + LAMP + '"/>');
+      // Swingarm, forks and clip-on bars.
+      line('M156 72 L130 46', 5, STEEL) + line('M46 72 L96 66', 5, '#8A94AB') +
+      line('M124 42 L138 45', 4, INK) +
+      // Full fairing, screen and raised tail.
+      '<path d="M112 34 Q136 34 150 50 Q156 58 152 66 L136 68 Q130 54 112 50 Z" fill="' + c + '"/>' +
+      '<path d="M118 32 Q130 28 137 34 Q128 36 122 40 Z" fill="' + GLASS + '"/>' +
+      '<path d="M86 46 Q104 38 118 48 L116 62 L86 62 Z" fill="' + dark + '"/>' +
+      '<path d="M44 40 Q66 36 84 46 L84 56 L50 58 Z" fill="' + c + '"/>' +
+      '<path d="M50 56 L92 52 L92 60 L54 62 Z" fill="' + SEAT + '"/>' +
+      '<path d="M90 60 Q106 60 114 66 L114 74 Q100 76 90 72 Z" fill="#4A5675"/>' +
+      // Underbelly exhaust and lights.
+      line('M96 74 L128 78', 5, '#9AA4BA') +
+      '<path d="M142 46 L150 52 L146 58 L139 53 Z" fill="' + LAMP + '"/>' +
+      '<rect x="42" y="38" width="7" height="4" rx="1.5" fill="' + TAIL + '"/>');
   }
   function scooter(c) {
     return wrap(wheel(48, 79, 12.5) + wheel(154, 79, 12.5) +
@@ -190,15 +197,27 @@
 
   // ---------- autos + tractor ----------
   function autoBase(c, cargo) {
+    const dark = shade(c, -40), roof = '#2B3346';
+    // Rear tray for the cargo version, bench + canopy for the passenger one.
     const rear = cargo
-      ? '<rect x="18" y="48" width="100" height="26" fill="#CFD8EA"/><rect x="18" y="42" width="100" height="7" rx="2" fill="' + c + '"/>'
-      : '<rect x="24" y="24" width="104" height="6" rx="3" fill="' + INK + '"/><rect x="28" y="28" width="94" height="46" rx="4" fill="' + c + '"/>' +
-        '<rect x="36" y="36" width="52" height="20" rx="3" fill="' + GLASS + '"/><rect x="94" y="36" width="22" height="20" rx="3" fill="' + GLASS + '"/>';
+      ? '<path d="M30 50 L116 50 L116 74 L30 74 Z" fill="#D7DEEC"/>' +
+        '<path d="M30 50 L116 50 L116 55 L30 55 Z" fill="' + dark + '"/>' +
+        line('M44 55 L44 74 M62 55 L62 74 M80 55 L80 74 M98 55 L98 74', 2, '#B9C3D6')
+      : '<path d="M36 36 Q36 26 50 26 L116 26 Q126 26 130 34 L130 40 L36 40 Z" fill="' + roof + '"/>' +
+        '<path d="M40 40 L126 40 L126 68 L40 68 Z" fill="' + dark + '" opacity=".22"/>' +
+        '<path d="M48 54 L112 54 L112 68 L48 68 Z" fill="' + SEAT + '"/>' +
+        line('M44 40 L44 68 M126 40 L126 62', 3, roof);
     return rear +
-      '<path d="M120 30 L140 34 L150 52 L120 52 Z" fill="' + GLASS + '"/><rect x="118" y="26" width="26" height="5" rx="2.5" fill="' + INK + '"/>' +
-      '<path d="M120 52 L150 52 Q166 54 168 68 L168 76 L120 76 Z" fill="' + c + '"/>' +
-      '<circle cx="161" cy="64" r="4" fill="' + LAMP + '"/><rect x="18" y="74" width="150" height="7" rx="2" fill="' + shade(c, -35) + '"/>' +
-      '<rect x="22" y="60" width="5" height="5" rx="1.5" fill="' + TAIL + '"/>' + wheel(56, 79, 13) + wheel(152, 80, 11.5);
+      // Nose, windscreen and driver area.
+      '<path d="M126 34 Q142 36 150 50 L152 62 Q153 72 146 76 L126 76 Z" fill="' + c + '"/>' +
+      '<path d="M130 38 Q142 40 147 52 L132 52 Z" fill="' + GLASS + '"/>' +
+      '<path d="M30 68 L150 68 L150 77 Q150 80 146 80 L34 80 Q30 80 30 77 Z" fill="' + c + '"/>' +
+      '<path d="M30 74 L150 74 L150 77 Q150 80 146 80 L34 80 Q30 80 30 77 Z" fill="' + dark + '"/>' +
+      '<circle cx="146" cy="62" r="5" fill="' + LAMP + '" stroke="' + STEEL + '" stroke-width="1.5"/>' +
+      '<rect x="30" y="58" width="5" height="6" rx="1.5" fill="' + TAIL + '"/>' +
+      line('M138 34 L134 26', 2.5, STEEL) +
+      // One wheel at the front, two at the back: that is what makes it an auto.
+      wheel(146, 82, 10) + wheel(74, 82, 13) + wheel(46, 82, 13);
   }
   function auto(c) { return wrap(autoBase(c, false)); }
   function cargoauto(c) { return wrap(autoBase(c, true)); }
