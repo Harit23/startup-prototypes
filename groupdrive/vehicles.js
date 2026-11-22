@@ -300,41 +300,47 @@
     'ashok leyland bada dost': 'img/ashok-leyland-bada-dost.jpg',
     'ashok leyland dost+': 'img/ashok-leyland-dost.jpg',
     // Cars
-    'maruti suzuki baleno': 'commons:2022 Maruti Suzuki Baleno Alpha (India) front view.jpg',
-    'maruti suzuki dzire': 'commons:Maruti Suzuki Dzire VXi VVT.JPG',
-    'maruti suzuki brezza': 'commons:2021 Maruti Suzuki Vitara Brezza VXI.jpg',
-    'hyundai creta': 'commons:2021 Hyundai Creta SX(O) CRDi (India) front view.jpg',
-    'tata nexon': 'commons:Tata Nexon Blue Dual Tone.jpg',
-    'maruti suzuki ertiga': 'commons:Maruti Suzuki Ertiga(1).jpg',
-    'maruti suzuki grand vitara': 'commons:2022 Maruti Suzuki Grand Vitara Zeta Smart Hybrid (India) front view.jpg',
-    'kia seltos': 'commons:Kia Seltos IMG 9152.jpg',
-    'kia sonet': 'commons:Kia Sonet IMG001.jpg',
-    'mahindra thar': 'commons:Mahindra Thar 2.5 CRDe 2011.jpg',
-    'mahindra xuv700': 'commons:2021 Mahindra XUV700 2.2 AX7 (India) front view.png',
-    'hyundai i20': 'commons:2021 Hyundai i20 N Line (BI3; India) front view.png',
-    'hyundai venue': 'commons:2020 Hyundai Venue Ultimate 2019-12-13 2.jpg',
-    'mercedes-benz c 200': 'commons:MERCEDES-BENZ C-CLASS LWB (W206) China (17).jpg',
-    'audi q3': 'commons:Audi Q3 F3 DSC 7496.jpg',
-    'ola electric s1 pro': 'commons:OLA S1 Pro Gen 1 Electric Scooter.jpg',
-    'tata ace': 'commons:Tata Ace mini-truck, Bangladesh. (43926311271).jpg',
     // Bikes
-    'hero splendor plus': 'commons:Hero Splendor+, Bangalore (2025).jpg',
-    'bajaj pulsar': 'commons:Red Bajaj Pulsar outside hotel in Goa.jpg',
-    'yamaha r15 v4': 'commons:Yamaha YZF-R15.jpg',
     // Scooters
-    'honda activa 6g': 'commons:Honda Activa 6G.jpg',
-    'bajaj chetak': 'commons:Bajaj Chetak electric scooters (2026) 01.jpg',
     // Three-wheelers
-    'bajaj re auto (cng)': 'commons:Auto-rickshaw Bajaj.jpg',
     // Tractors
-    'sonalika di 745': 'commons:Sonalika Tractor.jpg',
-    'swaraj 744 fe': 'commons:Swaraj 735.png',
     // Trucks
-    'ashok leyland ecomet 1615': 'commons:Ashok Leyland Truck (5478313829).jpg',
-    'eicher pro 2049': 'commons:Eicher Truck at Azadpur Vegetable Market.jpg',
-    'mahindra bolero pik-up': 'commons:Mahindra Bolero Double Cab Front.JPG',
     // Buses
-    'ashok leyland viking': 'commons:Ashok-Leyland Bus in Goa, India (17018817397).jpg',
+
+    /* Parked: user-taken road photos from Wikimedia. Next to the studio
+       shots they made the cards look like second-hand listings, so they are
+       out until a clean press photo replaces each one. Move a line back into
+       the map above to re-enable it.
+       'maruti suzuki baleno': 'commons:2022 Maruti Suzuki Baleno Alpha (India) front view.jpg'
+       'maruti suzuki dzire': 'commons:Maruti Suzuki Dzire VXi VVT.JPG'
+       'maruti suzuki brezza': 'commons:2021 Maruti Suzuki Vitara Brezza VXI.jpg'
+       'hyundai creta': 'commons:2021 Hyundai Creta SX(O) CRDi (India) front view.jpg'
+       'tata nexon': 'commons:Tata Nexon Blue Dual Tone.jpg'
+       'maruti suzuki ertiga': 'commons:Maruti Suzuki Ertiga(1).jpg'
+       'maruti suzuki grand vitara': 'commons:2022 Maruti Suzuki Grand Vitara Zeta Smart Hybrid (India) front view.jpg'
+       'kia seltos': 'commons:Kia Seltos IMG 9152.jpg'
+       'kia sonet': 'commons:Kia Sonet IMG001.jpg'
+       'mahindra thar': 'commons:Mahindra Thar 2.5 CRDe 2011.jpg'
+       'mahindra xuv700': 'commons:2021 Mahindra XUV700 2.2 AX7 (India) front view.png'
+       'hyundai i20': 'commons:2021 Hyundai i20 N Line (BI3; India) front view.png'
+       'hyundai venue': 'commons:2020 Hyundai Venue Ultimate 2019-12-13 2.jpg'
+       'mercedes-benz c 200': 'commons:MERCEDES-BENZ C-CLASS LWB (W206) China (17).jpg'
+       'audi q3': 'commons:Audi Q3 F3 DSC 7496.jpg'
+       'ola electric s1 pro': 'commons:OLA S1 Pro Gen 1 Electric Scooter.jpg'
+       'tata ace': 'commons:Tata Ace mini-truck, Bangladesh. (43926311271).jpg'
+       'hero splendor plus': 'commons:Hero Splendor+, Bangalore (2025).jpg'
+       'bajaj pulsar': 'commons:Red Bajaj Pulsar outside hotel in Goa.jpg'
+       'yamaha r15 v4': 'commons:Yamaha YZF-R15.jpg'
+       'honda activa 6g': 'commons:Honda Activa 6G.jpg'
+       'bajaj chetak': 'commons:Bajaj Chetak electric scooters (2026) 01.jpg'
+       'bajaj re auto (cng)': 'commons:Auto-rickshaw Bajaj.jpg'
+       'sonalika di 745': 'commons:Sonalika Tractor.jpg'
+       'swaraj 744 fe': 'commons:Swaraj 735.png'
+       'ashok leyland ecomet 1615': 'commons:Ashok Leyland Truck (5478313829).jpg'
+       'eicher pro 2049': 'commons:Eicher Truck at Azadpur Vegetable Market.jpg'
+       'mahindra bolero pik-up': 'commons:Mahindra Bolero Double Cab Front.JPG'
+       'ashok leyland viking': 'commons:Ashok-Leyland Bus in Goa, India (17018817397).jpg'
+    */
   };
 
   // "commons:<file name>" becomes a Special:FilePath URL, which is the stable
