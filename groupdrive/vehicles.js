@@ -271,6 +271,15 @@
     'bmw m340i': 'bmw.jpg',
     // --- Photos Harit supplied (local files, highest quality match) ---
     'audi a4': 'img/audi-a4.jpg',
+    'mercedes-benz c 200': 'img/mercedes-c200.jpg',
+    'audi q3': 'img/audi-q3.jpg',
+    'mahindra xuv700': 'img/mahindra-xuv700.jpg',
+    'hyundai creta': 'img/hyundai-creta.jpg',
+    'kia seltos': 'img/kia-seltos.jpg',
+    'tata nexon': 'img/tata-nexon.jpg',
+    'maruti suzuki baleno': 'img/maruti-baleno.jpg',
+    'maruti suzuki dzire': 'img/maruti-dzire.jpg',
+    'maruti suzuki brezza': 'img/maruti-brezza.jpg',
     'toyota fortuner': 'img/toyota-fortuner.jpg',
     'mahindra scorpio-n': 'img/mahindra-scorpio-n.jpg',
     'mahindra scorpio': 'img/mahindra-scorpio-n.jpg',
@@ -330,21 +339,12 @@
        shots they made the cards look like second-hand listings, so they are
        out until a clean press photo replaces each one. Move a line back into
        the map above to re-enable it.
-       'maruti suzuki baleno': 'commons:2022 Maruti Suzuki Baleno Alpha (India) front view.jpg'
-       'maruti suzuki dzire': 'commons:Maruti Suzuki Dzire VXi VVT.JPG'
-       'maruti suzuki brezza': 'commons:2021 Maruti Suzuki Vitara Brezza VXI.jpg'
-       'hyundai creta': 'commons:2021 Hyundai Creta SX(O) CRDi (India) front view.jpg'
-       'tata nexon': 'commons:Tata Nexon Blue Dual Tone.jpg'
        'maruti suzuki ertiga': 'commons:Maruti Suzuki Ertiga(1).jpg'
        'maruti suzuki grand vitara': 'commons:2022 Maruti Suzuki Grand Vitara Zeta Smart Hybrid (India) front view.jpg'
-       'kia seltos': 'commons:Kia Seltos IMG 9152.jpg'
        'kia sonet': 'commons:Kia Sonet IMG001.jpg'
        'mahindra thar': 'commons:Mahindra Thar 2.5 CRDe 2011.jpg'
-       'mahindra xuv700': 'commons:2021 Mahindra XUV700 2.2 AX7 (India) front view.png'
        'hyundai i20': 'commons:2021 Hyundai i20 N Line (BI3; India) front view.png'
        'hyundai venue': 'commons:2020 Hyundai Venue Ultimate 2019-12-13 2.jpg'
-       'mercedes-benz c 200': 'commons:MERCEDES-BENZ C-CLASS LWB (W206) China (17).jpg'
-       'audi q3': 'commons:Audi Q3 F3 DSC 7496.jpg'
        'ola electric s1 pro': 'commons:OLA S1 Pro Gen 1 Electric Scooter.jpg'
        'tata ace': 'commons:Tata Ace mini-truck, Bangladesh. (43926311271).jpg'
        'hero splendor plus': 'commons:Hero Splendor+, Bangalore (2025).jpg'
