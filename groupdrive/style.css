@@ -139,6 +139,7 @@ body.store { background:#eef2f9; }
 .tile { background:none; border:0; padding:0; text-align:left; cursor:pointer; font-family:inherit; color:var(--text); min-height:44px; }
 .tile .vpic { aspect-ratio:200/110; border-radius:8px; background:linear-gradient(180deg,#f3f7ff,#e3ecfb); overflow:hidden; border:1px solid transparent; }
 .tile:hover .vpic { border-color:var(--blue); }
+.tile .vpic img.photo { object-fit:cover; object-position:50% 50%; }
 .tile b { display:block; font-size:.88rem; margin-top:4px; min-height:2.4em; line-height:1.2; }
 .tile span.pr { font-size:.78rem; color:var(--mute); }
 .scard { display:flex; flex-direction:column; }

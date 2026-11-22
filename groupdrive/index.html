@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GroupDrive — Group buying for every vehicle</title>
-<link rel="stylesheet" href="style.css?v=19">
+<link rel="stylesheet" href="style.css?v=20">
 <script src="../vendor/supabase.js"></script>
 <script src="../vendor/config.js"></script>
-<script src="app.js?v=19"></script>
-<script src="vehicles.js?v=19"></script>
+<script src="app.js?v=20"></script>
+<script src="vehicles.js?v=20"></script>
 </head>
 <body class="store" id="top">
 <header class="st-top">
@@ -86,7 +86,7 @@
   // ---------- store cards ----------
   const CARDS = [
     { t: 'Cars for your family', tiles: [['hatchback', 'Hatchback'], ['sedan', 'Sedan'], ['suv', 'SUV'], ['ev', 'Electric']] },
-    { t: 'Bikes & scooters', tiles: [['commuter', 'Commuter'], ['cruiser', 'Cruiser'], ['sports', 'Sports'], ['escooter', 'Electric scooter']] },
+    { t: 'Bikes & scooters', tiles: [['sports', 'Sports'], ['cruiser', 'Cruiser'], ['scooter', 'Scooter'], ['escooter', 'Electric scooter']] },
     { t: 'Trucks for business', tiles: [['minitruck', 'Pickups & mini'], ['truck', 'Cargo trucks'], ['tipper', 'Tippers'], ['heavy', 'Heavy haul']] },
     { t: 'Buses for schools & fleets', tiles: [['schoolbus', 'School bus'], ['bus', 'Staff / intercity'], ['minibus', 'Minibus'], ['coach', 'Luxury coach']] },
     { t: 'Autos & tractors for work', tiles: [['auto', 'Auto-rickshaw'], ['eauto', 'Electric auto'], ['cargoauto', 'Cargo auto'], ['tractor', 'Tractors']] }
@@ -95,8 +95,15 @@
     $('cards').innerHTML = CARDS.map((c) => '<div class="scard"><h3>' + c.t + '</h3><div class="tiles">' + c.tiles.map(([k, label]) => {
       const list = vehicles.filter((v) => kindOf(v) === k);
       const from = list.length ? 'From ' + GD.short(Math.min(...list.map((v) => Number(v.price)))) : '&nbsp;';
+      // Show a real vehicle of this kind rather than the generic drawing: the
+      // cheapest one that has a photo, so the tile matches the "From" price.
+      const withPhoto = list.filter((v) => GDV.photoFor(v.brand, v.model))
+        .sort((a, b) => Number(a.price) - Number(b.price))[0];
+      const pic = withPhoto
+        ? GDV.picHtml(withPhoto.category, withPhoto.brand, withPhoto.model)
+        : GDV.svg(k, GDV.colorOf(GDV.CAT_OF_KIND[k]));
       return '<button class="tile" type="button" data-kind="' + k + '" data-label="' + esc(label) + '"><span class="vpic">' +
-        GDV.svg(k, GDV.colorOf(GDV.CAT_OF_KIND[k])) + '</span><b>' + label + '</b><span class="pr">' + from + '</span></button>';
+        pic + '</span><b>' + label + '</b><span class="pr">' + from + '</span></button>';
     }).join('') + '</div></div>').join('');
   }
   $('cards').addEventListener('click', (e) => {
