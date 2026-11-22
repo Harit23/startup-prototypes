@@ -288,7 +288,7 @@
   GDV.photoUrl = function (val) {
     if (!val) return null;
     return /^commons:/.test(val)
-      ? 'https://commons.wikimedia.org/wiki/Special:FilePath/' + encodeURIComponent(val.slice(8)) + '?width=640'
+      ? 'https://commons.wikimedia.org/wiki/Special:FilePath/' + encodeURIComponent(val.slice(8)) + '?width=400'
       : val;
   };
 
