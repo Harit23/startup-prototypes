@@ -211,3 +211,160 @@ body.store { background:#eef2f9; }
 .art-photo img { width:100%; height:100%; object-fit:contain; background:#fff;
   border-radius:16px; padding:14px; box-shadow:0 14px 36px rgba(0,0,0,.3); }
 @media (max-width:860px) { .slide .art.art-photo { width:58%; height:170px; right:-4%; bottom:24px; top:auto; transform:none; opacity:.9; } }
+
+/* ========================================================================
+   unslop pass — store page only (body.store)
+   unslop by Damir Sokolovsky (@heydamir), CC BY 4.0
+
+   Direction
+     Product    People buying the same vehicle in the same city pool into
+                one order, and dealers bid the price down.
+     Character  plain-spoken, exact, a bit street
+     World      the Indian dealership forecourt — showroom white, asphalt
+                grey, ledger ink, number-plate yellow
+     Moments    the vehicle photo on showroom white; the live bid ladder
+     Signature  a number-plate chip (yellow on black) marking live lots
+
+   The chrome is quiet ink and asphalt. The accent is ink itself, so the
+   vehicle photos are the only bright thing on the page. Plate yellow is
+   reserved for one job: marking a lot that is live.
+   ======================================================================== */
+body.store {
+  --ink:#1b1a18; --ink-2:#5a554d; --ink-3:#7c766c;
+  --page:#f5f4f1; --surface:#fff; --raised:#eceae6;
+  --hair:rgba(27,26,24,.10);
+  --plate:#f2c200; --plate-ink:#141310;
+  background:var(--page); color:var(--ink);
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:15px;
+  -webkit-font-smoothing:antialiased;
+}
+body.store .num { font-variant-numeric:tabular-nums; }
+
+/* 2. Colour — chrome goes quiet ------------------------------------------ */
+body.store .st-top { background:var(--ink); }
+body.store .st-logo { font-size:1.125rem; font-weight:500; letter-spacing:0; }
+body.store .st-logo b { font-weight:600; color:#fff; }
+body.store .st-city { background:none; border:1px solid rgba(255,255,255,.18); border-radius:8px;
+  font-weight:400; font-size:.875rem; color:#e9e7e3; padding:0 10px; min-height:36px; }
+body.store .st-nav { background:#262320; }
+body.store .st-nav a { font-weight:400; font-size:.875rem; color:#c9c5bd; min-height:40px; padding:0 12px; border-bottom:2px solid transparent; }
+body.store .st-nav a:hover { color:#fff; background:#302c28; border-bottom-color:transparent; }
+body.store .st-nav a.on { color:#fff; background:#302c28; border-bottom-color:var(--plate); }
+body.store .st-strap { background:#262320; color:#b8b3aa; font-weight:400; font-size:.8125rem;
+  padding:8px 12px; border-top:1px solid rgba(255,255,255,.07); }
+
+/* Search: one control, hairline, no accent fill */
+body.store .st-search { border-radius:8px; }
+body.store .st-search select { background:var(--raised); font-weight:400; font-size:.875rem; min-height:40px; border-right:1px solid var(--hair); }
+body.store .st-search input { min-height:40px; font-size:.9375rem; }
+body.store .st-search button { width:44px; background:var(--raised); color:var(--ink-2); border-left:1px solid var(--hair); }
+body.store .st-search button:hover { background:#e2dfd9; color:var(--ink); }
+body.store .st-search input:focus, body.store .st-search select:focus { box-shadow:inset 0 0 0 2px var(--ink); }
+
+/* Buttons: ink is the accent. Primary is a fill, everything else is quiet. */
+body.store .st-btn { min-height:36px; padding:0 14px; border-radius:8px; font-weight:500; font-size:.875rem;
+  border:1px solid rgba(255,255,255,.22); color:#fff; }
+body.store .st-btn:hover { background:rgba(255,255,255,.08); }
+body.store .st-btn.pri { background:#fff; border-color:#fff; color:var(--ink); }
+body.store .st-btn.pri:hover { background:#e9e7e3; }
+body.store .btn { min-height:44px; padding:0 18px; border-radius:8px; font-weight:500; font-size:.9375rem;
+  background:var(--ink); color:#fff; display:inline-flex; align-items:center; justify-content:center;
+  transition:background-color 140ms cubic-bezier(.22,1,.36,1); }
+body.store .btn:hover { background:#000; }
+body.store .btn.quiet { background:var(--raised); color:var(--ink); border:1px solid var(--hair); }
+body.store .btn.quiet:hover { background:#e2dfd9; }
+
+/* Status: quiet mono meta, not a glowing pill */
+body.store .badge { background:none; border:1px solid rgba(255,255,255,.18); border-radius:6px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.75rem; font-weight:400;
+  padding:5px 8px; letter-spacing:0; }
+body.store .badge.live { color:#cfe9d6; } body.store .badge.offline { color:#e8d9bd; }
+
+/* 1 & 6. Hero — flat asphalt, the photo is the only bright thing --------- */
+body.store .hero-c { height:380px; background:var(--ink); }
+body.store .slide { background:#1f1d1a; }
+body.store .slide .shade { background:linear-gradient(90deg,rgba(20,19,16,.92) 0%,rgba(20,19,16,.62) 44%,rgba(20,19,16,0) 78%); }
+body.store .slide .kick { font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.75rem;
+  letter-spacing:.04em; text-transform:none; color:var(--plate); font-weight:400; }
+body.store .slide h2 { font-size:2.5rem; font-weight:500; letter-spacing:-.02em; line-height:1.06; margin:12px 0 8px; }
+body.store .slide p { font-size:1.0625rem; color:#c9c5bd; margin:0 0 20px; }
+body.store .slide .fine { font-size:.75rem; color:#8d8880; margin-top:12px; }
+body.store .slide .txt { padding-bottom:88px; }
+body.store .hero-nav { background:rgba(20,19,16,.55); border-radius:0; width:40px; height:56px; }
+body.store .hero-nav:hover { background:rgba(20,19,16,.85); }
+body.store .dots button::after { background:rgba(255,255,255,.35); }
+body.store .dots button.on::after { background:#fff; }
+body.store .art-photo img { border-radius:12px; box-shadow:0 12px 32px rgba(0,0,0,.35); }
+
+/* 7. Cards and tiles ------------------------------------------------------ */
+body.store .scard { border-radius:12px; padding:16px; border:1px solid var(--hair); box-shadow:0 1px 2px rgba(0,0,0,.04); }
+body.store .scard h3 { font-size:.9375rem; font-weight:500; color:var(--ink); min-height:2.6em; }
+body.store .tile .vpic { background:var(--surface); border:1px solid var(--hair); border-radius:8px; }
+body.store .tile:hover .vpic { border-color:var(--ink-3); }
+body.store .tile b { font-weight:400; font-size:.8125rem; color:var(--ink); }
+body.store .tile span.pr { font-size:.75rem; color:var(--ink-3); font-variant-numeric:tabular-nums; }
+body.store .panel { border-radius:12px; border:1px solid var(--hair); box-shadow:none; }
+body.store .sec h2 { font-size:1.25rem; font-weight:500; color:var(--ink); letter-spacing:-.01em; }
+
+/* Signature: the number plate marks a live lot, and nothing else */
+body.store .deal { border-radius:12px; border:1px solid var(--hair); box-shadow:0 1px 2px rgba(0,0,0,.04); }
+body.store .deal .vpic { background:var(--surface); border-bottom:1px solid var(--hair); }
+body.store .deal .livebadge { background:var(--plate); color:var(--plate-ink); border-radius:4px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-weight:500; font-size:.6875rem;
+  letter-spacing:.06em; padding:3px 7px; box-shadow:inset 0 0 0 2px rgba(20,19,16,.85); }
+body.store .deal .nm { font-weight:500; color:var(--ink); }
+body.store .deal .low { font-size:1.25rem; font-weight:500; color:var(--ink); font-variant-numeric:tabular-nums; }
+body.store .deal .meta { color:var(--ink-3); font-size:.8125rem; }
+
+/* Vehicle cards: equal height, one quiet action, the photo leads */
+body.store .vcard { border-radius:12px; border:1px solid var(--hair); box-shadow:0 1px 2px rgba(0,0,0,.04);
+  display:flex; flex-direction:column; }
+body.store .vcard .vpic { background:var(--surface); border-bottom:1px solid var(--hair); }
+body.store .vcard .br { font-size:.75rem; font-weight:400; letter-spacing:0; text-transform:none; color:var(--ink-3); }
+body.store .vcard .md { font-size:.9375rem; font-weight:500; color:var(--ink); min-height:2.5em; }
+body.store .vcard .pr { font-size:1.0625rem; font-weight:500; color:var(--ink); font-variant-numeric:tabular-nums; }
+body.store .vcard .sv { color:var(--ink-2); font-size:.8125rem; }
+body.store .vcard .btn { margin-top:auto; background:var(--raised); color:var(--ink); border:1px solid var(--hair);
+  min-height:40px; font-size:.875rem; }
+body.store .vcard .btn:hover { background:#e2dfd9; }
+body.store .vcat h3 { font-size:1.0625rem; font-weight:500; color:var(--ink); }
+body.store .vcat h3 .n { background:var(--raised); color:var(--ink-3);
+  font-family:"IBM Plex Mono",ui-monospace,monospace; font-weight:400; }
+
+/* 9. Motion: one curve, feedback only */
+body.store .tile, body.store .st-nav a, body.store .st-btn { transition:background-color 140ms cubic-bezier(.22,1,.36,1), border-color 140ms cubic-bezier(.22,1,.36,1); }
+body.store .btn:active { transform:scale(.98); }
+body.store :focus-visible { outline:2px solid var(--ink); outline-offset:2px; }
+
+/* A vehicle with no photo yet keeps the drawing, but muted: a bright
+   illustration beside real photography reads as the loudest thing on the
+   page, which is exactly what this pass is removing. */
+body.store .vcard .vpic svg, body.store .tile .vpic svg, body.store .deal .vpic svg {
+  filter:grayscale(1); opacity:.42;
+}
+body.store .vcard .sv { font-size:.8125rem; color:var(--ink-2); }
+
+/* Small screens: the hero stacks in reading order and the arrows go away,
+   since they sat on top of the button and the swipe already does the job. */
+@media (max-width:720px) {
+  body.store .st-row1 { gap:8px; padding:8px 0; }
+  body.store .st-right { margin-left:0; width:100%; order:3; }
+  body.store .st-right { flex-wrap:wrap; justify-content:flex-end; min-width:0; padding-right:0; }
+  body.store .st-row1 { padding-right:2px; }
+  body.store .st-btn { max-width:46vw; }
+  body.store .st-right .badge { margin-right:auto; flex:0 1 auto; min-width:0; }
+  body.store .st-btn { flex:0 0 auto; }
+  body.store .st-search { order:4; flex:1 1 100%; }
+  body.store .hero-c { height:auto; min-height:300px; }
+  body.store .slide { position:relative; display:block; padding:20px 0 28px; }
+  body.store .slide:not(.on) { position:absolute; }
+  body.store .slide h2 { font-size:1.75rem; }
+  body.store .slide p { font-size:.9375rem; margin-bottom:16px; }
+  body.store .slide .txt { margin-left:0; padding:0 16px 44px; max-width:none; }
+  body.store .slide .fine { position:static; }
+  body.store .hero-nav { display:none; }
+  body.store .dots { bottom:12px; }
+  body.store .slide .art.art-photo { position:static; width:auto; height:150px; margin:0 16px 12px; }
+  body.store .cards4 { margin-top:16px; }
+}

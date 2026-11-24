@@ -4,21 +4,24 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GroupDrive — Group buying for every vehicle</title>
-<link rel="stylesheet" href="style.css?v=21">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css?v=22">
 <script src="../vendor/supabase.js"></script>
 <script src="../vendor/config.js"></script>
-<script src="app.js?v=21"></script>
-<script src="vehicles.js?v=21"></script>
+<script src="app.js?v=22"></script>
+<script src="vehicles.js?v=22"></script>
 </head>
 <body class="store" id="top">
 <header class="st-top">
   <div class="wrap st-row1">
     <a class="st-logo" href="index.html">Group<b>Drive</b></a>
-    <span class="st-city" title="City">📍 Ahmedabad</span>
+    <span class="st-city" title="City"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Ahmedabad</span>
     <form class="st-search" id="searchForm" role="search">
       <select id="qCat" aria-label="Category"><option value="">All</option></select>
-      <input id="qText" type="search" placeholder="Search brand or model, e.g. Creta, Splendor, tractor" autocomplete="off" aria-label="Search vehicles">
-      <button type="submit" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 L21 21"/></svg></button>
+      <input id="qText" type="search" placeholder="Search" autocomplete="off" aria-label="Search vehicles">
+      <button type="submit" aria-label="Search"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 L21 21"/></svg></button>
     </form>
     <div class="st-right">
       <span id="modeBadge" class="badge"></span>
@@ -32,7 +35,7 @@
     <a href="#vehicles" data-cats="Bus">Buses</a><a href="#vehicles" data-cats="Truck,Bus,Three-wheeler,Tractor" data-label="Fleet deals">Fleet deals</a><a href="#how">How it works</a>
   </div></nav>
 </header>
-<div class="st-strap">Group buying for every vehicle — cars, bikes, scooters, autos, tractors, trucks and buses.</div>
+<div class="st-strap">Ten buyers, one order, dealers bidding the price down</div>
 
 <section class="hero-c" id="hero" aria-roledescription="carousel" aria-label="Featured group deals">
   <div id="slides"></div>
@@ -151,9 +154,10 @@
   function vCard(v) {
     return '<div class="vcard" data-vid="' + esc(v.id) + '"><span class="vpic">' + GDV.picHtml(v.category, v.brand, v.model) + '</span><div class="bd">' +
       '<span class="br">' + esc(v.brand) + '</span><span class="md">' + esc(v.model) + '</span>' +
-      '<span class="pr">' + GD.fmt(v.price) + ' <small>(' + GD.short(v.price) + ')</small></span>' +
+      '<span class="pr num">' + GD.fmt(v.price) + '</span>' +
       '<span class="small muted">Ex-showroom</span>' +
-      '<span class="sv">Group of 10 · est. saving ' + GD.short(saving(v)) + '</span>' +
+      '<span class="sv">Saves ' + GD.short(saving(v)) + ' each</span>' +
+      '<span class="small muted">Group of 10</span>' +
       '<a class="btn" href="' + adminHref(v) + '">Start group deal</a></div></div>';
   }
   function renderGrid() {
@@ -193,7 +197,7 @@
     const html = '<div class="deals">' + live.map((a) => {
       const act = GD.ranked(bids.filter((b) => b.auction_id === a.id));
       const low = act.length ? GD.fmt(act[0].amount) : '—';
-      return '<div class="deal" data-aid="' + esc(a.id) + '"><span class="vpic">' + GDV.picHtml(a.category, a.brand, a.model) + '<span class="livebadge">● LIVE</span></span>' +
+      return '<div class="deal" data-aid="' + esc(a.id) + '"><span class="vpic">' + GDV.picHtml(a.category, a.brand, a.model) + '<span class="livebadge">LIVE</span></span>' +
         '<div class="bd"><span class="nm">' + esc(a.brand + ' ' + a.model) + '</span>' +
         '<span class="small muted">' + esc(a.city) + ' · Group of ' + a.group_size + '</span>' +
         '<span class="small muted">' + (act.length ? 'Current lowest bid' : 'No bids yet · base ' + GD.fmt(a.base_price)) + '</span><span class="low">' + low + '</span>' +

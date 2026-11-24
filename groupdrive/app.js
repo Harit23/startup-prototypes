@@ -193,7 +193,7 @@ V('Bike','Royal Enfield','Classic 350',200000), V('Bike','Royal Enfield','Himala
     const el = document.getElementById('modeBadge');
     if (!el) return;
     el.className = 'badge ' + (GD.mode === 'live' ? 'live' : 'offline');
-    el.textContent = GD.mode === 'live' ? '● Live database' : '● Offline demo mode';
+    el.textContent = GD.mode === 'live' ? 'Live database' : 'Offline demo';
   };
 
   // Public API (delegates to chosen backend)
