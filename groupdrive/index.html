@@ -7,11 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="style.css?v=25">
+<link rel="stylesheet" href="style.css?v=26">
 <script src="../vendor/supabase.js"></script>
 <script src="../vendor/config.js"></script>
-<script src="app.js?v=25"></script>
-<script src="vehicles.js?v=25"></script>
+<script src="app.js?v=26"></script>
+<script src="vehicles.js?v=26"></script>
 </head>
 <body class="store" id="top">
 <header class="st-top">
@@ -264,6 +264,29 @@
     fillCats(); renderCards(); renderGrid(); slideLinks();
     await refresh(); GD.subscribe(refresh);
   });
+})();
+</script>
+<button id="toTop" type="button" aria-label="Back to top">↑</button>
+<script>
+/* motion polish: scroll state, back-to-top, scroll reveal (skipped for reduced motion) */
+(function () {
+  var body = document.body, top = document.getElementById('toTop');
+  function onScroll() { var y = window.scrollY; body.classList.toggle('scrolled', y > 8); top.classList.toggle('show', y > 700); }
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  top.onclick = function () { window.scrollTo({ top: 0, behavior: 'smooth' }); };
+  if (!('IntersectionObserver' in window) || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+  var SEL = '.scard, .vcard, .deal, .hs, .sec, .vcat > h3, .panel';
+  function tag(root) {
+    root.querySelectorAll(SEL).forEach(function (el, i) {
+      if (el.classList.contains('rv')) return;
+      el.classList.add('rv'); el.style.transitionDelay = Math.min(i % 6, 5) * 55 + 'ms'; io.observe(el);
+    });
+  }
+  var main = document.querySelector('main'); tag(main);
+  new MutationObserver(function () { tag(main); }).observe(main, { childList: true, subtree: true });
 })();
 </script>
 </body>

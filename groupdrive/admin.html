@@ -7,34 +7,58 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="style.css?v=25">
+<link rel="stylesheet" href="style.css?v=26">
 <script src="../vendor/supabase.js"></script>
 <script src="../vendor/config.js"></script>
-<script src="app.js?v=25"></script>
-<script src="vehicles.js?v=25"></script>
+<script src="app.js?v=26"></script>
+<script src="vehicles.js?v=26"></script>
 </head>
 <body class="store app">
 <header class="st-top"><div class="wrap st-row1"><a class="st-logo" href="index.html">Group<b>Drive</b></a><span class="app-role">Admin</span><div class="st-right"><span id="modeBadge" class="badge"></span><a class="st-btn" href="index.html">Store</a><a class="st-btn" href="dealer.html">Dealer view</a></div></div></header>
 <main>
-  <div class="card">
-    <h2 style="margin-top:0">Start a new group deal</h2>
-    <form id="newForm">
-      <div class="grid">
-        <div><label for="fCat">Category</label><select id="fCat"></select></div>
-        <div><label for="fBrand">Brand</label><select id="fBrand"></select></div>
-        <div><label for="fModel">Model</label><select id="fModel"></select></div>
-        <div><label for="fPrice">Base price (ex-showroom, ₹)</label><input id="fPrice" type="number" min="1" inputmode="numeric"><div class="small muted" id="fPriceHint"></div></div>
-        <div><label for="fSize">Group size (buyers)</label><input id="fSize" type="number" min="1" value="10" inputmode="numeric"></div>
-        <div><label for="fCity">City</label><select id="fCity"></select></div>
-        <div><label for="fTerms">Payment terms</label><select id="fTerms">
-          <option>Full payment on delivery</option><option>10% token + balance on delivery</option><option>Bank loan</option><option>EMI via partner</option></select></div>
-        <div><label for="fDur">Auction duration</label><select id="fDur">
-          <option value="2">2 minutes</option><option value="5" selected>5 minutes</option><option value="10">10 minutes</option><option value="0">No timer</option></select></div>
+  <section class="card dn-card" aria-labelledby="dnTitle">
+    <div class="dn-head"><h2 id="dnTitle">Start a new group deal</h2><p class="muted small">Pick a vehicle, set the group, start the clock.</p></div>
+    <form id="newForm" class="dn">
+      <aside class="dn-pv" aria-label="Deal preview">
+        <div class="vprev" id="fPic" aria-label="Selected vehicle picture"></div>
+        <div class="dn-name"><span class="br" id="pvBrand"></span><b id="pvModel"></b></div>
+        <dl class="dn-sum">
+          <div><dt>Base price</dt><dd id="sumBase">—</dd></div>
+          <div><dt>Max discount</dt><dd id="sumMax">—</dd></div>
+          <div><dt>Lowest allowed bid</dt><dd id="sumFloor">—</dd></div>
+          <div class="hl"><dt>Group saves up to</dt><dd id="sumSave">—</dd></div>
+        </dl>
+      </aside>
+      <div class="dn-main">
+        <fieldset><legend><span class="n">1</span>Vehicle</legend>
+          <div class="dn-grid g3">
+            <div><label for="fCat">Category</label><select id="fCat"></select></div>
+            <div><label for="fBrand">Brand</label><select id="fBrand"></select></div>
+            <div><label for="fModel">Model</label><select id="fModel"></select></div>
+          </div>
+        </fieldset>
+        <fieldset><legend><span class="n">2</span>Group</legend>
+          <div class="dn-grid g3">
+            <div><label for="fPrice">Base price (ex-showroom, ₹)</label><input id="fPrice" type="number" min="1" inputmode="numeric"><div class="small muted" id="fPriceHint"></div></div>
+            <div><label for="fSize">Group size (buyers)</label><input id="fSize" type="number" min="1" value="10" inputmode="numeric"></div>
+            <div><label for="fCity">City</label><select id="fCity"></select></div>
+          </div>
+        </fieldset>
+        <fieldset><legend><span class="n">3</span>Terms &amp; timer</legend>
+          <div class="dn-grid g2">
+            <div><label for="fTerms">Payment terms</label><select id="fTerms">
+              <option>Full payment on delivery</option><option>10% token + balance on delivery</option><option>Bank loan</option><option>EMI via partner</option></select></div>
+            <div><span class="lbl" id="durLbl">Auction duration</span>
+              <div class="seg" id="segDur" role="group" aria-labelledby="durLbl">
+                <button type="button" data-v="2">2 min</button><button type="button" data-v="5" class="on">5 min</button><button type="button" data-v="10">10 min</button><button type="button" data-v="0">No timer</button>
+              </div>
+              <select id="fDur" hidden><option value="2">2 minutes</option><option value="5" selected>5 minutes</option><option value="10">10 minutes</option><option value="0">No timer</option></select></div>
+          </div>
+        </fieldset>
+        <button class="btn dn-go" type="submit">Start live bidding</button>
       </div>
-      <div class="vprev" id="fPic" aria-label="Selected vehicle picture"></div>
-      <p><button class="btn" type="submit">Start live bidding</button></p>
     </form>
-  </div>
+  </section>
 
   <h2>Live auctions</h2>
   <div id="live"></div>
@@ -78,8 +102,24 @@
   function fillPrice() {
     const v = vehicles.find((x) => x.category === $('fCat').value && x.brand === $('fBrand').value && x.model === $('fModel').value);
     $('fPic').innerHTML = GDV.pic({ category: $('fCat').value, brand: $('fBrand').value, model: $('fModel').value });
-    if (v) { $('fPrice').value = Math.round(v.price); $('fPriceHint').textContent = 'Ex-showroom: ' + fmt(v.price) + ' (' + GD.short(v.price) + ') · max discount ' + GD.short(GD.maxDiscount(v.price)); }
+    $('pvBrand').textContent = $('fBrand').value; $('pvModel').textContent = $('fModel').value;
+    if (v) { $('fPrice').value = Math.round(v.price); $('fPriceHint').textContent = 'Ex-showroom: ' + fmt(v.price) + ' (' + GD.short(v.price) + ')'; }
+    updSum();
   }
+  function updSum() {
+    const p = Number($('fPrice').value) || 0, n = parseInt($('fSize').value, 10) || 0;
+    const mx = p ? GD.maxDiscount(p) : 0;
+    $('sumBase').textContent = p ? GD.short(p) : '—';
+    $('sumMax').textContent = p ? GD.short(mx) : '—';
+    $('sumFloor').textContent = p ? GD.short(GD.minBid(p)) : '—';
+    $('sumSave').textContent = p && n ? GD.short(mx * n) : '—';
+  }
+  $('fPrice').oninput = updSum; $('fSize').oninput = updSum;
+  $('segDur').addEventListener('click', (e) => {
+    const b = e.target.closest('button[data-v]'); if (!b) return;
+    $('fDur').value = b.dataset.v;
+    $('segDur').querySelectorAll('button').forEach((x) => x.classList.toggle('on', x === b));
+  });
   $('fCat').onchange = fillBrands; $('fBrand').onchange = fillModels; $('fModel').onchange = fillPrice;
 
   $('newForm').onsubmit = async (e) => {
