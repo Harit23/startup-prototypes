@@ -18,7 +18,7 @@
     V('Bike','Bajaj','Pulsar RS200',185000), V('Bike','TVS','Apache RR 310',275000), V('Bike','Suzuki','Gixxer SF 250',200000),
     V('Bike','Kawasaki','Ninja 300',343000), V('Bike','Kawasaki','Ninja 650',727000), V('Bike','Honda','CBR 650R',960000),
     V('Bike','Royal Enfield','Continental GT 650',350000), V('Bike','Triumph','Speed 400',240000), V('Bike','Yamaha','MT-15 V2',170000),
-V('Bike','Royal Enfield','Classic 350',200000), V('Bike','Royal Enfield','Himalayan 450',290000),
+V('Bike','Royal Enfield','Classic 350',200000), V('Bike','Royal Enfield','Guerrilla 450',239000), V('Bike','Royal Enfield','Himalayan 450',290000),
     V('Bike','KTM','390 Duke',320000), V('Bike','Bajaj','Pulsar NS200',150000),
     V('Bike','TVS','Apache RTR 160 4V',125000), V('Scooter','Honda','Activa 6G',90000), V('Scooter','Ola Electric','S1 Pro',135000),
     V('Truck','Ashok Leyland','Dost+',800000), V('Truck','Ashok Leyland','Ecomet 1615',2800000),
