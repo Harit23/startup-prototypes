@@ -60,6 +60,8 @@ V('Bike','Royal Enfield','Classic 350',200000), V('Bike','Royal Enfield','Guerri
   // and never by more than 20% of the ticket value (so cheaper vehicles stay sensible).
   GD.MAX_DISCOUNT = 1000000; GD.MAX_DISCOUNT_PCT = 0.20;
   GD.maxDiscount = (base) => Math.min(GD.MAX_DISCOUNT, Math.round(Number(base) * GD.MAX_DISCOUNT_PCT));
+  // Booking fee per buyer, tiered by ticket value (Rs 5,000 to Rs 20,000)
+  GD.bookingFee = (price) => { const p = Number(price); return p < 1000000 ? 5000 : p < 3000000 ? 10000 : p < 7000000 ? 15000 : 20000; };
   GD.minBid = (base) => Math.max(1, Number(base) - GD.maxDiscount(base));
   GD.esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) =>
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));

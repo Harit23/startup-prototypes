@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="style.css?v=35">
 <script src="../vendor/supabase.js"></script>
 <script src="../vendor/config.js"></script>
-<script src="app.js?v=35"></script>
+<script src="app.js?v=36"></script>
 <script src="vehicles.js?v=35"></script>
 </head>
 <body class="store app">
@@ -199,11 +199,11 @@
     if (a.status === 'cancelled') return '<div class="card">' + head + '<p class="muted">Cancelled</p>' + rbtn + '</div>';
     if (a.winner_amount == null) return '<div class="card">' + head + '<p class="muted">Closed with no bids</p>' + rbtn + '</div>';
     const w = Number(a.winner_amount), saving = Number(a.base_price) - w;
-    const fee = w * 0.08 * 0.05;
+    const fee = GD.bookingFee(a.base_price) * a.group_size, perBuyer = GD.bookingFee(a.base_price);
     const place = (b, n) => b ? '<div class="small">' + n + ': ' + esc(b.dealer_label) + ' — ' + fmt(b.amount) + '</div>' : '';
     return '<div class="card">' + head + '<div class="winner-box"><b>Winner: ' + esc(a.winner_label) + ' at ' + both(w) + '</b>' +
       '<div>Saving per vehicle ' + fmt(saving) + ' · Total for group ' + fmt(saving * a.group_size) + '</div>' +
-      '<div class="small muted">Our fee: 5% of dealer margin (assume 8% margin) = ' + fmt(fee) + ' per vehicle</div></div>' +
+      '<div class="small muted">Our booking fee: ' + fmt(perBuyer) + ' per buyer × ' + a.group_size + ' = ' + fmt(fee) + ' for this deal</div></div>' +
       '<div style="margin-top:8px">' + place(act[1], '2nd') + place(act[2], '3rd') + '</div>' + rbtn + '</div>';
   }
 
