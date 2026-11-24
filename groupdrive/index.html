@@ -7,11 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="style.css?v=30">
+<link rel="stylesheet" href="style.css?v=31">
 <script src="../vendor/supabase.js"></script>
 <script src="../vendor/config.js"></script>
-<script src="app.js?v=30"></script>
-<script src="vehicles.js?v=30"></script>
+<script src="app.js?v=31"></script>
+<script src="vehicles.js?v=31"></script>
 </head>
 <body class="store" id="top">
 <header class="st-top">
@@ -218,12 +218,12 @@
     { photo: 'img/hero-gt650.jpg', side: true, pos: '50% 50%', kick: 'Bikes', h: 'Royal Enfield Continental GT 650', p: 'Join a group of 20 riders', find: ['Royal Enfield', 'Continental GT 650'] },
     { photo: 'img/hero-truck.jpg', side: true, pos: '50% 50%', kick: 'Fleet deal', h: 'Trucks for transport operators', p: 'Group pricing on a fleet order', find: ['Mahindra', 'Blazo X 28'] },
     { photo: 'img/hero-bus.jpg', side: true, pos: '95% 55%', kick: 'Buses', h: 'School & staff buses', p: 'Group buying for operators', find: ['Tata Motors', 'Starbus'] },
-    { photo: 'img/hero-auto.jpg', side: true, pos: '50% 62%', kick: 'Tractors & autos', h: 'Tractors & autos for work', p: 'Farmers and auto owners buy together and pay less', find: ['Mahindra', '575 DI'] }
+    { photo: 'img/hero-tractor.jpg', side: true, tight: true, pos: '50% 62%', kick: 'Tractors & autos', h: 'Tractors & autos for work', p: 'Farmers and auto owners buy together and pay less', find: ['Mahindra', '575 DI'] }
   ];
   let cur = 0, timer = null, paused = false;
   $('slides').innerHTML = SLIDES.map((s, i) => '<div class="slide' + (i === 0 ? ' on' : '') + '" data-i="' + i + '">' +
     (s.photo
-      ? '<img class="bgimg' + (s.side ? ' side' : '') + '"' + (s.pos ? ' style="object-position:' + s.pos + '"' : '') + ' src="' + s.photo + '" alt="' + s.h + '"><div class="shade"></div>'
+      ? '<img class="bgimg' + (s.side ? ' side' : '') + (s.tight ? ' tight' : '') + '"' + (s.pos ? ' style="object-position:' + s.pos + '"' : '') + ' src="' + s.photo + '" alt="' + s.h + '"><div class="shade"></div>'
       // Press shots are cut out on white, so they sit in a light panel rather
       // than floating on the dark hero. No photo yet, and the drawing shows.
       : (GDV.photoFor(s.find[0], s.find[1])
