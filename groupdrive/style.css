@@ -205,3 +205,9 @@ body.store { background:#eef2f9; }
 @media (max-width:420px) { .cards4 { grid-template-columns:1fr; } }
 
 .bookline { margin:6px 0 2px; padding:6px 8px; border-radius:4px; background:#EAF1FF; color:#1E2A4A; font-size:.8rem; font-weight:600; }
+
+.slide .art.art-photo { width:min(42%,430px); height:260px; right:6%; display:flex; align-items:center; justify-content:center; }
+.art-photo .vpic { display:block; width:100%; height:100%; }
+.art-photo img { width:100%; height:100%; object-fit:contain; background:#fff;
+  border-radius:16px; padding:14px; box-shadow:0 14px 36px rgba(0,0,0,.3); }
+@media (max-width:860px) { .slide .art.art-photo { width:58%; height:170px; right:-4%; bottom:24px; top:auto; transform:none; opacity:.9; } }

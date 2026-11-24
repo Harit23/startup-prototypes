@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GroupDrive — Group buying for every vehicle</title>
-<link rel="stylesheet" href="style.css?v=20">
+<link rel="stylesheet" href="style.css?v=21">
 <script src="../vendor/supabase.js"></script>
 <script src="../vendor/config.js"></script>
-<script src="app.js?v=20"></script>
-<script src="vehicles.js?v=20"></script>
+<script src="app.js?v=21"></script>
+<script src="vehicles.js?v=21"></script>
 </head>
 <body class="store" id="top">
 <header class="st-top">
@@ -213,12 +213,18 @@
     { photo: 'bmw.jpg', kick: 'Cars', h: 'BMW M340i group deal', p: '10 buyers · Save up to ₹3 lakh each*', find: ['BMW', 'M340i xDrive'] },
     { kind: 'cruiser', cat: 'Bike', kick: 'Bikes', h: 'Royal Enfield Classic 350', p: 'Join a group of 20 riders', find: ['Royal Enfield', 'Classic 350'] },
     { kind: 'truck', cat: 'Truck', kick: 'Fleet deal', h: 'Ashok Leyland trucks for transporters', p: 'Fleet deal: group pricing for transport operators', find: ['Ashok Leyland', 'Ecomet 1615'] },
-    { kind: 'schoolbus', cat: 'Bus', kick: 'Buses', h: 'School & staff buses', p: 'Group buying for operators', find: ['Ashok Leyland', 'Viking'] },
+    { kind: 'schoolbus', cat: 'Bus', kick: 'Buses', h: 'School & staff buses', p: 'Group buying for operators', find: ['Tata Motors', 'Starbus'] },
     { kind: 'tractor', cat: 'Tractor', kick: 'Tractors & autos', h: 'Tractors & autos for work', p: 'Farmers and auto owners buy together and pay less', find: ['Mahindra', '575 DI'] }
   ];
   let cur = 0, timer = null, paused = false;
   $('slides').innerHTML = SLIDES.map((s, i) => '<div class="slide' + (i === 0 ? ' on' : '') + '" data-i="' + i + '">' +
-    (s.photo ? '<img class="bgimg" src="' + s.photo + '" alt="BMW M340i"><div class="shade"></div>' : '<div class="art">' + GDV.svg(s.kind, GDV.colorOf(s.cat)) + '</div>') +
+    (s.photo
+      ? '<img class="bgimg" src="' + s.photo + '" alt="BMW M340i"><div class="shade"></div>'
+      // Press shots are cut out on white, so they sit in a light panel rather
+      // than floating on the dark hero. No photo yet, and the drawing shows.
+      : (GDV.photoFor(s.find[0], s.find[1])
+          ? '<div class="art art-photo">' + GDV.picHtml('', s.find[0], s.find[1]) + '</div>'
+          : '<div class="art">' + GDV.svg(s.kind, GDV.colorOf(s.cat)) + '</div>')) +
     '<div class="txt"><div class="kick">' + s.kick + '</div><h2>' + s.h + '</h2><p>' + s.p + '</p>' +
     '<a class="btn" href="admin.html" data-slide-cta="' + i + '">Start this deal (Admin)</a>' +
     (s.photo ? '<div class="fine">*Illustrative estimate; the final price is set by live dealer bidding.</div>' : '') + '</div></div>').join('');
