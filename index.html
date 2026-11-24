@@ -4,51 +4,86 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Harit's Startup Prototypes · IIM Bangalore</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
+  :root{--ink:#141b2d;--ink2:#4e586e;--ink3:#737d93;--page:#f4f6fa;--hair:rgba(20,27,45,.10);--navy:#17224a;--acc:#2F6FED;--acc-d:#2458D6;--acc-soft:#e8f0fe;--green:#1f7a45;--green-soft:#e3f4ea}
   *{box-sizing:border-box}
-  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:#F5F7FB;color:#1E2A4A}
-  .wrap{max-width:960px;margin:0 auto;padding:32px 20px 48px}
-  h1{font-size:clamp(28px,5vw,40px);margin:0 0 6px}
-  .sub{color:#64748B;margin:0 0 28px}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
-  .card{background:#fff;border:1px solid #DCE3EE;border-radius:16px;padding:22px;box-shadow:0 4px 14px rgba(0,0,0,.05)}
-  .tag{display:inline-block;font-size:12px;font-weight:600;letter-spacing:.06em;color:#2F6FED;background:#E8F0FE;padding:4px 10px;border-radius:99px}
-  .card h2{margin:12px 0 6px;font-size:24px}
-  .card p{color:#475569;line-height:1.5;margin:0 0 16px}
-  .btns{display:flex;flex-wrap:wrap;gap:10px}
-  a.btn{flex:1 1 140px;text-align:center;text-decoration:none;font-weight:600;padding:14px;border-radius:12px;border:2px solid #2F6FED;color:#2F6FED}
-  a.btn.main{background:#2F6FED;color:#fff}
-  .green .tag{color:#15803D;background:#DCFCE7}
-  .green a.btn{border-color:#15803D;color:#15803D}.green a.btn.main{background:#15803D;color:#fff}
-  footer{margin-top:28px;color:#94A3B8;font-size:13px}
+  body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--page);color:var(--ink);line-height:1.5}
+  header{background:radial-gradient(120% 140% at 20% 0%,#2a4aa8 0%,var(--navy) 55%,#101838 100%);color:#fff}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+  .top{display:flex;align-items:center;gap:10px;padding:18px 0}
+  .logo{font-weight:600;letter-spacing:-.01em}
+  .pill{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#9fb8f5;border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:3px 8px}
+  .hero{padding:26px 0 96px}
+  h1{font-size:clamp(1.9rem,4.4vw,3rem);font-weight:600;letter-spacing:-.025em;line-height:1.1;margin:0 0 10px}
+  .sub{color:#c3cde8;margin:0;max-width:640px;font-size:clamp(.95rem,1.2vw + .7rem,1.125rem)}
+  main{margin-top:-64px;padding-bottom:48px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+  .card{background:#fff;border:1px solid var(--hair);border-radius:16px;overflow:hidden;box-shadow:0 10px 30px rgba(23,34,74,.12);display:flex;flex-direction:column}
+  .card .img{height:200px;background:#dfe6f5;overflow:hidden}
+  .card .img img{width:100%;height:100%;object-fit:cover;display:block}
+  .card .body{padding:22px 24px 24px;display:flex;flex-direction:column;flex:1}
+  .tag{align-self:flex-start;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.7rem;font-weight:500;letter-spacing:.1em;color:var(--acc-d);background:var(--acc-soft);padding:4px 10px;border-radius:6px}
+  .card h2{margin:12px 0 6px;font-size:1.5rem;font-weight:600;letter-spacing:-.015em}
+  .card p{color:var(--ink2);margin:0 0 18px}
+  .btns{display:flex;flex-wrap:wrap;gap:10px;margin-top:auto}
+  a.btn{flex:1 1 130px;text-align:center;text-decoration:none;font-weight:500;font-size:.9375rem;padding:13px 14px;border-radius:10px;border:1px solid #c6d6f6;color:var(--acc-d);background:#fff;transition:background-color .15s,border-color .15s}
+  a.btn:hover{background:var(--acc-soft);border-color:var(--acc)}
+  a.btn.main{background:var(--acc);border-color:var(--acc);color:#fff;flex-basis:100%}
+  a.btn.main:hover{background:var(--acc-d)}
+  .green .tag{color:var(--green);background:var(--green-soft)}
+  .green a.btn{border-color:#bfe3cc;color:var(--green)} .green a.btn:hover{background:var(--green-soft);border-color:var(--green)}
+  .green a.btn.main{background:var(--green);border-color:var(--green);color:#fff} .green a.btn.main:hover{background:#17623a}
+  .card .scpanel{display:flex;flex-direction:column;justify-content:center;padding:0 28px;background:radial-gradient(120% 140% at 80% 0%,#2f9a63 0%,#1f7a45 50%,#124d2c 100%);color:#fff}
+  .scpanel span{font-size:clamp(1.4rem,3vw,1.9rem);font-weight:600;letter-spacing:-.02em;line-height:1.15}
+  .scpanel b{font-size:clamp(1.9rem,4vw,2.6rem);font-weight:600;letter-spacing:-.025em;color:#ffd84d;line-height:1.15}
+  .guide{display:inline-block;margin-top:24px;font-weight:500;color:var(--acc-d);text-decoration:none}
+  .guide:hover{text-decoration:underline}
+  footer{margin-top:24px;color:var(--ink3);font-size:.8125rem}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>Startup Prototypes</h1>
-  <p class="sub">Live demos by Harit Shah · IIM Bangalore Business Plan Challenge · No login needed</p>
+<header>
+  <div class="wrap">
+    <div class="top"><span class="logo">Startup Prototypes</span><span class="pill">IIM Bangalore</span></div>
+    <div class="hero">
+      <h1>Two live demos.<br>No login needed.</h1>
+      <p class="sub">Built by Harit Shah for the IIM Bangalore Business Plan Challenge. Open a demo, pick a role, and watch it update live across devices.</p>
+    </div>
+  </div>
+</header>
+<main class="wrap">
   <div class="grid">
     <div class="card">
-      <span class="tag">GROUPDRIVE</span>
-      <h2>Buy together. Pay less.</h2>
-      <p>Group buying for the whole automobile sector: cars, bikes, scooters, autos, tractors, trucks and buses. Dealers bid live; the lowest price wins.</p>
-      <div class="btns">
-        <a class="btn main" href="groupdrive/admin.html">I am the Admin</a>
-        <a class="btn" href="groupdrive/dealer.html">I am a Dealer</a>
+      <div class="img"><img src="groupdrive/img/hero-bmw.jpg" alt="BMW group deal" style="object-position:75% 50%"></div>
+      <div class="body">
+        <span class="tag">GROUPDRIVE</span>
+        <h2>Buy together. Pay less.</h2>
+        <p>Group buying for the whole automobile sector: cars, bikes, scooters, autos, tractors, trucks and buses. Dealers bid live; the lowest price wins.</p>
+        <div class="btns">
+          <a class="btn main" href="groupdrive/index.html">Browse the store</a>
+          <a class="btn" href="groupdrive/admin.html">I am the Admin</a>
+          <a class="btn" href="groupdrive/dealer.html">I am a Dealer</a>
+        </div>
       </div>
     </div>
     <div class="card green">
-      <span class="tag">SITECREW</span>
-      <h2>Amazon for builders.</h2>
-      <p>Like Amazon, but only for builders: cement, bricks, steel, electricals, trucks and skilled crews, A to Z.</p>
-      <div class="btns">
-        <a class="btn main" href="sitecrew/builder.html">I am a Builder</a>
-        <a class="btn" href="sitecrew/seller.html">I am a Seller</a>
+      <div class="img scpanel"><span>Everything a site needs.</span><b>A to Z.</b></div>
+      <div class="body">
+        <span class="tag">SITECREW</span>
+        <h2>Amazon for builders.</h2>
+        <p>Like Amazon, but only for builders: cement, bricks, steel, electricals, trucks and skilled crews, A to Z.</p>
+        <div class="btns">
+          <a class="btn main" href="sitecrew/builder.html">I am a Builder</a>
+          <a class="btn" href="sitecrew/seller.html">I am a Seller</a>
+        </div>
       </div>
     </div>
   </div>
-  <p style="margin-top:22px"><a href="guide.html" style="display:inline-block;font-weight:600;color:#2F6FED">📖 How it works: a one-page guide to both prototypes →</a></p>
+  <a class="guide" href="guide.html">How it works: a one-page guide to both prototypes &rarr;</a>
   <footer>Prototype for demo only. Prices are approximate. Data is shared live between all devices.</footer>
-</div>
+</main>
 </body>
 </html>
