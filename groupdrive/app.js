@@ -56,6 +56,11 @@ V('Bike','Royal Enfield','Classic 350',200000), V('Bike','Royal Enfield','Himala
     if (n >= 1e5) return '₹' + t(n / 1e5) + ' lakh';
     return GD.fmt(n);
   };
+  // Discount limiter: no deal may drop a vehicle's price by more than Rs 10 lakh,
+  // and never by more than 20% of the ticket value (so cheaper vehicles stay sensible).
+  GD.MAX_DISCOUNT = 1000000; GD.MAX_DISCOUNT_PCT = 0.20;
+  GD.maxDiscount = (base) => Math.min(GD.MAX_DISCOUNT, Math.round(Number(base) * GD.MAX_DISCOUNT_PCT));
+  GD.minBid = (base) => Math.max(1, Number(base) - GD.maxDiscount(base));
   GD.esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) =>
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   GD.uuid = () => (crypto.randomUUID ? crypto.randomUUID() :
@@ -118,6 +123,15 @@ V('Bike','Royal Enfield','Classic 350',200000), V('Bike','Royal Enfield','Himala
       db.dealers.push(row); this.save(db); return row;
     },
     async listBids() { return this.load().bids; },
+    async listEvents() { return this.load().events || []; },
+    async logEvent(e) {
+      const db = this.load(); (db.events = db.events || []).push(Object.assign({ id: GD.uuid(), at: new Date().toISOString() }, e));
+      this.save(db); },
+    async updateBid(id, patch) {
+      const db = this.load(); const row = db.bids.find((x) => x.id === id);
+      if (row) Object.assign(row, patch); this.save(db); return row; },
+    async deleteBid(id) {
+      const db = this.load(); db.bids = db.bids.filter((x) => x.id !== id); this.save(db); },
     async upsertBid(b) {
       const db = this.load();
       let row = db.bids.find((x) => x.auction_id === b.auction_id && x.dealer_id === b.dealer_id);
@@ -156,6 +170,22 @@ V('Bike','Royal Enfield','Classic 350',200000), V('Bike','Royal Enfield','Himala
     async listBids() {
       const { data, error } = await client.from('gd_bids').select('*');
       if (error) throw error; return data;
+    },
+    async listEvents() {
+      const { data, error } = await client.from('gd_bid_events').select('*').order('at');
+      if (error) throw error; return data;
+    },
+    async logEvent(e) {
+      const { error } = await client.from('gd_bid_events').insert(e);
+      if (error) throw error;
+    },
+    async updateBid(id, patch) {
+      const { data, error } = await client.from('gd_bids').update(patch).eq('id', id).select().single();
+      if (error) throw error; return data;
+    },
+    async deleteBid(id) {
+      const { error } = await client.from('gd_bids').delete().eq('id', id);
+      if (error) throw error;
     },
     async upsertBid(b) {
       const { data, error } = await client.from('gd_bids').upsert(b, { onConflict: 'auction_id,dealer_id' }).select().single();
@@ -199,8 +229,16 @@ V('Bike','Royal Enfield','Classic 350',200000), V('Bike','Royal Enfield','Himala
   // Public API (delegates to chosen backend)
   ['listVehicles', 'listAuctions', 'createAuction', 'updateAuction', 'registerDealer', 'listBids', 'upsertBid']
     .forEach((m) => { GD[m] = (...a) => backend[m](...a); });
-  GD.placeBid = (auction_id, dealer_id, dealer_label, amount, status) => backend.upsertBid({
-    auction_id, dealer_id, dealer_label, amount, status: status || 'active', updated_at: new Date().toISOString() });
+  // History is best-effort: if the events table is missing, bidding still works.
+  GD.logEvent = async (e) => { try { await backend.logEvent(e); } catch (err) { GD.eventsOff = true; } };
+  GD.listEvents = async () => { try { return await backend.listEvents(); } catch (err) { GD.eventsOff = true; return []; } };
+  ['updateBid', 'deleteBid'].forEach((m) => { GD[m] = (...a) => backend[m](...a); });
+  GD.placeBid = async (auction_id, dealer_id, dealer_label, amount, status) => {
+    const row = await backend.upsertBid({
+      auction_id, dealer_id, dealer_label, amount, status: status || 'active', updated_at: new Date().toISOString() });
+    GD.logEvent({ auction_id, dealer_label, amount, kind: status === 'out' ? 'left' : 'bid' });
+    return row;
+  };
 
   // subscribe(onChange): realtime / cross-tab events + 3 s polling fallback, debounced.
   GD.subscribe = function (onChange) {

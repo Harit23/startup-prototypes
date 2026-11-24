@@ -369,3 +369,65 @@ body.store .vcard .sv { font-size:.8125rem; color:var(--ink-2); }
   body.store .slide .art.art-photo { position:static; width:auto; height:150px; margin:0 16px 12px; }
   body.store .cards4 { margin-top:16px; }
 }
+
+/* ===== cutout photos ===== */
+.vpic img.photo.cut { object-fit:contain; object-position:center; background:#fff; padding:5%; }
+.vpic.thumb img.photo.cut { padding:3%; }
+body.store .slide .art-photo img { object-fit:contain; background:#fff; }
+
+/* ===== admin + dealer pages share the store theme ===== */
+body.app { background:var(--page); }
+body.app main { max-width:1100px; padding:24px 16px 48px; }
+body.app .app-role { font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.75rem; letter-spacing:.06em; text-transform:uppercase; color:#8fb0ff; border:1px solid rgba(255,255,255,.2); border-radius:6px; padding:3px 8px; }
+body.app .st-row1 { padding:12px 16px; }
+body.app h2 { font-size:1.25rem; font-weight:500; letter-spacing:-.01em; color:var(--ink); margin:1.6em 0 .6em; }
+body.app h3 { font-size:1.0625rem; font-weight:500; color:var(--ink); }
+body.app h4 { font-size:.8125rem; font-weight:500; text-transform:uppercase; letter-spacing:.05em; color:var(--ink-3); margin:18px 0 8px; }
+body.app .card { background:var(--surface); border:1px solid var(--hair); border-radius:12px; box-shadow:0 1px 2px rgba(20,27,45,.04); padding:18px; }
+body.app .card.muted { color:var(--ink-3); }
+body.app .muted { color:var(--ink-3); }
+body.app .note { background:var(--acc-soft); color:var(--acc-d); border:1px solid #c6d6f6; border-radius:10px; font-weight:500; }
+body.app label { font-weight:500; font-size:.8125rem; color:var(--ink-2); }
+body.app input, body.app select { min-height:44px; border:1px solid #cdd5e4; border-radius:8px; font-size:.9375rem; color:var(--ink); background:#fff; }
+body.app input:focus, body.app select:focus { outline:2px solid var(--acc); outline-offset:0; border-color:var(--acc); }
+body.app .btn.alt { background:#fff; color:var(--acc-d); border:1px solid #c6d6f6; }
+body.app .btn.alt:hover { background:var(--acc-soft); border-color:var(--acc); }
+body.app .btn.green { background:#1f7a45; } body.app .btn.green:hover { background:#17623a; }
+body.app .btn.red { background:#fff; color:#b3261e; border:1px solid #efc4c0; } body.app .btn.red:hover { background:#fdeceb; border-color:#b3261e; }
+body.app .btn.grey { background:var(--raised); color:var(--ink); border:1px solid var(--hair); } body.app .btn.grey:hover { background:#dde4f1; }
+body.app .btn.sm { min-height:36px; padding:0 12px; font-size:.875rem; }
+body.app .btn.block { display:flex; width:100%; }
+body.app .tag { background:var(--raised); color:var(--ink-2); font-weight:400; border-radius:6px; padding:3px 9px; }
+body.app .timer { font-family:"IBM Plex Mono",ui-monospace,monospace; font-weight:500; color:var(--acc-d); font-size:1.25rem; }
+body.app .timer.low { color:#b3261e; }
+body.app .stat { background:var(--page); border:1px solid var(--hair); border-radius:10px; }
+body.app .stat .k { font-size:.7rem; letter-spacing:.05em; color:var(--ink-3); }
+body.app .stat .v { font-size:1.125rem; font-weight:600; font-variant-numeric:tabular-nums; }
+body.app .stat.big { background:var(--acc-soft); border-color:#c6d6f6; }
+body.app .stat.big .v { color:var(--acc-d); font-size:1.9rem; }
+body.app .stat.good .v { color:#1f7a45; }
+body.app table.lb th { font-weight:500; letter-spacing:.05em; }
+body.app table.lb td { border-top:1px solid var(--hair); }
+body.app tr.r1 td { background:var(--acc-soft); font-weight:600; }
+body.app tr.out td { background:var(--page); color:var(--ink-3); }
+body.app .medal.r1 { background:var(--acc); color:#fff; } body.app .medal.r2 { background:#8b96ad; } body.app .medal.r3 { background:#b7bfd0; color:#2d343b; }
+body.app .pill.a { background:var(--acc-soft); color:var(--acc-d); }
+body.app .editbox { background:var(--page); border:1px solid var(--hair); border-radius:10px; }
+body.app .winner-box { background:var(--acc-soft); border:1px solid #c6d6f6; border-radius:10px; }
+body.app .result { background:var(--acc-soft); color:var(--acc-d); border-radius:10px; font-weight:600; }
+body.app .result.lost { background:var(--raised); color:var(--ink-2); }
+body.app .rank { background:var(--raised); color:var(--ink-2); } body.app .rank.first { background:var(--acc-soft); color:var(--acc-d); }
+body.app .bidgrid .dn { background:#fff; color:var(--acc-d); border:1px solid #c6d6f6; }
+body.app .bidgrid .dn:hover { background:var(--acc-soft); border-color:var(--acc); }
+body.app .vpic.thumb, body.app .vprev { background:#fff; border:1px solid var(--hair); }
+body.app .bidas b { color:var(--ink); }
+body.app .toast { background:var(--ink); } body.app .toast.ok { background:#1f7a45; } body.app .toast.err { background:#b3261e; }
+/* closed-auction review */
+body.app .review { margin-top:12px; padding-top:4px; border-top:1px solid var(--hair); }
+body.app .timeline { list-style:none; margin:0; padding:0; max-height:220px; overflow:auto; border:1px solid var(--hair); border-radius:10px; background:var(--page); }
+body.app .timeline li { padding:8px 12px; border-bottom:1px solid var(--hair); font-size:.875rem; }
+body.app .timeline li:last-child { border-bottom:0; }
+body.app .timeline .t { font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.75rem; color:var(--ink-3); margin-right:8px; }
+body.app table.rb input, body.app table.rb select { min-height:36px; padding:4px 8px; width:100%; min-width:110px; }
+body.app table.rb td.rb-act { display:flex; gap:6px; flex-wrap:wrap; }
+@media (max-width:600px) { body.app .st-row1 { gap:8px; } body.app .st-right { flex-wrap:wrap; } body.app table.rb { font-size:.85rem; } }

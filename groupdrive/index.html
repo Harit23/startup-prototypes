@@ -7,11 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="style.css?v=24">
+<link rel="stylesheet" href="style.css?v=25">
 <script src="../vendor/supabase.js"></script>
 <script src="../vendor/config.js"></script>
-<script src="app.js?v=24"></script>
-<script src="vehicles.js?v=24"></script>
+<script src="app.js?v=25"></script>
+<script src="vehicles.js?v=25"></script>
 </head>
 <body class="store" id="top">
 <header class="st-top">
@@ -83,7 +83,7 @@
   const kindOf = (v) => GDV.kindOf(v.category, v.brand, v.model);
   const findV = (cat, brand, model) => vehicles.find((v) => v.brand === brand && v.model === model);
   const hay = (v) => (v.brand + ' ' + v.model + ' ' + catLabel(v.category) + ' ' + v.category + ' ' + (GDV.KIND_LABEL[kindOf(v)] || '')).toLowerCase();
-  const saving = (v) => Math.round(Number(v.price) * 0.04);
+  const saving = (v) => Math.min(GD.maxDiscount(v.price), Math.round(Number(v.price) * 0.04));
   const adminHref = (v) => v ? 'admin.html?v=' + encodeURIComponent(v.id) : 'admin.html';
 
   // ---------- store cards ----------

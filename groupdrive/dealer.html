@@ -4,17 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GroupDrive — Dealer | Group buying for every vehicle</title>
-<link rel="stylesheet" href="style.css?v=21">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css?v=25">
 <script src="../vendor/supabase.js"></script>
 <script src="../vendor/config.js"></script>
-<script src="app.js?v=21"></script>
-<script src="vehicles.js?v=21"></script>
+<script src="app.js?v=25"></script>
+<script src="vehicles.js?v=25"></script>
 </head>
-<body>
-<header class="top">
-  <a class="brand" href="index.html">Group<b>Drive</b></a><span class="muted">Dealer</span><span class="sp"></span>
-  <span id="modeBadge" class="badge"></span>
-</header>
+<body class="store app">
+<header class="st-top"><div class="wrap st-row1"><a class="st-logo" href="index.html">Group<b>Drive</b></a><span class="app-role">Dealer</span><div class="st-right"><span id="modeBadge" class="badge"></span><a class="st-btn" href="index.html">Store</a></div></div></header>
 <main>
   <div id="app">
     <p class="note">Lowest price wins. The group buys from the winning dealer.</p>
@@ -76,7 +76,7 @@
     let body;
     if (!mine) {
       body = '<button class="btn block" data-act="join" data-id="' + a.id + '">Join bidding</button>' +
-        '<p class="small muted">Opening bid: ' + fmt(Math.max(1, (top ? Number(top.amount) : Number(a.base_price)) - 10000)) + '</p>';
+        '<p class="small muted">Opening bid: ' + fmt(Math.max(GD.minBid(a.base_price), (top ? Number(top.amount) : Number(a.base_price)) - 10000)) + '</p>';
     } else if (mine.status === 'out') {
       body = '<div class="result lost">You left this deal</div><p><button class="btn block" data-act="rejoin" data-id="' + a.id + '">Rejoin</button></p>';
     } else {
@@ -97,7 +97,8 @@
       '<div class="small muted bidas">You are bidding as: <b>' + esc(labelFor(a)) + '</b></div>' +
       '<div class="stats"><div class="stat big"><div class="k">Current lowest bid</div><div class="v">' + (top ? fmt(top.amount) : '—') + '</div>' +
       '<div class="small">' + (top ? 'Held by ' + esc(top.dealer_label) + (rankIdx === 0 ? ' (you)' : '') : 'No bids yet') + '</div></div>' +
-      '<div class="stat"><div class="k">Base price</div><div class="v">' + fmt(a.base_price) + '</div></div></div>' + body + '</div>';
+      '<div class="stat"><div class="k">Base price</div><div class="v">' + fmt(a.base_price) + '</div></div>' +
+      '<div class="stat"><div class="k">Lowest allowed</div><div class="v">' + fmt(GD.minBid(a.base_price)) + '</div><div class="small muted">Max discount ' + GD.short(GD.maxDiscount(a.base_price)) + '</div></div></div>' + body + '</div>';
   }
 
   function closedCard(a) {
@@ -141,6 +142,7 @@
   function validate(a, amount) {
     if (!(amount > 0)) { GD.toast('Bid must be more than ₹0', 'err'); return false; }
     if (amount > Number(a.base_price)) { GD.toast('Bid cannot be above the base price ' + fmt(a.base_price), 'err'); return false; }
+    if (amount < GD.minBid(a.base_price)) { GD.toast('Lowest allowed bid is ' + fmt(GD.minBid(a.base_price)) + ' (max discount ' + GD.short(GD.maxDiscount(a.base_price)) + ')', 'err'); return false; }
     return true;
   }
 
@@ -152,7 +154,7 @@
     const mine = myBid(a.id), act = btn.dataset.act;
     if (act === 'join') {
       const top = GD.ranked(bidsFor(a.id))[0];
-      const amt = (top ? Number(top.amount) : Number(a.base_price)) - 10000;
+      const amt = Math.max(GD.minBid(a.base_price), (top ? Number(top.amount) : Number(a.base_price)) - 10000);
       if (validate(a, amt)) put(a, amt, 'active');
     } else if (act === 'rejoin') {
       put(a, mine ? mine.amount : a.base_price, 'active');

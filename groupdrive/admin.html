@@ -4,17 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GroupDrive — Admin | Group buying for every vehicle</title>
-<link rel="stylesheet" href="style.css?v=21">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="style.css?v=25">
 <script src="../vendor/supabase.js"></script>
 <script src="../vendor/config.js"></script>
-<script src="app.js?v=21"></script>
-<script src="vehicles.js?v=21"></script>
+<script src="app.js?v=25"></script>
+<script src="vehicles.js?v=25"></script>
 </head>
-<body>
-<header class="top">
-  <a class="brand" href="index.html">Group<b>Drive</b></a><span class="muted">Admin</span><span class="sp"></span>
-  <span id="modeBadge" class="badge"></span>
-</header>
+<body class="store app">
+<header class="st-top"><div class="wrap st-row1"><a class="st-logo" href="index.html">Group<b>Drive</b></a><span class="app-role">Admin</span><div class="st-right"><span id="modeBadge" class="badge"></span><a class="st-btn" href="index.html">Store</a><a class="st-btn" href="dealer.html">Dealer view</a></div></div></header>
 <main>
   <div class="card">
     <h2 style="margin-top:0">Start a new group deal</h2>
@@ -50,6 +50,7 @@
   const CITIES = ['Ahmedabad', 'Surat', 'Vadodara', 'Rajkot', 'Mumbai', 'Delhi', 'Bengaluru'];
   let vehicles = [], auctions = [], bids = [];
   let editingId = null;            // auction currently being edited inline
+  let reviewId = null, events = [];  // closed auction open in the review/edit panel
   const prevLowest = {};           // auction id -> last lowest amount (for flash)
   const closing = new Set();       // auctions being auto-closed right now
 
@@ -77,7 +78,7 @@
   function fillPrice() {
     const v = vehicles.find((x) => x.category === $('fCat').value && x.brand === $('fBrand').value && x.model === $('fModel').value);
     $('fPic').innerHTML = GDV.pic({ category: $('fCat').value, brand: $('fBrand').value, model: $('fModel').value });
-    if (v) { $('fPrice').value = Math.round(v.price); $('fPriceHint').textContent = 'Ex-showroom: ' + fmt(v.price) + ' (' + GD.short(v.price) + ')'; }
+    if (v) { $('fPrice').value = Math.round(v.price); $('fPriceHint').textContent = 'Ex-showroom: ' + fmt(v.price) + ' (' + GD.short(v.price) + ') · max discount ' + GD.short(GD.maxDiscount(v.price)); }
   }
   $('fCat').onchange = fillBrands; $('fBrand').onchange = fillModels; $('fModel').onchange = fillPrice;
 
@@ -100,6 +101,7 @@
   async function refresh() {
     try {
       [auctions, bids] = await Promise.all([GD.listAuctions(), GD.listBids()]);
+      if (reviewId) events = (await GD.listEvents()).filter((e) => e.auction_id === reviewId);
       render();
     } catch (err) { console.error(err); }
   }
@@ -138,6 +140,7 @@
       (low != null ? fmt(low) + ' <span class="small muted">' + GD.short(low) + '</span>' : '—') + '</div>' +
       (low != null ? '<div class="small">' + esc(act[0].dealer_label) + '</div>' : '') + '</div>' +
       '<div class="stat"><div class="k">Base price</div><div class="v">' + fmt(a.base_price) + '</div></div>' +
+      '<div class="stat"><div class="k">Lowest allowed</div><div class="v">' + fmt(GD.minBid(a.base_price)) + '</div><div class="small muted">Max discount ' + GD.short(GD.maxDiscount(a.base_price)) + '</div></div>' +
       '<div class="stat"><div class="k">Active dealers</div><div class="v">' + act.length + '</div></div>' +
       '<div class="stat good"><div class="k">Saving per vehicle</div><div class="v">' + (saving != null ? fmt(saving) : '—') + '</div></div>' +
       '<div class="stat good"><div class="k">Total saving for group</div><div class="v">' + (saving != null ? fmt(saving * a.group_size) : '—') + '</div></div></div>' +
@@ -151,16 +154,78 @@
     const act = GD.ranked(bidsFor(a.id));
     const head = '<div class="auc-head">' + GDV.thumb(a) + '<div class="auc-t"><h3>' + esc(a.brand + ' ' + a.model) + '</h3><div class="tags"><span class="tag">' + esc(a.city) + '</span><span class="tag">Group of ' +
       a.group_size + '</span><span class="tag">Base ' + fmt(a.base_price) + '</span></div></div></div>';
-    if (a.status === 'cancelled') return '<div class="card">' + head + '<p class="muted">Cancelled</p></div>';
-    if (a.winner_amount == null) return '<div class="card">' + head + '<p class="muted">Closed with no bids</p></div>';
+    const open = reviewId === a.id;
+    const rbtn = '<div class="actions"><button class="btn alt sm" data-act="review" data-id="' + a.id + '">' + (open ? 'Close review' : 'Review &amp; edit') + '</button></div>' + (open ? reviewPanel(a) : '');
+    if (a.status === 'cancelled') return '<div class="card">' + head + '<p class="muted">Cancelled</p>' + rbtn + '</div>';
+    if (a.winner_amount == null) return '<div class="card">' + head + '<p class="muted">Closed with no bids</p>' + rbtn + '</div>';
     const w = Number(a.winner_amount), saving = Number(a.base_price) - w;
     const fee = w * 0.08 * 0.05;
     const place = (b, n) => b ? '<div class="small">' + n + ': ' + esc(b.dealer_label) + ' — ' + fmt(b.amount) + '</div>' : '';
     return '<div class="card">' + head + '<div class="winner-box"><b>Winner: ' + esc(a.winner_label) + ' at ' + both(w) + '</b>' +
       '<div>Saving per vehicle ' + fmt(saving) + ' · Total for group ' + fmt(saving * a.group_size) + '</div>' +
       '<div class="small muted">Our fee: 5% of dealer margin (assume 8% margin) = ' + fmt(fee) + ' per vehicle</div></div>' +
-      '<div style="margin-top:8px">' + place(act[1], '2nd') + place(act[2], '3rd') + '</div></div>';
+      '<div style="margin-top:8px">' + place(act[1], '2nd') + place(act[2], '3rd') + '</div>' + rbtn + '</div>';
   }
+
+  // ---------- Closed auction: review & edit ----------
+  const hhmm = (t) => new Date(t).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  function reviewPanel(a) {
+    const bs = bidsFor(a.id).slice().sort((x, y) => Number(x.amount) - Number(y.amount));
+    const floor = GD.minBid(a.base_price);
+    const rows = bs.map((b) => '<tr data-bid="' + b.id + '"><td>' + esc(b.dealer_label) + '</td>' +
+      '<td><input type="number" class="rb-amt" value="' + Math.round(b.amount) + '" min="' + floor + '" max="' + Math.round(a.base_price) + '"></td>' +
+      '<td><select class="rb-st"><option value="active"' + (b.status === 'active' ? ' selected' : '') + '>Active</option><option value="out"' + (b.status === 'out' ? ' selected' : '') + '>Out</option></select></td>' +
+      '<td class="rb-act"><button class="btn sm" data-act="bidsave" data-id="' + b.id + '">Save</button><button class="btn sm red" data-act="biddel" data-id="' + b.id + '">Delete</button></td></tr>').join('');
+    const ev = events.length ? '<ol class="timeline">' + events.map((e) => '<li><span class="t">' + hhmm(e.at) + '</span> <b>' + esc(e.dealer_label || '—') + '</b> ' +
+      (e.kind === 'left' ? 'left the deal' : e.kind === 'admin' ? 'bid set by admin to ' + fmt(e.amount) : 'bid ' + fmt(e.amount)) + '</li>').join('') + '</ol>'
+      : '<p class="muted small">' + (GD.eventsOff ? 'Bid history is not available yet.' : 'No bid history was recorded for this auction (it closed before history logging started).') + '</p>';
+    return '<div class="review" data-review="' + a.id + '"><h4>What happened in this auction</h4>' + ev +
+      '<h4>Bids (edit amounts, status, or remove)</h4>' +
+      (bs.length ? '<table class="lb rb"><thead><tr><th>Dealer</th><th>Amount (₹)</th><th>Status</th><th></th></tr></thead><tbody>' + rows + '</tbody></table>' : '<p class="muted small">No bids.</p>') +
+      '<p class="small muted">Lowest allowed: ' + fmt(floor) + ' · Base ' + fmt(a.base_price) + '</p>' +
+      '<div class="editbox"><div><label>Base price (₹)</label><input id="rPrice" type="number" min="1" value="' + Math.round(a.base_price) + '"></div>' +
+      '<div><label>Group size</label><input id="rSize" type="number" min="1" value="' + a.group_size + '"></div>' +
+      '<div><label>Status</label><select id="rStatus"><option value="closed"' + (a.status === 'closed' ? ' selected' : '') + '>Closed</option><option value="cancelled"' + (a.status === 'cancelled' ? ' selected' : '') + '>Cancelled</option></select></div></div>' +
+      '<div class="actions"><button class="btn green sm" data-act="rsave" data-id="' + a.id + '">Save auction &amp; recompute winner</button>' +
+      '<button class="btn alt sm" data-act="reopen" data-id="' + a.id + '">Reopen bidding</button></div></div>';
+  }
+  async function recomputeWinner(id) {
+    bids = await GD.listBids();
+    const w = GD.ranked(bidsFor(id))[0];
+    await GD.updateAuction(id, { winner_label: w ? w.dealer_label : null, winner_amount: w ? w.amount : null });
+  }
+  $('closed').addEventListener('click', async (e) => {
+    const btn = e.target.closest('button[data-act]'); if (!btn) return;
+    const id = btn.dataset.id, act = btn.dataset.act;
+    try {
+      if (act === 'review') { reviewId = reviewId === id ? null : id; events = reviewId ? (await GD.listEvents()).filter((x) => x.auction_id === id) : []; return render(); }
+      if (act === 'bidsave' || act === 'biddel') {
+        const tr = btn.closest('tr'), b = bids.find((x) => x.id === id), a = auctions.find((x) => x.id === b.auction_id);
+        if (act === 'biddel') {
+          if (!confirm('Delete this bid?')) return;
+          await GD.deleteBid(id); GD.logEvent({ auction_id: a.id, dealer_label: b.dealer_label, amount: b.amount, kind: 'admin' });
+        } else {
+          const amt = Math.round(Number(tr.querySelector('.rb-amt').value)), st = tr.querySelector('.rb-st').value;
+          if (!(amt >= GD.minBid(a.base_price))) return GD.toast('Lowest allowed is ' + fmt(GD.minBid(a.base_price)), 'err');
+          if (amt > Number(a.base_price)) return GD.toast('Bid cannot be above base price', 'err');
+          await GD.updateBid(id, { amount: amt, status: st, updated_at: new Date().toISOString() });
+          GD.logEvent({ auction_id: a.id, dealer_label: b.dealer_label, amount: amt, kind: 'admin' });
+        }
+        await recomputeWinner(a.id); GD.toast('Bid updated, winner recomputed', 'ok'); return refresh();
+      }
+      if (act === 'rsave') {
+        const p = Number($('rPrice').value), n = parseInt($('rSize').value, 10);
+        if (!(p > 0) || !(n > 0)) return GD.toast('Enter a valid price and group size', 'err');
+        await GD.updateAuction(id, { base_price: p, group_size: n, status: $('rStatus').value });
+        await recomputeWinner(id); GD.toast('Auction updated', 'ok'); return refresh();
+      }
+      if (act === 'reopen') {
+        if (!confirm('Reopen bidding for this auction?')) return;
+        await GD.updateAuction(id, { status: 'live', ends_at: null, winner_label: null, winner_amount: null });
+        reviewId = null; GD.toast('Auction is live again', 'ok'); return refresh();
+      }
+    } catch (err) { GD.toast('Error: ' + (err.message || err), 'err'); }
+  });
 
   function render() {
     // keep inline edit input values / focus across re-renders
@@ -171,7 +236,8 @@
     const live = auctions.filter((a) => a.status === 'live');
     $('live').innerHTML = live.length ? live.map(liveCard).join('') : '<div class="card muted">No live auctions. Start one above.</div>';
     const done = auctions.filter((a) => a.status !== 'live');
-    $('closed').innerHTML = done.length ? done.map(closedCard).join('') : '<div class="card muted">Nothing closed yet.</div>';
+    const typing = document.activeElement && document.activeElement.closest && document.activeElement.closest('.review');
+    if (!typing) $('closed').innerHTML = done.length ? done.map(closedCard).join('') : '<div class="card muted">Nothing closed yet.</div>';
 
     Object.keys(keep).forEach((id) => { if ($(id)) $(id).value = keep[id]; });
     if (focusId) $(focusId).focus();
