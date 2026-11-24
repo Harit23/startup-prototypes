@@ -7,11 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="style.css?v=26">
+<link rel="stylesheet" href="style.css?v=28">
 <script src="../vendor/supabase.js"></script>
 <script src="../vendor/config.js"></script>
-<script src="app.js?v=26"></script>
-<script src="vehicles.js?v=26"></script>
+<script src="app.js?v=28"></script>
+<script src="vehicles.js?v=28"></script>
 </head>
 <body class="store" id="top">
 <header class="st-top">
@@ -214,8 +214,8 @@
 
   // ---------- hero carousel ----------
   const SLIDES = [
-    { photo: 'bmw.jpg', kick: 'Cars', h: 'BMW M340i group deal', p: '10 buyers · Save up to ₹3 lakh each*', find: ['BMW', 'M340i xDrive'] },
-    { kind: 'cruiser', cat: 'Bike', kick: 'Bikes', h: 'Royal Enfield Classic 350', p: 'Join a group of 20 riders', find: ['Royal Enfield', 'Classic 350'] },
+    { photo: 'bmw.jpg', fine: true, kick: 'Cars', h: 'BMW M340i group deal', p: '10 buyers · Save up to ₹3 lakh each*', find: ['BMW', 'M340i xDrive'] },
+    { photo: 'img/hero-bike.jpg', pos: 'bike', kick: 'Bikes', h: 'Royal Enfield group deal', p: 'Join a group of 20 riders', find: ['Royal Enfield', 'Continental GT 650'] },
     { kind: 'truck', cat: 'Truck', kick: 'Fleet deal', h: 'Trucks for transport operators', p: 'Group pricing on a fleet order', find: ['Mahindra', 'Blazo X 28'] },
     { kind: 'schoolbus', cat: 'Bus', kick: 'Buses', h: 'School & staff buses', p: 'Group buying for operators', find: ['Tata Motors', 'Starbus'] },
     { kind: 'tractor', cat: 'Tractor', kick: 'Tractors & autos', h: 'Tractors & autos for work', p: 'Farmers and auto owners buy together and pay less', find: ['Mahindra', '575 DI'] }
@@ -223,7 +223,7 @@
   let cur = 0, timer = null, paused = false;
   $('slides').innerHTML = SLIDES.map((s, i) => '<div class="slide' + (i === 0 ? ' on' : '') + '" data-i="' + i + '">' +
     (s.photo
-      ? '<img class="bgimg" src="' + s.photo + '" alt="BMW M340i"><div class="shade"></div>'
+      ? '<img class="bgimg' + (s.pos ? ' pos-' + s.pos : '') + '" src="' + s.photo + '" alt="' + s.h + '"><div class="shade"></div>'
       // Press shots are cut out on white, so they sit in a light panel rather
       // than floating on the dark hero. No photo yet, and the drawing shows.
       : (GDV.photoFor(s.find[0], s.find[1])
@@ -231,7 +231,7 @@
           : '<div class="art">' + GDV.svg(s.kind, GDV.colorOf(s.cat)) + '</div>')) +
     '<div class="txt"><div class="kick">' + s.kick + '</div><h2>' + s.h + '</h2><p>' + s.p + '</p>' +
     '<a class="btn" href="admin.html" data-slide-cta="' + i + '">Start this deal (Admin)</a>' +
-    (s.photo ? '<div class="fine">*Illustrative estimate; the final price is set by live dealer bidding.</div>' : '') + '</div></div>').join('');
+    (s.fine ? '<div class="fine">*Illustrative estimate; the final price is set by live dealer bidding.</div>' : '') + '</div></div>').join('');
   $('dots').innerHTML = SLIDES.map((s, i) => '<button type="button" data-i="' + i + '" aria-label="Go to slide ' + (i + 1) + '"' + (i === 0 ? ' class="on"' : '') + '></button>').join('');
   function go(i) {
     cur = (i + SLIDES.length) % SLIDES.length;
@@ -266,15 +266,10 @@
   });
 })();
 </script>
-<button id="toTop" type="button" aria-label="Back to top">↑</button>
 <script>
 /* motion polish: scroll state, back-to-top, scroll reveal (skipped for reduced motion) */
 (function () {
-  var body = document.body, top = document.getElementById('toTop');
-  function onScroll() { var y = window.scrollY; body.classList.toggle('scrolled', y > 8); top.classList.toggle('show', y > 700); }
-  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
-  top.onclick = function () { window.scrollTo({ top: 0, behavior: 'smooth' }); };
-  if (!('IntersectionObserver' in window) || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+    if (!('IntersectionObserver' in window) || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
   var io = new IntersectionObserver(function (es) {
     es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
@@ -282,7 +277,7 @@
   function tag(root) {
     root.querySelectorAll(SEL).forEach(function (el, i) {
       if (el.classList.contains('rv')) return;
-      el.classList.add('rv'); el.style.transitionDelay = Math.min(i % 6, 5) * 55 + 'ms'; io.observe(el);
+      el.classList.add('rv'); io.observe(el);
     });
   }
   var main = document.querySelector('main'); tag(main);
