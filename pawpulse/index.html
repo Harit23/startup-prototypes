@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>PawPulse | Meet BioBand, the clip-on band for their whole day</title>
+<meta name="description" content="Meet BioBand, a concept clip-on band for any collar that feeds the PawPulse app with location and activity (heart rate and temperature proposed). Records live in the app. For Indian pet parents, starting in Ahmedabad.">
+<link%20rel="icon"%20href="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%2210%206%2080%2088%22%3E%3Cellipse%20cx=%2222%22%20cy=%2240%22%20rx=%227%22%20ry=%229.5%22%20transform=%22rotate%28-22%2022%2040%29%22%20fill=%22%231d6b50%22/%3E%3Cellipse%20cx=%2238%22%20cy=%2223%22%20rx=%228%22%20ry=%2210.5%22%20transform=%22rotate%28-8%2038%2023%29%22%20fill=%22%231d6b50%22/%3E%3Cellipse%20cx=%2262%22%20cy=%2223%22%20rx=%228%22%20ry=%2210.5%22%20transform=%22rotate%288%2062%2023%29%22%20fill=%22%231d6b50%22/%3E%3Cellipse%20cx=%2278%22%20cy=%2240%22%20rx=%227%22%20ry=%229.5%22%20transform=%22rotate%2822%2078%2040%29%22%20fill=%22%231d6b50%22/%3E%3Cpath%20d=%22M50%2046C63%2046%2077%2058%2079%2071C81%2083%2070%2089%2060%2087C55%2086%2053%2085%2050%2085C47%2085%2045%2086%2040%2087C30%2089%2019%2083%2021%2071C23%2058%2037%2046%2050%2046Z%22%20fill=%22%231d6b50%22/%3E%3Cpath%20d=%22M30%2070H41L46%2060L54%2080L59%2070H70%22%20fill=%22none%22%20stroke=%22%23fbfaf6%22%20stroke-width=%225%22%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22/%3E%3C/svg%3E">
+<meta name="theme-color" content="#fbfaf6">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#fbfaf6;--paper:#f6f3ea;--mint:#eaf5ef;--mint2:#d7ecdf;--green:#1d6b50;--deep:#123f31;--amber:#f2a65a;--terra:#d9733a;--terra-text:#a64f1d;
+  --ink:#1d2b25;--muted:#54635b;--line:#e2e8e2;--white:#fff;--danger:#b3402a;
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:72px;--s9:112px;
+  --r1:12px;--r2:20px;--r3:32px;
+  --display:'Fraunces',Georgia,'Times New Roman',serif;--body:'DM Sans',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+  --shadow:0 1px 2px rgba(18,63,49,.06),0 12px 32px -12px rgba(18,63,49,.18);
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--cream);line-height:1.6;font-size:17px;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:100;pointer-events:none;opacity:.07;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .25 0 0 0 0 .2 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+img,svg{max-width:100%}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;line-height:1.1;letter-spacing:-.015em;margin:0 0 var(--s4);color:var(--deep)}
+h1{font-size:clamp(2.6rem,7vw,5rem);font-weight:700}
+h2{font-size:clamp(2rem,4.6vw,3.2rem)}
+h3{font-size:1.35rem;line-height:1.25}
+p{margin:0 0 var(--s4)}
+a{color:var(--green)}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+section{padding-block:clamp(var(--s8),10vw,var(--s9));position:relative}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-999px;top:8px;background:var(--deep);color:#fff;padding:var(--s2) var(--s4);border-radius:var(--r1);z-index:300}
+.skip:focus{left:8px}
+:focus-visible{outline:3px solid var(--terra);outline-offset:3px;border-radius:6px}
+.ic{width:1.15em;height:1.15em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-.2em}
+.eyebrow{display:inline-flex;align-items:center;gap:var(--s2);font-size:.82rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--green);background:var(--mint);padding:6px 14px;border-radius:99px;margin-bottom:var(--s4)}
+.lead{font-size:clamp(1.1rem,2vw,1.3rem);color:var(--muted);max-width:60ch}
+.muted{color:var(--muted)}
+.small{font-size:.85rem;color:var(--muted)}
+.head{max-width:760px;margin-bottom:var(--s7)}
+.head.center{margin-inline:auto;text-align:center}.head.center .lead{margin-inline:auto}
+.scribble{position:relative;display:inline-block;white-space:nowrap}
+.scribble svg{position:absolute;left:-2%;bottom:-.28em;width:104%;height:.4em;overflow:visible}
+.scribble path{fill:none;stroke:var(--amber);stroke-width:5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.2s .4s var(--ease)}
+.in .scribble path,.scribble.in path,.hero .scribble path{stroke-dashoffset:0}
+em.h{font-style:italic;color:var(--green)}
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);font:700 1rem var(--body);padding:14px 26px;border-radius:99px;border:2px solid var(--green);background:var(--green);color:#fff;text-decoration:none;cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s,background .2s;min-height:48px}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 22px -10px rgba(18,63,49,.6);background:var(--deep)}
+.btn:active{transform:translateY(0)}
+.btn.ghost{background:transparent;color:var(--deep)}
+.btn.ghost:hover{background:var(--mint)}
+.btn.amber{background:var(--amber);border-color:var(--amber);color:var(--deep)}
+.btn.amber:hover{background:#f5b673}
+.btn.sm{padding:8px 16px;min-height:40px;font-size:.9rem}
+.btn[disabled]{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
+/* reveal */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease);transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:none}
+/* nav */
+header.nav{position:sticky;top:0;z-index:200;transition:background .3s,box-shadow .3s,padding .3s;padding-block:var(--s4);background:rgba(251,250,246,.0)}
+header.nav.scrolled{background:rgba(251,250,246,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line);padding-block:var(--s2)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:var(--s4)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:700 1.45rem var(--display);color:var(--deep)}
+.logo svg{width:36px;height:36px;transition:width .3s,height .3s}
+.nav.scrolled .logo svg{width:30px;height:30px}
+.nav ul{display:flex;gap:var(--s5);list-style:none;margin:0;padding:0}
+.nav ul a{text-decoration:none;color:var(--ink);font-weight:500;font-size:.95rem;padding:6px 2px;background:linear-gradient(var(--terra),var(--terra)) 0 100%/0 2px no-repeat;transition:background-size .3s var(--ease)}
+.nav ul a:hover{background-size:100% 2px}
+.nav .right{display:flex;align-items:center;gap:var(--s3)}
+.burger{display:none;background:none;border:2px solid var(--line);border-radius:12px;width:48px;height:48px;cursor:pointer;color:var(--deep);align-items:center;justify-content:center}
+@media(max-width:1020px){
+  .burger{display:inline-flex}
+  .nav ul{position:absolute;left:0;right:0;top:100%;flex-direction:column;gap:0;background:var(--cream);border-bottom:1px solid var(--line);padding:var(--s2) 20px var(--s4);display:none;box-shadow:0 20px 30px -20px rgba(0,0,0,.2)}
+  .nav ul.open{display:flex}
+  .nav ul a{display:block;padding:14px 0;font-size:1.05rem}
+  .nav .btn.cta{display:none}
+}
+/* hero */
+.hero{padding-top:clamp(var(--s6),6vw,var(--s8));overflow:hidden}
+.hero::before{content:"";position:absolute;width:760px;height:760px;right:-260px;top:-200px;background:radial-gradient(circle at 40% 40%,var(--mint2),transparent 65%);z-index:-1;border-radius:50%}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s7);align-items:center}
+.hero .lead{margin-bottom:var(--s5)}
+.cta-row{display:flex;flex-wrap:wrap;gap:var(--s3);margin-bottom:var(--s5)}
+.trust{display:flex;align-items:center;gap:var(--s2);font-size:.9rem;color:var(--muted)}
+.hero-ecg{margin-top:var(--s6);width:100%;max-width:560px;height:60px}
+.ecg-track{fill:none;stroke:var(--mint2);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.ecg-live{fill:none;stroke:var(--terra);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:.22 .78;animation:ecg 3.2s linear infinite}
+@keyframes ecg{from{stroke-dashoffset:.22}to{stroke-dashoffset:-.78}}
+.stage{position:relative;display:grid;place-items:center;min-height:560px}
+.blob{position:absolute;inset:6% 0 6% 6%;background:var(--mint);border-radius:62% 38% 55% 45%/48% 58% 42% 52%;animation:morph 14s ease-in-out infinite alternate}
+@keyframes morph{to{border-radius:40% 60% 44% 56%/60% 40% 60% 40%;transform:rotate(4deg)}}
+.phone{position:relative;width:min(100%,340px);background:#fff;border-radius:38px;border:9px solid var(--deep);box-shadow:var(--shadow),0 40px 60px -30px rgba(18,63,49,.5);overflow:hidden}
+.live{animation:bob 6s ease-in-out infinite;z-index:1}
+@keyframes bob{50%{transform:translateY(-10px)}}
+.notch{width:90px;height:20px;background:var(--deep);border-radius:0 0 14px 14px;margin:0 auto}
+.screen{padding:var(--s3) var(--s4) var(--s4);min-height:430px}
+.pet-head{display:flex;align-items:center;gap:var(--s3);margin-bottom:var(--s3)}
+.avatar{width:52px;height:52px;border-radius:50%;background:var(--mint);display:grid;place-items:center;color:var(--green);border:2px solid var(--amber)}
+.avatar svg{width:30px;height:30px}
+.pet-head b{display:block;font:600 1.25rem var(--display);color:var(--deep);line-height:1.1}
+.pet-head span{font-size:.8rem;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;font-weight:700;border-radius:99px;padding:3px 10px;background:var(--mint);color:var(--green)}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:#2fa36f;animation:pulse 1.8s infinite}
+.pill.warn{background:#fdeadb;color:var(--terra-text)}.pill.warn .dot{background:var(--terra)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(47,163,111,.55)}100%{box-shadow:0 0 0 9px rgba(47,163,111,0)}}
+.tile{background:var(--cream);border:1px solid var(--line);border-radius:16px;padding:var(--s3);margin-bottom:var(--s2)}
+.tile .k{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;display:flex;align-items:center;gap:6px}
+.tile .v{font:600 1.5rem var(--display);color:var(--deep);line-height:1.2}
+.tile .v small{font:500 .8rem var(--body);color:var(--muted)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2)}
+.row2 .tile{margin:0}
+.live-ecg{width:100%;height:46px;display:block}
+.heart{color:var(--terra);display:inline-block;animation:beat 1.1s infinite}
+@keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.25)}30%{transform:scale(1)}45%{transform:scale(1.15)}}
+.float-note{position:absolute;background:#fff;border-radius:16px;padding:10px 14px;box-shadow:var(--shadow);font-size:.82rem;display:flex;gap:8px;align-items:center;z-index:2;animation:bob 7s ease-in-out infinite reverse}
+.float-note.a{left:-16%;top:-3%}.float-note.b{right:-12%;bottom:8%;animation-delay:-3s}
+.float-note b{display:block;font-size:.85rem}
+.cap{font-size:.74rem;color:var(--muted);text-align:center;margin:var(--s3) 0 0}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.stage{min-height:520px}.float-note.a{left:0}.float-note.b{right:0}}
+/* problem */
+.problem{background:var(--paper)}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s4)}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5)}
+@media(max-width:1020px){.grid4{grid-template-columns:1fr 1fr}.grid3{grid-template-columns:1fr}}
+@media(max-width:600px){.grid4{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r2);padding:var(--s5);box-shadow:var(--shadow);transition:transform .35s var(--ease),box-shadow .35s}
+.card:hover{transform:translateY(-6px);box-shadow:0 2px 4px rgba(18,63,49,.06),0 24px 40px -18px rgba(18,63,49,.3)}
+.stat{display:flex;flex-direction:column}
+.stat .num{font:700 clamp(2.4rem,4.4vw,3.4rem) var(--display);color:var(--green);line-height:1;margin-bottom:var(--s3);font-variant-numeric:tabular-nums}
+.stat .num sup{font-size:.45em;vertical-align:top;margin-left:2px;color:var(--terra-text)}
+.stat p{font-size:.98rem;flex:1}
+.src{font-size:.78rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:var(--s2);margin:0}
+.meter{height:8px;border-radius:9px;background:var(--mint);margin:var(--s2) 0 var(--s3);overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--amber));border-radius:9px;transition:width 1.4s .3s var(--ease)}
+.in .meter i{width:var(--w)}
+.callout{margin-top:var(--s6);padding:var(--s5);border-radius:var(--r2);background:var(--deep);color:#e9f5ee;display:flex;gap:var(--s4);align-items:center}
+.callout b{color:#fff}
+/* how */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5);counter-reset:s;position:relative}
+.step{position:relative;padding-top:var(--s7)}
+.step .n{position:absolute;top:0;left:0;width:56px;height:56px;border-radius:50%;background:var(--amber);color:var(--deep);font:700 1.6rem var(--display);display:grid;place-items:center;box-shadow:0 8px 0 -2px rgba(217,115,58,.25)}
+.step .ico{width:100%;height:150px;background:var(--mint);border-radius:var(--r2);display:grid;place-items:center;margin-bottom:var(--s4);color:var(--green)}
+.step .ico svg{width:72px;height:72px;stroke-width:1.5}
+.badge{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:99px;background:#fdeadb;color:var(--terra-text);vertical-align:middle;margin-left:6px}
+@media(max-width:900px){.steps{grid-template-columns:1fr}}
+/* demo */
+.demo{background:linear-gradient(180deg,var(--cream),var(--mint) 18%,var(--mint) 82%,var(--cream))}
+.demo-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:var(--s7);align-items:start}
+.sim{display:grid;gap:var(--s2);margin:var(--s5) 0}
+.sim button{display:flex;align-items:center;gap:var(--s3);text-align:left;font:500 1rem var(--body);background:#fff;border:2px solid var(--line);border-radius:16px;padding:12px 16px;cursor:pointer;color:var(--ink);transition:border-color .2s,transform .2s var(--ease),background .2s;min-height:52px}
+.sim button:hover{border-color:var(--green);transform:translateX(4px)}
+.sim button.reset{background:transparent;border-style:dashed;justify-content:center;font-weight:700}
+.sim .ic{width:1.4em;height:1.4em;color:var(--terra)}
+.sim small{display:block;color:var(--muted);font-size:.8rem}
+.demo-stage{display:grid;place-items:center;position:sticky;top:90px}
+.phone.big{width:min(100%,380px)}
+.phone.big .screen{padding:0;min-height:600px;display:flex;flex-direction:column;position:relative;height:620px}
+.app-top{padding:var(--s3) var(--s4) var(--s2)}
+.app-body{flex:1;overflow-y:auto;padding:0 var(--s4) var(--s4);scrollbar-width:thin}
+.banner{margin:0 var(--s4) var(--s2);border-radius:14px;padding:10px 12px;display:none;gap:10px;align-items:flex-start;font-size:.85rem;background:#fdeadb;color:#6b2d0d;border:1px solid #f0c29b}
+.banner.show{display:flex;animation:drop .4s var(--ease)}
+@keyframes drop{from{opacity:0;transform:translateY(-10px)}}
+.banner b{display:block}
+.banner button{margin-left:auto;background:none;border:0;color:inherit;font-weight:700;text-decoration:underline;cursor:pointer;font-size:.82rem;min-height:32px;white-space:nowrap}
+.tabbar{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);background:#fff}
+.tabbar button{border:0;background:none;padding:10px 0 8px;font:600 .72rem var(--body);color:var(--muted);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;position:relative;min-height:56px}
+.tabbar button .ic{width:22px;height:22px}
+.tabbar button[aria-selected=true]{color:var(--green)}
+.tabbar button[aria-selected=true]::before{content:"";position:absolute;top:0;left:25%;right:25%;height:3px;background:var(--terra);border-radius:0 0 4px 4px}
+.tabbar .badge-dot{position:absolute;top:8px;left:calc(50% + 8px);width:10px;height:10px;border-radius:50%;background:var(--terra);display:none;border:2px solid #fff}
+.tabbar .badge-dot.on{display:block}
+.toast{position:absolute;left:var(--s3);right:var(--s3);bottom:70px;background:var(--deep);color:#fff;border-radius:16px;padding:12px 14px;font-size:.85rem;display:flex;gap:10px;align-items:flex-start;transform:translateY(20px);opacity:0;pointer-events:none;transition:.4s var(--ease);z-index:5;box-shadow:0 14px 30px -10px rgba(0,0,0,.5)}
+.toast.show{transform:none;opacity:1}
+.toast .ic{color:var(--amber);margin-top:2px}
+.map{width:100%;height:auto;border-radius:16px;display:block;background:#e6f0e4}
+.map .dot{transition:transform 1.4s var(--ease)}
+.geo{fill:rgba(29,107,80,.1);stroke:var(--green);stroke-width:2;stroke-dasharray:7 6;animation:dash 14s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-130}}
+.bars{display:flex;align-items:flex-end;gap:6px;height:84px;margin-top:6px}
+.bars div{flex:1;background:var(--mint2);border-radius:6px 6px 2px 2px;transition:height .8s var(--ease),background .3s;position:relative;min-height:4px}
+.bars div.today{background:var(--green)}.bars div.dip{background:var(--terra)}
+.bars-l{display:flex;gap:6px;font-size:.65rem;color:var(--muted);text-align:center}.bars-l span{flex:1}
+.list{list-style:none;margin:0;padding:0;display:grid;gap:var(--s2)}
+.item{display:flex;align-items:center;gap:var(--s3);background:var(--cream);border:1px solid var(--line);border-radius:14px;padding:10px 12px;font-size:.88rem}
+.item .t{margin-left:auto;font-size:.75rem;color:var(--muted);white-space:nowrap}
+.item.due{border-color:var(--terra);background:#fff5ec;animation:glow 1.6s infinite}
+@keyframes glow{50%{box-shadow:0 0 0 5px rgba(217,115,58,.18)}}
+.item.done{opacity:.65}.item.done .nm{text-decoration:line-through}
+.chk{appearance:none;-webkit-appearance:none;width:26px;height:26px;border:2px solid var(--green);border-radius:8px;background:#fff;cursor:pointer;flex:none;display:grid;place-items:center;margin:0;transition:background .2s}
+.chk:checked{background:var(--green)}
+.chk:checked::after{content:"";width:6px;height:12px;border:solid #fff;border-width:0 3px 3px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.h4s{font:700 .78rem var(--body);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:var(--s4) 0 var(--s2)}
+.chat{display:grid;gap:var(--s2);margin:var(--s2) 0}
+.bub{max-width:85%;padding:9px 13px;border-radius:16px;font-size:.85rem}
+.bub.me{background:var(--green);color:#fff;justify-self:end;border-bottom-right-radius:4px}
+.bub.vet{background:var(--mint);border-bottom-left-radius:4px}
+.chat-in{display:flex;gap:6px}
+.chat-in input,.slots select{flex:1;min-width:0}
+input,select,textarea{font:inherit;color:var(--ink);background:#fff;border:2px solid var(--line);border-radius:12px;padding:10px 12px;min-height:46px;width:100%;transition:border-color .2s}
+input:focus,select:focus,textarea:focus{border-color:var(--green);outline:none;box-shadow:0 0 0 4px rgba(29,107,80,.15)}
+input[aria-invalid=true],select[aria-invalid=true]{border-color:var(--danger)}
+.slotgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:var(--s2) 0}
+.slot{border:2px solid var(--line);background:#fff;border-radius:12px;padding:8px;font:600 .8rem var(--body);cursor:pointer;min-height:44px}
+.slot[aria-pressed=true]{background:var(--green);color:#fff;border-color:var(--green)}
+.ring{--p:0;width:64px;height:64px;border-radius:50%;background:conic-gradient(var(--green) calc(var(--p)*1%),var(--mint2) 0);display:grid;place-items:center;flex:none;transition:.5s}
+.ring span{width:48px;height:48px;border-radius:50%;background:#fff;display:grid;place-items:center;font:700 .85rem var(--body);color:var(--deep)}
+.tabs-panel[hidden]{display:none}
+@media(max-width:900px){.demo-grid{grid-template-columns:1fr}.demo-stage{position:static}}
+/* toolkit */
+.tk{background:#fff;border:1px solid var(--line);border-radius:var(--r3);box-shadow:var(--shadow);overflow:hidden;margin-top:var(--s7)}
+.tk-tabs{display:flex;gap:2px;background:var(--paper);padding:var(--s2);overflow-x:auto}
+.tk-tabs button{flex:1;border:0;background:none;font:700 .95rem var(--body);padding:12px 18px;border-radius:14px;cursor:pointer;color:var(--muted);white-space:nowrap;min-height:48px;display:inline-flex;gap:8px;align-items:center;justify-content:center}
+.tk-tabs button[aria-selected=true]{background:#fff;color:var(--deep);box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.tk-panel{padding:var(--s6)}
+.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--s4)}
+label{display:block;font-weight:700;font-size:.88rem;margin-bottom:6px}
+.result{margin-top:var(--s5);padding:var(--s5);border-radius:var(--r2);background:var(--mint);display:none}
+.result.show{display:block;animation:drop .5s var(--ease)}
+.result ul{padding-left:20px;margin:var(--s2) 0}
+.chips{display:flex;flex-wrap:wrap;gap:var(--s2);margin-bottom:var(--s4)}
+.chip{border:2px solid var(--line);background:#fff;border-radius:99px;padding:6px 16px;font:600 .88rem var(--body);cursor:pointer;min-height:40px}
+.chip[aria-pressed=true]{background:var(--deep);color:#fff;border-color:var(--deep)}
+.rbar{height:10px;border-radius:9px;background:var(--mint2);overflow:hidden;margin:var(--s3) 0}
+.rbar i{display:block;height:100%;width:0;background:var(--green);transition:width .5s var(--ease)}
+.ritem{display:flex;align-items:center;gap:var(--s3);padding:10px 4px;border-bottom:1px solid var(--line);font-weight:400;font-size:.95rem;margin:0;cursor:pointer}
+.ritem.done span.x{text-decoration:line-through;color:var(--muted)}
+.ritem .t{min-width:76px;font-weight:700;color:var(--green)}
+/* vets */
+.vets{background:var(--paper)}
+.vbar{display:flex;gap:var(--s3);flex-wrap:wrap;margin-bottom:var(--s5)}
+.vbar select{flex:1;min-width:220px;max-width:380px}
+.clinic{display:flex;justify-content:space-between;gap:var(--s4);align-items:center;flex-wrap:wrap;margin-bottom:var(--s3);padding:var(--s4) var(--s5)}
+.clinic h3{margin:0 0 4px;font-size:1.15rem;font-family:var(--body);font-weight:700}
+.clinic p{margin:0;font-size:.9rem;color:var(--muted)}
+.acts{display:flex;gap:var(--s2);flex-wrap:wrap}
+.empty{border:2px dashed var(--mint2);border-radius:var(--r2);padding:var(--s5);background:#fff}
+/* band */
+.band-sec{background:var(--deep);color:#d9ece2}
+.band-sec h2,.band-sec h3{color:#fff}
+.band-sec .eyebrow{background:rgba(255,255,255,.1);color:#bfe8d1}
+.band-sec .lead{color:#b9d4c6}
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--s3);margin:var(--s5) 0}
+.feat div{background:rgba(255,255,255,.07);border-radius:16px;padding:var(--s3) var(--s4);font-size:.9rem}
+.feat b{display:flex;gap:8px;align-items:center;color:#fff}
+.models{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5);margin-top:var(--s7)}
+@media(max-width:1020px){.models{grid-template-columns:1fr}}
+.model{background:#fff;color:var(--ink);border-radius:var(--r2);padding:var(--s5);position:relative;transition:transform .35s var(--ease)}
+.model:hover{transform:translateY(-8px)}
+.model h3{color:var(--deep)}.model{display:flex;flex-direction:column}.model>p:not(.price){flex:1}
+.model .pic{width:100%;height:140px;margin-bottom:var(--s3)}
+.model .price{font:700 1.7rem var(--display);color:var(--green);margin:var(--s3) 0 0}
+.spec{display:grid;gap:0;font-size:.88rem;margin-top:var(--s3)}
+.spec div{display:flex;justify-content:space-between;gap:var(--s3);padding:7px 0;border-bottom:1px dashed var(--line)}
+.spec span:first-child{color:var(--muted)}.spec span:last-child{font-weight:700;text-align:right}
+.promise{margin-top:var(--s7);background:linear-gradient(135deg,var(--mint),#fff);color:var(--ink);border-radius:var(--r3);padding:var(--s6);display:flex;gap:var(--s5);align-items:center}
+.promise svg.ic{width:56px;height:56px;color:var(--green);stroke-width:1.5}
+.promise h3{margin-bottom:var(--s2);color:var(--deep)}
+.bandsvg{max-width:420px;margin-inline:auto;display:block}
+.band-top{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s7);align-items:center}
+@media(max-width:900px){.band-top{grid-template-columns:1fr}.promise{flex-direction:column;text-align:center}}
+/* why */
+.tablewrap{overflow-x:auto;border-radius:var(--r2);border:1px solid var(--line);background:#fff;box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;min-width:820px;font-size:.92rem}
+th,td{padding:var(--s4);text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+thead th{background:var(--paper);font:600 1rem var(--display);color:var(--deep);position:sticky;top:0}
+th[scope=row]{font-weight:700;width:19%}
+td.us,th.us{background:var(--mint)}
+thead th.us{background:var(--green);color:#fff}
+tr:last-child td,tr:last-child th{border-bottom:0}
+.y{color:var(--green);font-weight:700}.p{color:var(--terra-text);font-weight:700}.n{color:var(--muted);font-weight:700}
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5);margin-top:var(--s6)}
+@media(max-width:800px){.notes{grid-template-columns:1fr}}
+.note{border-radius:var(--r2);padding:var(--s5);background:#fff;border:1px solid var(--line)}
+.note.l{background:#fff5ec;border-color:#f0c29b}
+/* market */
+.market{background:var(--paper)}
+.chart{background:#fff;border-radius:var(--r2);padding:var(--s5);margin-top:var(--s5);border:1px solid var(--line)}
+.chart svg{width:100%;height:auto;max-width:760px;display:block;margin:0 auto}
+.bar{transform-origin:bottom;transform-box:fill-box;transform:scaleY(0);transition:transform 1.2s var(--ease)}
+.in .bar{transform:scaleY(1)}
+.grid5{display:grid;grid-template-columns:repeat(6,1fr);gap:var(--s4)}
+.grid5 .card{grid-column:span 2}
+.grid5 .card:nth-child(n+4){grid-column:span 3}
+@media(max-width:1020px){.grid5{grid-template-columns:1fr 1fr}.grid5 .card,.grid5 .card:nth-child(n+4){grid-column:span 1}}
+@media(max-width:600px){.grid5{grid-template-columns:1fr}}
+/* model flow + calc */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s3);margin-bottom:var(--s7);counter-reset:f}
+.flow div{background:#fff;border:1px solid var(--line);border-radius:var(--r2);padding:var(--s4) var(--s4) var(--s4) var(--s5);position:relative;font-size:.92rem}
+.flow div::before{counter-increment:f;content:counter(f);font:700 1.6rem var(--display);color:var(--amber);display:block}
+.flow b{display:block;font:600 1.1rem var(--display);color:var(--deep)}
+.flow div:not(:last-child)::after{content:"";position:absolute;right:-13px;top:50%;width:14px;height:14px;border:solid var(--terra);border-width:3px 3px 0 0;transform:translateY(-50%) rotate(45deg);z-index:2}
+@media(max-width:900px){.flow{grid-template-columns:1fr 1fr}.flow div::after{display:none}}
+@media(max-width:480px){.flow{grid-template-columns:1fr}}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:var(--s6);background:#fff;border:1px solid var(--line);border-radius:var(--r3);padding:var(--s6);box-shadow:var(--shadow)}
+@media(max-width:900px){.calc{grid-template-columns:1fr;padding:var(--s5)}}
+.sl{margin-bottom:var(--s5)}
+.sl label{display:flex;justify-content:space-between;gap:var(--s3)}
+.sl output{color:var(--terra-text);font-variant-numeric:tabular-nums;white-space:nowrap}
+input[type=range]{padding:0;min-height:32px;border:0;background:none;accent-color:var(--green);cursor:pointer;box-shadow:none}
+.outs{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);align-content:start}
+.out{background:var(--mint);border-radius:var(--r2);padding:var(--s4)}
+.out.bad{background:#fdeadb}
+.out .k{font-size:.78rem;text-transform:uppercase;letter-spacing:.07em;font-weight:700;color:var(--muted)}
+.out .v{font:700 1.6rem var(--display);color:var(--deep);line-height:1.2;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.out.wide{grid-column:1/-1}
+.tag{display:inline-block;background:#fdeadb;color:var(--terra-text);font-weight:700;font-size:.78rem;padding:4px 12px;border-radius:99px}
+/* pricing */
+.price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5);align-items:stretch}
+@media(max-width:1020px){.price-grid{grid-template-columns:1fr}}
+.plan{display:flex;flex-direction:column;position:relative}
+.plan.pop{border:2px solid var(--green);background:linear-gradient(180deg,var(--mint),#fff 40%)}
+.plan .amt{font:700 3rem var(--display);color:var(--deep);line-height:1}
+.plan .amt small{font:500 1rem var(--body);color:var(--muted)}
+.plan ul{list-style:none;padding:0;margin:var(--s4) 0 var(--s5);display:grid;gap:var(--s2);flex:1}
+.plan li{display:flex;gap:10px;font-size:.95rem}
+.plan li .ic{color:var(--green);margin-top:3px}
+.ribbon{position:absolute;top:-14px;right:20px;background:var(--terra);color:#fff;font-size:.75rem;font-weight:700;padding:4px 14px;border-radius:99px;letter-spacing:.05em}
+.addons{margin-top:var(--s4);display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3)}
+@media(max-width:800px){.addons{grid-template-columns:1fr}}
+.addons div{background:var(--paper);border-radius:16px;padding:var(--s4);display:flex;justify-content:space-between;gap:var(--s3);align-items:center}
+.addons b{font:700 1.15rem var(--display);color:var(--green);white-space:nowrap}
+/* roadmap */
+.road{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5);position:relative}
+@media(max-width:900px){.road{grid-template-columns:1fr}}
+.stage-card{border-top:6px solid var(--mint2)}
+.stage-card.now{border-top-color:var(--green)}.stage-card.next{border-top-color:var(--amber)}.stage-card.later{border-top-color:var(--line)}
+.stage-card ul{padding-left:20px;margin:var(--s3) 0}
+.vs{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:700;padding:4px 12px;border-radius:99px;background:var(--mint);color:var(--green)}
+.vs.pl{background:#fdeadb;color:var(--terra-text)}.vs.nv{background:#eee;color:#555}
+/* club + waitlist */
+.club{display:grid;grid-template-columns:1.2fr .8fr;gap:var(--s6);background:#fff;border:1px solid var(--line);border-radius:var(--r3);padding:var(--s6);margin-bottom:var(--s7);align-items:center}
+@media(max-width:900px){.club{grid-template-columns:1fr;padding:var(--s5)}}
+.club ul{list-style:none;padding:0;margin:0;display:grid;gap:var(--s3)}
+.club li{display:flex;gap:var(--s3);align-items:center;background:var(--mint);border-radius:14px;padding:12px 16px}
+.btn.wa{background:#1f7a4a;border-color:#1f7a4a}
+.wait{background:var(--deep);color:#e0efe7;border-radius:var(--r3);padding:clamp(var(--s5),5vw,var(--s8));display:grid;grid-template-columns:1fr 1fr;gap:var(--s7);position:relative;overflow:hidden}
+.wait h2{color:#fff}
+.wait::after{content:"";position:absolute;right:-80px;bottom:-80px;width:300px;height:300px;border-radius:50%;background:rgba(242,166,90,.18)}
+.wait form{position:relative;z-index:1;background:#fff;color:var(--ink);border-radius:var(--r2);padding:var(--s5);display:grid;gap:var(--s4)}
+.err{color:var(--danger);font-size:.82rem;min-height:1.1em;margin-top:4px}
+@media(max-width:900px){.wait{grid-template-columns:1fr}}
+.ok{text-align:center;padding:var(--s5)}
+.ok svg{width:80px;height:80px;color:var(--green)}
+/* faq */
+.faq{max-width:820px;margin-inline:auto}
+.q{border-bottom:1px solid var(--line)}
+.q h3{margin:0;font-size:1.15rem;font-family:var(--body);font-weight:700}
+.q button{width:100%;background:none;border:0;text-align:left;font:inherit;font-weight:700;padding:var(--s5) 0;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:var(--s4);color:var(--deep);min-height:56px}
+.q button .ic{transition:transform .3s var(--ease);color:var(--terra)}
+.q button[aria-expanded=true] .ic{transform:rotate(45deg)}
+.q .a{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s var(--ease)}
+.q .a>div{overflow:hidden}
+.q .a.open{grid-template-rows:1fr}
+.q .a p{padding-bottom:var(--s5);color:var(--muted);margin:0}
+/* footer */
+footer{background:var(--deep);color:#b9d4c6;padding-block:var(--s8) var(--s6);font-size:.88rem}
+footer h3{color:#fff;font-size:1.1rem}
+footer a{color:#f5c99c}
+footer ul{padding-left:18px;margin:0}
+footer li{margin-bottom:6px}
+.fgrid{display:grid;grid-template-columns:1fr 1.4fr;gap:var(--s7)}
+@media(max-width:800px){.fgrid{grid-template-columns:1fr}}
+.copy{margin-top:var(--s6);padding-top:var(--s4);border-top:1px solid rgba(255,255,255,.15);display:flex;justify-content:space-between;flex-wrap:wrap;gap:var(--s3)}
+@media(max-width:600px){body{font-size:16px}.card{padding:var(--s4)}.tk-panel{padding:var(--s4)}.promise{padding:var(--s5) var(--s4)}.callout{flex-direction:column;align-items:flex-start}.outs{grid-template-columns:1fr}.stage{min-height:0;padding-block:var(--s6)}.float-note{display:none}.scribble{white-space:normal}}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+  .ecg-live{stroke-dasharray:none}
+  .bar{transform:none}.scribble path{stroke-dashoffset:0}.meter i{width:var(--w)}
+}
+/* ===== band-centric v2 ===== */
+.hero-b{padding-bottom:var(--s8)}
+.hero-b h1{font-size:clamp(2.3rem,5vw,4rem);margin-bottom:var(--s4)}
+.hero-grid.hb{grid-template-columns:.9fr 1.1fr;gap:var(--s6)}
+.pchips{display:flex;flex-wrap:wrap;gap:var(--s2)}
+.pchip{background:#fff;border:1px solid var(--line);border-radius:14px;padding:8px 14px;font-size:.88rem;box-shadow:0 1px 2px rgba(18,63,49,.06)}
+.pchip b{color:var(--green);margin-right:4px}
+.hs{position:relative;height:620px}
+.hs .blob{inset:2% 0 10% 0}
+.hs-band{position:absolute;left:4%;width:92%;top:9%;height:auto;--acc:#f2a65a;overflow:visible}
+.hs-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.hs-lines line{stroke:var(--green);stroke-width:1.4;stroke-dasharray:3 5;vector-effect:non-scaling-stroke;opacity:.6}
+.hs-lines .syncl{stroke:var(--terra);stroke-width:2.2;stroke-dasharray:5 7;opacity:1;animation:dash 3s linear infinite}
+.hc-wrap{display:contents}
+.hc{position:absolute;display:flex;gap:8px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:8px 12px;box-shadow:var(--shadow);font-size:.78rem;line-height:1.25;width:min(176px,34%);color:var(--muted);z-index:2;animation:bob 7s ease-in-out infinite}
+.hc b{display:block;color:var(--deep);font-size:.84rem}
+.hc>.ic{color:var(--terra);width:1.4em;height:1.4em}
+.c-loc{left:0;top:3%}.c-hr{right:0;top:2%;animation-delay:-2s}.c-act{left:0;top:44%;animation-delay:-4s}.c-safe{right:0;top:29%;animation-delay:-1s}.c-bat{left:5%;top:66%;animation-delay:-3s}
+.phone.mini{position:absolute;right:0;bottom:0;width:44%;border-width:6px;border-radius:28px;animation-delay:-2s;z-index:3}
+.phone.mini .notch{width:56px;height:11px;border-radius:0 0 10px 10px}
+.phone.mini .screen{min-height:0;padding:10px}
+.phone.mini .pet-head{gap:8px;margin-bottom:8px}
+.phone.mini .avatar{width:34px;height:34px}.phone.mini .avatar svg{width:20px;height:20px}
+.phone.mini .pet-head b{font-size:1rem}
+.phone.mini .tile{padding:6px 8px;margin-bottom:5px;border-radius:12px}.phone.mini .pet-head span{font-size:.7rem}
+.phone.mini .tile .v{font-size:1rem;line-height:1.15}.phone.mini .tile .k{font-size:.64rem}.phone.mini .small{font-size:.72rem}
+.phone.mini .pill{font-size:.68rem}
+@keyframes bbfloat{0%,100%{transform:translateY(0) rotate(-2.5deg)}50%{transform:translateY(-12px) rotate(2deg)}}
+.bb-float{animation:bbfloat 8s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.led-halo{animation:ledp 2.2s ease-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes ledp{0%{transform:scale(.5);opacity:.75}100%{transform:scale(2.4);opacity:0}}
+.led{animation:ledb 2.2s ease-in-out infinite}
+@keyframes ledb{50%{opacity:.6}}
+.sig{animation:ledb 1.6s ease-in-out infinite}
+.bb .acc-f{fill:var(--acc);transition:fill .4s}.bb .acc-s{stroke:var(--acc);transition:stroke .4s}
+.bb .mod{display:none}
+.bb[data-m=gps] .mod-gps,.bb[data-m=cam] .mod-cam{display:inline}
+.bb[data-m=cam] .ecg{display:none}
+.bb[data-m=lite]{--acc:#2fa36f}.bb[data-m=gps]{--acc:#f2a65a}.bb[data-m=cam]{--acc:#4aa3c8}
+@media(max-width:1020px){.hero-grid.hb{grid-template-columns:1fr}.hs{height:auto;display:flex;flex-direction:column;align-items:center;gap:var(--s4)}.hs .blob{inset:0}.hs-band{position:relative;left:auto;top:auto;width:100%;max-width:460px}.hs-lines{display:none}.hc-wrap{display:grid;grid-template-columns:1fr 1fr;gap:var(--s2);width:100%;position:relative;z-index:2}.hc{position:static;width:auto;animation:none}.phone.mini{position:relative;width:min(100%,300px);right:auto;bottom:auto}}
+@media(max-width:420px){.hc{padding:8px;font-size:.72rem}.hc>.ic{display:none}}
+/* explorer */
+.ex{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s6);align-items:center}
+.ex-stage{position:relative;display:grid;place-items:center;padding:var(--s5) 0}
+.ex-stage::before{content:"";position:absolute;inset:8% 4%;border-radius:50%;background:radial-gradient(circle,rgba(127,224,168,.28),transparent 68%)}
+.ex-band{position:relative;width:min(100%,560px);height:auto;overflow:visible}
+.ex-cap{position:relative;text-align:center;color:#a9c9b8;margin:0}
+.ex-panel{background:#fff;color:var(--ink);border-radius:var(--r3);padding:var(--s5)}
+.ex-panel h3{color:var(--deep);margin-bottom:var(--s2)}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;background:var(--paper);padding:5px;border-radius:99px;margin-bottom:var(--s4)}
+.seg button{border:0;background:none;font:700 .95rem var(--body);padding:10px 8px;border-radius:99px;cursor:pointer;color:var(--muted);min-height:44px}
+.seg button[aria-checked=true]{background:var(--deep);color:#fff}
+.seg button:hover{color:var(--deep)}.seg button[aria-checked=true]:hover{color:#fff}
+.ex-panel .price{font:700 1.7rem var(--display);color:var(--green)}
+@media(max-width:900px){.ex{grid-template-columns:1fr}.ex-panel{padding:var(--s4)}}
+.fam{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4)}
+.fam article{background:rgba(255,255,255,.07);border-radius:var(--r2);padding:var(--s4)}
+.fam h4{font:700 1.1rem var(--display);color:#fff;margin:var(--s3) 0 6px}
+.fam p{font-size:.92rem;margin:0;color:#c9e3d6}
+.fam-img{width:100%;height:auto;background:rgba(255,255,255,.08);border-radius:14px;display:block}
+@media(max-width:900px){.fam{grid-template-columns:1fr}}
+.xv{display:grid;grid-template-columns:.9fr 1.1fr;gap:var(--s6);align-items:center}
+.xv-stage{position:relative;width:100%;max-width:460px;margin-inline:auto;background:rgba(255,255,255,.06);border-radius:var(--r3);padding:var(--s3)}
+.xv-stage svg{display:block;width:100%;height:auto}
+.xv-info{background:#fff;color:var(--ink);border-radius:var(--r2);padding:var(--s5);min-height:190px}
+.xv-info h4{font:600 1.4rem var(--display);color:var(--deep);margin:0 0 var(--s2)}
+.xv-info .tag{margin:var(--s3) 6px 0 0}
+.hot{position:absolute;width:44px;height:44px;border-radius:50%;transform:translate(-50%,-50%);border:3px solid #fff;background:var(--terra);color:#fff;font:700 1rem var(--body);cursor:pointer;display:grid;place-items:center;padding:0;box-shadow:0 4px 12px rgba(0,0,0,.35)}
+.hot[aria-pressed=true]{background:var(--amber);color:var(--deep)}
+.hot:focus-visible{outline-color:#fff}
+.xp{transition:opacity .3s}
+.xp.sel .xo{stroke:#f2a65a;stroke-width:4;stroke-opacity:1}
+.xv-stage[data-m=lite] .xp3{opacity:.4}
+@media(max-width:900px){.xv{grid-template-columns:1fr}.xv-info{padding:var(--s4)}}
+/* app band tab */
+.tabbar{grid-template-columns:repeat(5,1fr)}
+.tabbar button{font-size:.66rem}
+.fromb{display:inline-flex;align-items:center;gap:0;font:600 .66rem var(--body);text-transform:none;letter-spacing:0;background:var(--mint);color:var(--green);border-radius:99px;padding:2px 8px;margin-left:4px;vertical-align:middle}
+.fromb .ic{width:12px;height:12px;margin-right:4px}
+.bn-head{display:flex;align-items:center;gap:var(--s3);margin-top:var(--s2)}
+.bn-head b{font:600 1.15rem var(--display);color:var(--deep);line-height:1.15}
+.bn-ic{width:44px;height:44px;border-radius:14px;background:var(--deep);color:#7fe0a8;display:grid;place-items:center;flex:none}
+.bn-steps{display:flex;gap:6px;margin:var(--s2) 0 var(--s3)}
+.bn-steps i{flex:1;height:6px;border-radius:9px;background:var(--mint2)}.bn-steps i.on{background:var(--green)}
+.bn-opt{display:flex;gap:10px;align-items:flex-start;border:2px solid var(--line);border-radius:14px;padding:10px 12px;margin-bottom:var(--s2);font-weight:500;font-size:.88rem;cursor:pointer}
+.bn-opt input{width:auto;min-height:0;margin-top:3px;accent-color:var(--green)}
+.bn-opt small{display:block;color:var(--muted)}
+@media(prefers-reduced-motion:reduce){.hs-lines .syncl{animation:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+<symbol id="i-paw" viewBox="0 0 24 24"><circle cx="5.5" cy="11" r="2"/><circle cx="9" cy="6.5" r="2"/><circle cx="15" cy="6.5" r="2"/><circle cx="18.5" cy="11" r="2"/><path d="M12 12.5c-3 0-5.5 3-5.5 5.2 0 1.7 1.4 2.3 2.8 2.3 1 0 1.7-.5 2.7-.5s1.7.5 2.7.5c1.4 0 2.8-.6 2.8-2.3 0-2.2-2.5-5.2-5.5-5.2z"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+<symbol id="i-activity" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+<symbol id="i-temp" viewBox="0 0 24 24"><path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"/></symbol>
+<symbol id="i-trend" viewBox="0 0 24 24"><path d="M22 7l-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></symbol>
+<symbol id="i-pill" viewBox="0 0 24 24"><path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/></symbol>
+<symbol id="i-syringe" viewBox="0 0 24 24"><path d="m18 2 4 4"/><path d="m17 7 3-3"/><path d="M19 9 8.7 19.3c-1 1-2.5 1-3.4 0l-.6-.6c-1-1-1-2.5 0-3.4L15 5"/><path d="m9 11 4 4"/><path d="m5 19-3 3"/><path d="m14 4 6 6"/></symbol>
+<symbol id="i-steth" viewBox="0 0 24 24"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6 6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></symbol>
+<symbol id="i-msg" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/><path d="M12 15V3"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-home" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+<symbol id="i-bowl" viewBox="0 0 24 24"><path d="M3 11h18a8 8 0 0 1-8 8h-2a8 8 0 0 1-8-8z"/><path d="M8 4c0 1.5 1.5 2 1.5 4M13 3c0 1.5 1.5 2 1.5 4"/></symbol>
+<symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3z"/></symbol>
+<symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+<symbol id="i-cam" viewBox="0 0 24 24"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3z"/><circle cx="12" cy="13" r="3"/></symbol>
+<symbol id="i-phoneapp" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4z"/><path d="M22 2 11 13"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+<symbol id="i-undo" viewBox="0 0 24 24"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-15-6.7L3 13"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+<symbol id="i-band" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M7 8V5M17 8V5M7 16v3M17 16v3"/><circle cx="12" cy="12" r="1.3"/></symbol>
+<symbol id="i-battery" viewBox="0 0 24 24"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 11v2M6 11v2M10 11v2"/></symbol>
+<!-- LOGO: single reusable symbol. Swap the contents of this symbol to change the logo everywhere (nav uses it). -->
+<symbol id="logo-mark" viewBox="10 6 80 88"><ellipse cx="22" cy="40" rx="7" ry="9.5" transform="rotate(-22 22 40)" fill="#1d6b50"/><ellipse cx="38" cy="23" rx="8" ry="10.5" transform="rotate(-8 38 23)" fill="#1d6b50"/><ellipse cx="62" cy="23" rx="8" ry="10.5" transform="rotate(8 62 23)" fill="#1d6b50"/><ellipse cx="78" cy="40" rx="7" ry="9.5" transform="rotate(22 78 40)" fill="#1d6b50"/><path d="M50 46C63 46 77 58 79 71C81 83 70 89 60 87C55 86 53 85 50 85C47 85 45 86 40 87C30 89 19 83 21 71C23 58 37 46 50 46Z" fill="#1d6b50"/><path d="M30 70H41L46 60L54 80L59 70H70" fill="none" stroke="#fbfaf6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<linearGradient id="g-body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".55" stop-color="#e4f0e8"/><stop offset="1" stop-color="#bcd6c8"/></linearGradient>
+<linearGradient id="g-glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1f5a45"/><stop offset="1" stop-color="#0a241b"/></linearGradient>
+<linearGradient id="g-strap" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6b878"/><stop offset="1" stop-color="#d9733a"/></linearGradient>
+<linearGradient id="g-fadeh" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".16" stop-color="#fff"/><stop offset=".84" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<mask id="m-fade" maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="260"><rect x="0" y="0" width="400" height="260" fill="url(#g-fadeh)"/></mask>
+<filter id="f-shadow" x="-20%" y="-30%" width="140%" height="190%"><feDropShadow dx="0" dy="14" stdDeviation="11" flood-color="#0b2a20" flood-opacity=".38"/></filter>
+</defs></svg>
+
+<header class="nav" id="nav">
+ <div class="wrap">
+  <a class="logo" href="#top" aria-label="PawPulse home">
+   <svg viewBox="10 6 80 88" aria-hidden="true"><use href="#logo-mark"/></svg>
+   PawPulse
+  </a>
+  <nav aria-label="Main">
+   <ul id="menu">
+    <li><a href="#explore">The band</a></li>
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#demo">The app</a></li>
+    <li><a href="#why">Compare</a></li>
+    <li><a href="#market">Market</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
+   </ul>
+  </nav>
+  <div class="right">
+   <a class="btn sm cta" href="#waitlist">Join the waitlist</a>
+   <button class="burger" id="burger" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><svg class="ic" aria-hidden="true"><use href="#i-menu"/></svg></button>
+  </div>
+ </div>
+</header>
+
+<main id="main">
+<!-- HERO (band-led) -->
+<section class="hero hero-b" id="top">
+ <div class="wrap hero-grid hb">
+  <div>
+   <span class="eyebrow"><svg class="ic" aria-hidden="true"><use href="#i-band"/></svg> BioBand concept for Indian pet parents</span>
+   <h1>Meet BioBand. The little band that keeps up with their <span class="scribble">whole day.<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4 13 C60 4 120 18 180 8 S270 10 296 6"/></svg></span></h1>
+   <p class="lead">It clips onto any collar and feeds the PawPulse app: where they are and how active they are today, with heart rate and temperature proposed for later.</p>
+   <div class="pchips" role="list" aria-label="Target band prices"><span class="pchip" role="listitem"><b>Lite</b> Rs 999 to 1,499</span><span class="pchip" role="listitem"><b>GPS</b> Rs 2,499 to 3,999</span><span class="pchip" role="listitem"><b>Cam</b> Rs 3,499 to 4,999</span></div>
+   <p class="small" style="margin:6px 0 var(--s5)">Target prices, proposed and pre-launch. Nothing can be bought today.</p>
+   <div class="cta-row">
+    <a class="btn" href="#waitlist">Join the waitlist</a>
+    <a class="btn ghost" href="#explore">Explore the band</a>
+   </div>
+   <p class="trust"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg> <span>Concept prototype. The band's records live in the app, and the app works without the band.</span></p>
+  </div>
+  <div class="hs">
+   <div class="blob" aria-hidden="true"></div>
+   <svg  class="bb hs-band" viewBox="0 0 400 260" role="img" aria-label="Illustration of the BioBand clip-on band on a collar strap, with a pulsing light" ><g class="bb-float">
+<g mask="url(#m-fade)"><rect x="-10" y="92" width="420" height="50" rx="6" fill="url(#g-strap)"/><path d="M0 99H400M0 135H400" stroke="#fff" stroke-opacity=".4" stroke-width="1.6" stroke-dasharray="7 7" fill="none"/><g fill="#a64f1d" opacity=".45"><circle cx="330" cy="117" r="4"/><circle cx="352" cy="117" r="4"/><circle cx="374" cy="117" r="4"/></g></g>
+<g filter="url(#f-shadow)">
+<rect x="84" y="78" width="30" height="78" rx="12" fill="none" stroke="#173f31" stroke-width="8"/><rect x="286" y="78" width="30" height="78" rx="12" fill="none" stroke="#173f31" stroke-width="8"/>
+<rect x="100" y="64" width="200" height="106" rx="53" fill="url(#g-body)"/>
+<rect x="100" y="64" width="200" height="106" rx="53" fill="none" stroke-width="5" class="acc-s"/>
+<path d="M130 84Q200 66 270 84" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".85"/>
+<rect x="124" y="86" width="152" height="64" rx="32" fill="url(#g-glass)"/>
+<path class="ecg" d="M140 120H168l8-12 10 24 9-32 10 26 7-6h50" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity=".5" style="stroke:var(--acc)"/>
+<circle class="led-halo acc-f" cx="200" cy="118" r="13"/><circle class="led acc-f" cx="200" cy="118" r="6.5"/>
+</g></g></svg>
+   <svg class="hs-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+    <line x1="33" y1="9.5" x2="39" y2="26"/><line x1="67" y1="8" x2="53" y2="28"/><line x1="33" y1="49" x2="37" y2="39"/><line x1="67" y1="34" x2="64" y2="34"/><line x1="40" y1="67" x2="47" y2="41"/>
+    <line class="syncl" x1="58" y1="43" x2="70" y2="55"/>
+   </svg>
+   <div class="hc-wrap">
+    <div class="hc c-loc"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg><div><b>Live location</b>GPS model</div></div>
+    <div class="hc c-hr"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg><div><b>Heart rate <span class="badge" style="margin:0">proposed</span></b>Needs hardware validation</div></div>
+    <div class="hc c-act"><svg class="ic" aria-hidden="true"><use href="#i-activity"/></svg><div><b>Activity and sleep</b>Steps, play, rest</div></div>
+    <div class="hc c-safe"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><div><b>Safe-zone alerts</b>GPS model</div></div>
+    <div class="hc c-bat"><svg class="ic" aria-hidden="true"><use href="#i-battery"/></svg><div><b>Battery (target)</b>Up to ~7 days, Lite</div></div>
+   </div>
+   <div class="phone live mini" role="group" aria-label="Small preview of the data Bruno's band sends to the PawPulse app, illustrative">
+    <div class="notch"></div>
+    <div class="screen">
+     <div class="pet-head"><div class="avatar" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#i-paw"/></svg></div><div><b>Bruno</b><span>from his BioBand</span></div><span class="pill" style="margin-left:auto"><i class="dot"></i>Live</span></div>
+     <div class="row2">
+      <div class="tile"><div class="k"><svg class="ic" aria-hidden="true"><use href="#i-activity"/></svg> Steps</div><div class="v" id="lv-steps">4,218</div></div>
+      <div class="tile"><div class="k"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> Zone</div><div class="v" style="font-size:1.05rem">Home</div><span class="pill"><i class="dot"></i>Inside</span></div>
+     </div>
+     <div class="tile" style="margin-top:6px"><div class="k"><span class="heart" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></span> Heart rate <span class="badge" style="margin:0">proposed</span></div><div class="v"><span id="lv-bpm">84</span> <small>bpm, illustrative</small></div></div>
+     <div class="tile" style="margin:0"><div class="k"><svg class="ic" aria-hidden="true"><use href="#i-pill"/></svg> Next medicine</div><div class="small">Deworming tablet in <b id="lv-med" style="color:var(--terra-text);font-variant-numeric:tabular-nums">2:14:00</b></div></div>
+    </div>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- BAND EXPLORER -->
+<section class="band-sec" id="explore">
+ <div class="wrap">
+  <div class="head rv"><span class="eyebrow"><svg class="ic" aria-hidden="true"><use href="#i-band"/></svg> Band explorer</span><h2>Pick a BioBand. <em class="h" style="color:#7fe0a8">See what is inside.</em></h2><p class="lead">Three concept models share one clip-on body. Choose one to see its target specs and price range. Heart rate and temperature are proposed for later and subject to hardware validation.</p></div>
+  <div class="ex rv">
+   <div class="ex-stage">
+    <svg  class="bb ex-band" viewBox="0 0 400 260" role="img" aria-label="BioBand Lite concept illustration" data-m="lite" id="ex-svg"><g class="bb-float">
+<g mask="url(#m-fade)"><rect x="-10" y="92" width="420" height="50" rx="6" fill="url(#g-strap)"/><path d="M0 99H400M0 135H400" stroke="#fff" stroke-opacity=".4" stroke-width="1.6" stroke-dasharray="7 7" fill="none"/><g fill="#a64f1d" opacity=".45"><circle cx="330" cy="117" r="4"/><circle cx="352" cy="117" r="4"/><circle cx="374" cy="117" r="4"/></g></g>
+<g filter="url(#f-shadow)">
+<rect x="84" y="78" width="30" height="78" rx="12" fill="none" stroke="#173f31" stroke-width="8"/><rect x="286" y="78" width="30" height="78" rx="12" fill="none" stroke="#173f31" stroke-width="8"/>
+<rect x="100" y="64" width="200" height="106" rx="53" fill="url(#g-body)"/>
+<rect x="100" y="64" width="200" height="106" rx="53" fill="none" stroke-width="5" class="acc-s"/>
+<path d="M130 84Q200 66 270 84" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".85"/>
+<rect x="124" y="86" width="152" height="64" rx="32" fill="url(#g-glass)"/>
+<path class="ecg" d="M140 120H168l8-12 10 24 9-32 10 26 7-6h50" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" opacity=".5" style="stroke:var(--acc)"/>
+<circle class="led-halo acc-f" cx="200" cy="118" r="13"/><circle class="led acc-f" cx="200" cy="118" r="6.5"/>
+<g class="mod mod-gps"><path class="sig" d="M246 40a22 22 0 0 1 34 0M238 31a34 34 0 0 1 50 0" fill="none" stroke-width="3.5" stroke-linecap="round" style="stroke:var(--acc)"/><rect x="244" y="46" width="38" height="26" rx="10" style="fill:var(--acc)"/><rect x="250" y="52" width="26" height="6" rx="3" fill="#fff" opacity=".55"/></g>
+<g class="mod mod-cam"><circle cx="157" cy="117" r="22" fill="#0b1f17" style="stroke:var(--acc)" stroke-width="4"/><circle cx="157" cy="117" r="13" fill="#143a4a"/><circle cx="157" cy="117" r="7" fill="#4aa3c8"/><circle cx="153" cy="112" r="2.6" fill="#fff" opacity=".8"/></g></g></g></svg>
+    <p class="small ex-cap">Concept render. Not a final product design.</p>
+   </div>
+   <div class="ex-panel">
+    <div class="seg" role="radiogroup" aria-label="BioBand model" id="ex-sel">
+     <button type="button" role="radio" aria-checked="true" data-m="lite">Lite</button>
+     <button type="button" role="radio" aria-checked="false" tabindex="-1" data-m="gps">GPS</button>
+     <button type="button" role="radio" aria-checked="false" tabindex="-1" data-m="cam">Cam</button>
+    </div>
+    <h3 id="ex-name">BioBand Lite</h3>
+    <p id="ex-desc"></p>
+    <div class="spec" id="ex-spec" aria-live="polite"></div>
+    <p class="price" id="ex-price" style="margin:var(--s3) 0 2px"></p>
+    <p class="small" style="margin:0 0 var(--s3)"><span class="tag">Target price, proposed</span> Weight, battery and prices are target specs, to be confirmed after supplier quotes and testing.</p>
+    <a class="btn amber" href="#waitlist">Join the waitlist</a>
+   </div>
+  </div>
+  <p class="small rv" style="color:#a9c9b8;margin-top:var(--s4)">Cam records only when triggered or requested by the owner. Target fit: necks 20 to 72 cm (sizes XS to XL). Wellness trends only, not a medical diagnosis.</p>
+
+  <!-- BAND FAMILY: image slots. Replace each .fam-img SVG placeholder (data-slot) with the final concept image. -->
+  <div class="rv" style="margin-top:var(--s8)">
+   <h3>The band family</h3>
+   <p class="lead" style="margin-bottom:var(--s5)">One band, a few ways to wear and use it. The mounts and modes below are concepts we want to test with pet parents.</p>
+   <div class="fam">
+    <article><svg class="fam-img" viewBox="0 0 320 200" role="img" aria-label="Placeholder illustration: BioBand Collar clipped to a collar" data-slot="band-family-collar"><rect width="320" height="200" fill="none"/><ellipse cx="160" cy="92" rx="112" ry="62" fill="none" stroke="#f2a65a" stroke-width="16"/><ellipse cx="160" cy="92" rx="112" ry="62" fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="2" stroke-dasharray="4 9"/><rect x="118" y="132" width="84" height="46" rx="23" fill="url(#g-body)"/><circle cx="160" cy="155" r="6" fill="#7fe0a8"/></svg><h4>BioBand Collar <span class="badge" style="background:#d7ecdf;color:var(--deep)">default</span></h4><p>Clips onto the collar your pet already wears.</p></article>
+    <article><svg class="fam-img" viewBox="0 0 320 200" role="img" aria-label="Placeholder illustration: BioBand Harness mount on a dog harness" data-slot="band-family-harness"><path d="M70 40Q160 12 250 40M90 40L130 168M230 40L190 168M130 168H190M160 28V168" fill="none" stroke="#f2a65a" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path d="M160 28V168" stroke="#fff" stroke-opacity=".45" stroke-width="2" stroke-dasharray="4 8"/><rect x="118" y="86" width="84" height="46" rx="23" fill="url(#g-body)"/><circle cx="160" cy="109" r="6" fill="#7fe0a8"/></svg><h4>BioBand Harness mount <span class="badge">concept prototype</span></h4><p>For strong pullers and reactive dogs: sits on a harness, so there is no pressure on the neck. It tracks the dog; it does not treat or change behaviour.</p></article>
+    <article><svg class="fam-img" viewBox="0 0 320 200" role="img" aria-label="Placeholder illustration: BioBand Nudge mode with a paw-shaped light pattern" data-slot="band-family-nudge"><rect x="70" y="52" width="180" height="96" rx="48" fill="url(#g-body)"/><rect x="92" y="72" width="136" height="56" rx="28" fill="url(#g-glass)"/><g fill="#f2a65a"><circle cx="138" cy="100" r="5"/><circle cx="153" cy="90" r="5"/><circle cx="167" cy="90" r="5"/><circle cx="182" cy="100" r="5"/><path d="M160 98c-7 0-12 6-12 11 0 4 3 5 6 5 2 0 4-1 6-1s4 1 6 1c3 0 6-1 6-5 0-5-5-11-12-11z"/></g><path d="M52 40l-10-8M268 40l10-8M46 160l-10 8M274 160l10 8" stroke="#f2a65a" stroke-width="4" stroke-linecap="round" opacity=".7"/></svg><h4>BioBand Nudge mode <span class="badge">concept prototype</span></h4><p>For low-activity dogs: gentle activity nudges and a daily movement goal for the owner, shown with a paw-shaped light pattern. Not a medical tool.</p></article>
+   </div>
+  </div>
+
+  <!-- EXPLODED VIEW -->
+  <div class="xv rv" style="margin-top:var(--s8)">
+   <div>
+    <h3>Inside the band</h3>
+    <p class="lead" style="margin-bottom:var(--s4)">Select a numbered point, with a mouse, touch or the Tab and Enter keys, to see what each part is for.</p>
+    <div class="xv-info" id="xv-info" aria-live="polite" tabindex="-1"><h4 id="xv-t">Choose a part</h4><p id="xv-d" style="margin:0">Five parts, from the shell to the clip. Everything here is a concept design with target specs.</p><div id="xv-tags"></div></div>
+   </div>
+   <div class="xv-stage" id="xv-stage" data-m="lite">
+    <svg viewBox="0 0 420 440" role="img" aria-label="Exploded view of the BioBand: shell and light, sensor board, GPS or camera module, battery and collar clip" id="xv-svg">
+     <path d="M60 72V352M280 72V352" stroke="#fff" stroke-opacity=".25" stroke-width="2" stroke-dasharray="3 6" fill="none"/>
+     <g class="xp" data-p="1"><rect class="xo" x="60" y="22" width="220" height="50" rx="25" fill="url(#g-body)" stroke="#fff" stroke-opacity=".5" stroke-width="2"/><rect x="84" y="34" width="172" height="26" rx="13" fill="url(#g-glass)"/><circle cx="170" cy="47" r="5" fill="#f2a65a" class="led"/></g>
+     <g class="xp" data-p="2"><rect class="xo" x="70" y="110" width="200" height="40" rx="10" fill="#1d6b50" stroke="#fff" stroke-opacity=".4" stroke-width="2"/><rect x="88" y="120" width="24" height="20" rx="3" fill="#0b2a20"/><rect x="120" y="120" width="40" height="20" rx="3" fill="#0b2a20"/><circle cx="172" cy="130" r="4" fill="#7fe0a8"/><rect x="190" y="118" width="70" height="24" rx="6" fill="none" stroke="#f2a65a" stroke-width="2" stroke-dasharray="4 3"/></g>
+     <g class="xp xp3" data-p="3"><rect class="xo" x="80" y="188" width="180" height="38" rx="8" fill="#2b3b36" stroke="#fff" stroke-opacity=".4" stroke-width="2"/><rect x="96" y="196" width="22" height="22" rx="4" fill="#f2a65a"/><circle cx="212" cy="207" r="13" fill="#0b1f17" stroke="#4aa3c8" stroke-width="3"/><circle cx="212" cy="207" r="5" fill="#4aa3c8"/></g>
+     <g class="xp" data-p="4"><rect class="xo" x="75" y="262" width="190" height="50" rx="14" fill="#f7cfa5" stroke="#fff" stroke-opacity=".6" stroke-width="2"/><rect x="265" y="276" width="9" height="22" rx="3" fill="#f7cfa5"/><g fill="#d9733a"><rect x="92" y="276" width="34" height="22" rx="4"/><rect x="132" y="276" width="34" height="22" rx="4"/><rect x="172" y="276" width="34" height="22" rx="4" opacity=".4"/></g></g>
+     <g class="xp" data-p="5"><rect x="92" y="372" width="156" height="42" rx="21" fill="none" stroke="#d9733a" stroke-width="8"/><rect class="xo" x="60" y="352" width="220" height="34" rx="17" fill="#173f31" stroke="#fff" stroke-opacity=".4" stroke-width="2"/></g>
+     <g font-family="DM Sans,system-ui,sans-serif" font-size="14" fill="#d9ece2" font-weight="600"><text x="330" y="52">Shell + light</text><text x="330" y="135">Sensors</text><text x="330" y="212">GPS / camera</text><text x="330" y="292">Battery</text><text x="330" y="373">Clip</text></g>
+    </svg>
+    <button type="button" class="hot" aria-pressed="false" data-p="1" aria-label="Part 1, shell and light" style="left:71.4%;top:11.8%">1</button>
+    <button type="button" class="hot" aria-pressed="false" data-p="2" aria-label="Part 2, sensors" style="left:71.4%;top:30.7%">2</button>
+    <button type="button" class="hot" aria-pressed="false" data-p="3" aria-label="Part 3, GPS or camera module" style="left:71.4%;top:47%">3</button>
+    <button type="button" class="hot" aria-pressed="false" data-p="4" aria-label="Part 4, battery" style="left:71.4%;top:65.2%">4</button>
+    <button type="button" class="hot" aria-pressed="false" data-p="5" aria-label="Part 5, collar clip" style="left:71.4%;top:84.8%">5</button>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- HOW -->
+<section id="how">
+ <div class="wrap">
+  <div class="head center rv"><span class="eyebrow">How it works</span><h2>Clip it on. <em class="h">The app does the rest.</em></h2><p class="lead">The band collects. The PawPulse app keeps the records and turns them into care. No band yet? The app still works.</p></div>
+  <div class="steps">
+   <div class="step rv"><span class="n">1</span><div class="ico"><svg class="ic" aria-hidden="true"><use href="#i-band"/></svg></div><h3>Clip it on</h3><p>BioBand clips onto your pet's collar (Harness mount is a concept for dogs who pull). Switch it on and pair it in the app.</p></div>
+   <div class="step rv" style="--d:.12s"><span class="n">2</span><div class="ico"><svg class="ic" aria-hidden="true"><use href="#i-phoneapp"/></svg></div><h3>It syncs to the PawPulse app</h3><p>Location and activity land in your pet's profile. Heart rate and temperature are proposed for later, subject to hardware validation.</p></div>
+   <div class="step rv" style="--d:.24s"><span class="n">3</span><div class="ico"><svg class="ic" aria-hidden="true"><use href="#i-pill"/></svg></div><h3>Care follows</h3><p>Medicines, routines and vet records sit beside the band's data, shared with family and your vet when you choose.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- DEMO -->
+<section class="demo" id="demo">
+ <div class="wrap demo-grid">
+  <div class="rv">
+   <span class="eyebrow">Interactive demo</span>
+   <h2>What the band feeds: <span class="scribble">the PawPulse app.<svg viewBox="0 0 300 20" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M4 13 C60 4 120 18 180 8 S270 10 296 6"/></svg></span></h2>
+   <p class="lead">Everything Bruno's BioBand sees lands in this app. The phone is a working mock-up: pair a band, simulate a day, then tap around.</p>
+   <div class="sim" role="group" aria-label="Simulate an event">
+    <button type="button" id="sim-pair"><svg class="ic" aria-hidden="true"><use href="#i-band"/></svg><span>Pair your band<small>Switch on, clip on, name your pet</small></span></button>
+    <button type="button" id="sim-med"><svg class="ic" aria-hidden="true"><use href="#i-pill"/></svg><span>Medicine due<small>A dose reminder, synced with the band</small></span></button>
+    <button type="button" id="sim-geo"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg><span>Bruno leaves the safe zone<small>Sent by the GPS band, planned</small></span></button>
+    <button type="button" id="sim-act"><svg class="ic" aria-hidden="true"><use href="#i-activity"/></svg><span>Activity dip<small>Seen by the band. A trend worth a look, not a diagnosis</small></span></button>
+    <button type="button" class="reset" id="sim-reset"><svg class="ic" aria-hidden="true"><use href="#i-undo"/></svg> Reset</button>
+   </div>
+   <p class="small">All data on this phone is made up. Band status, notifications, the map and activity trends are simulated in your browser. Harness mount and Nudge mode are concept prototypes.</p>
+  </div>
+  <div class="demo-stage rv" style="--d:.1s">
+   <div class="phone big" role="group" aria-label="PawPulse app demo, starting on the Band tab">
+    <div class="notch"></div>
+    <div class="screen">
+     <div class="app-top">
+      <div class="pet-head" style="margin:0">
+       <div class="avatar" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#i-paw"/></svg></div>
+       <div><b>Bruno</b><span>3-year-old Indie dog</span></div>
+       <span class="pill" id="d-status" style="margin-left:auto"><i class="dot"></i><span>Home</span></span>
+      </div>
+     </div>
+     <div class="banner" id="d-banner" role="status"><span id="d-banner-ic" style="color:var(--terra)"><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg></span><div><b id="d-banner-t"></b><span id="d-banner-s"></span></div><button type="button" id="d-banner-x">Dismiss</button></div>
+     <div class="app-body" id="d-body">
+      <!-- BAND -->
+      <div role="tabpanel" id="p-band" aria-labelledby="t-band" class="tabs-panel">
+       <div id="bn-status">
+        <div class="bn-head"><span class="bn-ic" aria-hidden="true"><svg class="ic" aria-hidden="true"><use href="#i-band"/></svg></span><div><b id="bn-name"><span class="pn">Bruno</span>'s BioBand</b><span class="small" id="bn-model" style="display:block">BioBand Collar, GPS model (illustrative)</span></div><span class="pill" style="margin-left:auto"><i class="dot"></i>Connected</span></div>
+        <div class="row2" style="margin-top:var(--s2)">
+         <div class="tile"><div class="k"><svg class="ic" aria-hidden="true"><use href="#i-battery"/></svg> Battery</div><div class="v">78%</div><div class="small" style="font-size:.7rem">target up to ~3 days (GPS)</div></div>
+         <div class="tile"><div class="k"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg> Last sync</div><div class="v" style="font-size:1.1rem" id="bn-sync">Just now</div><div class="small" style="font-size:.7rem">over Bluetooth</div></div>
+        </div>
+        <div class="row2" style="margin-top:var(--s2)">
+         <div class="tile"><div class="k"><svg class="ic" aria-hidden="true"><use href="#i-spark"/></svg> Firmware</div><div class="v" style="font-size:1.1rem">v0.1</div><div class="small" style="font-size:.7rem">concept build</div></div>
+         <div class="tile"><div class="k"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg> Wear check</div><div class="v" style="font-size:1.1rem" id="bn-wear">Snug fit</div><div class="small" style="font-size:.7rem" id="bn-wear-s">checked 3 min ago</div></div>
+        </div>
+        <button type="button" class="btn sm ghost" id="bn-wear-btn" style="width:100%;margin-top:var(--s2)">Run wear check</button>
+        <div class="h4s">Band mode</div>
+        <div class="chips" role="radiogroup" aria-label="Band mode" id="bn-modes" style="margin-bottom:6px">
+         <button class="chip" type="button" role="radio" aria-checked="true" data-k="everyday">Everyday</button>
+         <button class="chip" type="button" role="radio" aria-checked="false" tabindex="-1" data-k="walk">Walk</button>
+         <button class="chip" type="button" role="radio" aria-checked="false" tabindex="-1" data-k="rest">Rest</button>
+         <button class="chip" type="button" role="radio" aria-checked="false" tabindex="-1" data-k="nudge">Nudge</button>
+        </div>
+        <p class="small" id="bn-mode-d" aria-live="polite" style="margin:0 0 var(--s3)"></p>
+        <p class="small" style="margin:0 0 var(--s3)">Everything on the Today, Medicines and Health tabs is from <span class="pn">Bruno</span>'s BioBand and kept in the app.</p>
+        <button type="button" class="btn sm" id="bn-pair" style="width:100%"><svg class="ic" aria-hidden="true"><use href="#i-band"/></svg> Pair a band (3 steps)</button>
+       </div>
+       <div id="bn-flow" hidden>
+        <div class="bn-steps" id="bn-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+        <h3 id="bn-ft" tabindex="-1" style="font-size:1.25rem;margin-bottom:6px"></h3>
+        <div id="bn-fb"></div>
+        <div style="display:flex;gap:var(--s2);margin-top:var(--s3)"><button type="button" class="btn sm ghost" id="bn-back">Back</button><button type="button" class="btn sm" id="bn-next" style="flex:1">Next</button></div>
+       </div>
+      </div>
+      <!-- TODAY -->
+      <div role="tabpanel" id="p-today" aria-labelledby="t-today" class="tabs-panel" hidden>
+       <div class="h4s" style="margin-top:var(--s2)">Location <span class="fromb"><svg class="ic" aria-hidden="true"><use href="#i-band"/></svg> from <span class="pn">Bruno</span>'s BioBand</span></div>
+       <svg class="map" id="d-map" viewBox="0 0 300 190" role="img" aria-label="Map showing Bruno inside a dashed safe zone around home">
+        <rect width="300" height="190" fill="#e6f0e4"/>
+        <path d="M0 150C70 120 130 170 300 120M120 0C140 60 90 120 130 190M200 0C190 50 260 90 300 70" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"/>
+        <rect x="14" y="20" width="60" height="38" rx="8" fill="#cfe3cc"/><rect x="220" y="120" width="64" height="44" rx="10" fill="#cfe3cc"/>
+        <circle class="geo" cx="150" cy="95" r="58"/>
+        <g transform="translate(138 83)" fill="none" stroke="#1d6b50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M0 11l12-10 12 10v12H0z" fill="#fff"/></g>
+        <g class="dot" id="d-dot" style="transform:translate(150px,126px)"><circle r="14" fill="#f2a65a" opacity=".3"><animate attributeName="r" values="8;18;8" dur="2.4s" repeatCount="indefinite"/></circle><circle r="7" fill="#d9733a" stroke="#fff" stroke-width="2.5"/></g>
+       </svg>
+       <div class="small" id="d-map-cap" style="margin-top:6px"><span class="fromb"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg> Safe zone, from <span class="pn">Bruno</span>'s BioBand</span> Inside the safe zone around Home, Ahmedabad (illustrative).</div>
+       <div class="h4s">Activity, last 7 days <span class="fromb"><svg class="ic" aria-hidden="true"><use href="#i-band"/></svg> from <span class="pn">Bruno</span>'s BioBand</span></div>
+       <div class="bars" id="d-bars" aria-hidden="true"></div>
+       <div class="bars-l" aria-hidden="true"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Today</span></div>
+       <p class="small" id="d-act-cap" style="margin-top:8px">Steps today: about on track with Bruno's usual.</p>
+       <div class="h4s">Up next <span class="fromb"><svg class="ic" aria-hidden="true"><use href="#i-band"/></svg> reminders sync to the band (concept)</span></div>
+       <ul class="list"><li class="item"><svg class="ic" aria-hidden="true"><use href="#i-pill"/></svg><span class="nm" id="d-next">Joint supplement</span><span class="t" id="d-next-t">1:00 PM</span></li><li class="item"><svg class="ic" aria-hidden="true"><use href="#i-bowl"/></svg><span class="nm">Dinner</span><span class="t">7:00 PM</span></li></ul>
+      </div>
+      <!-- HEALTH -->
+      <div role="tabpanel" id="p-health" aria-labelledby="t-health" class="tabs-panel" hidden>
+       <div class="h4s" style="margin-top:var(--s2)">Health profile</div>
+       <div class="tile"><div class="row2" style="gap:var(--s3)"><div><div class="k">Weight</div><div class="v">18.4 <small>kg</small></div></div><div><div class="k">Allergies</div><div class="v" style="font-size:1rem;margin-top:6px">None known</div></div></div></div>
+       <div class="h4s">Vaccines and prevention</div>
+       <ul class="list">
+        <li class="item"><svg class="ic" aria-hidden="true"><use href="#i-syringe"/></svg><span class="nm">Annual booster</span><span class="t">due in 3 weeks</span></li>
+        <li class="item"><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg><span class="nm">Flea and tick</span><span class="t">done last month</span></li>
+        <li class="item"><svg class="ic" aria-hidden="true"><use href="#i-syringe"/></svg><span class="nm">Rabies</span><span class="t">up to date</span></li>
+       </ul>
+       <div class="h4s">Trend notes</div>
+       <div class="tile" id="d-trend"><div class="k"><svg class="ic" aria-hidden="true"><use href="#i-trend"/></svg> Activity, from <span class="pn">Bruno</span>'s BioBand</div><p style="margin:4px 0 0;font-size:.88rem" id="d-trend-t">Steady this week. Nothing unusual to flag.</p></div>
+       <div class="tile"><div class="k"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg> Heart rate and temperature <span class="badge" style="margin:0">proposed</span></div><p style="margin:4px 0 0;font-size:.82rem;color:var(--muted)">Would come from the band, after hardware validation. Wellness trends only, not diagnosis.</p></div>
+       <button type="button" class="btn sm" id="d-export" style="width:100%;margin-top:var(--s2)"><svg class="ic" aria-hidden="true"><use href="#i-down"/></svg> Export all records (concept)</button>
+      </div>
+      <!-- MEDICINES -->
+      <div role="tabpanel" id="p-meds" aria-labelledby="t-meds" class="tabs-panel" hidden>
+       <div style="display:flex;align-items:center;gap:var(--s3);margin:var(--s2) 0 var(--s3)">
+        <div class="ring" id="d-ring" style="--p:0"><span id="d-ring-t">0/3</span></div>
+        <div><b style="font-family:var(--display);font-size:1.15rem">Today's doses</b><div class="small" id="d-ring-s">Tick each dose once it is given.</div></div>
+       </div>
+       <ul class="list" id="d-meds"></ul>
+       <p class="small" style="margin-top:var(--s3)">Doses given are saved to Bruno's history in the app, beside what his BioBand records, so any family member or vet sees the same record.</p>
+      </div>
+      <!-- CARE -->
+      <div role="tabpanel" id="p-care" aria-labelledby="t-care" class="tabs-panel" hidden>
+       <div class="tile" style="margin-top:var(--s2)"><div class="k"><svg class="ic" aria-hidden="true"><use href="#i-steth"/></svg> Vet access</div><p style="margin:4px 0 8px;font-size:.88rem"><b>Verified vet partners: onboarding in Ahmedabad (concept)</b></p>
+        <label for="d-area" style="font-size:.78rem">Your area</label><select id="d-area"></select>
+        <div class="h4s" style="margin-top:var(--s3)">Request a visit slot</div>
+        <div class="slotgrid" id="d-slots"></div>
+        <button type="button" class="btn sm" id="d-book" style="width:100%"><svg class="ic" aria-hidden="true"><use href="#i-cal"/></svg> Request slot</button>
+        <p class="small" id="d-book-r" aria-live="polite" style="margin:8px 0 0"></p>
+       </div>
+       <div class="h4s">Ask a vet</div>
+       <div class="chat" id="d-chat" aria-live="polite"><div class="bub me">Bruno is scratching his ear a lot today.</div><div class="bub vet">Thanks for sharing. In the live product a verified vet would reply here, with Bruno's records beside the chat.</div></div>
+       <form class="chat-in" id="d-chatf"><label class="sr-only" for="d-msg">Message</label><input id="d-msg" placeholder="Type a message" autocomplete="off"><button class="btn sm" type="submit" aria-label="Send"><svg class="ic" aria-hidden="true"><use href="#i-send"/></svg></button></form>
+       <p class="small" style="margin-top:8px">Demo only. Replies are not from a real vet. Not for emergencies.</p>
+      </div>
+     </div>
+     <div class="toast" id="d-toast" role="status" aria-live="polite"><span><svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg></span><div><b id="d-toast-t"></b><div id="d-toast-s"></div></div></div>
+     <div class="tabbar" role="tablist" aria-label="App sections" id="d-tabs">
+      <button role="tab" id="t-band" aria-controls="p-band" aria-selected="true" type="button"><svg class="ic" aria-hidden="true"><use href="#i-band"/></svg>Band</button>
+      <button role="tab" id="t-today" aria-controls="p-today" aria-selected="false" tabindex="-1" type="button"><svg class="ic" aria-hidden="true"><use href="#i-home"/></svg>Today</button>
+      <button role="tab" id="t-health" aria-controls="p-health" aria-selected="false" tabindex="-1" type="button"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg>Health</button>
+      <button role="tab" id="t-meds" aria-controls="p-meds" aria-selected="false" tabindex="-1" type="button"><svg class="ic" aria-hidden="true"><use href="#i-pill"/></svg>Medicines<i class="badge-dot" id="d-meds-dot"></i></button>
+      <button role="tab" id="t-care" aria-controls="p-care" aria-selected="false" tabindex="-1" type="button"><svg class="ic" aria-hidden="true"><use href="#i-steth"/></svg>Care</button>
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <div class="wrap" style="margin-top:var(--s8)">
+  <div class="head rv"><span class="eyebrow">App toolkit</span><h2>Small tools that turn band data into <em class="h">daily care.</em></h2><p class="lead">Build a pet profile, preview a nutrition plan, tick off a routine and read the care guide. General education only, no medical diagnosis.</p></div>
+  <div class="tk rv">
+   <div class="tk-tabs" role="tablist" aria-label="App toolkit" id="tk-tabs">
+    <button role="tab" id="k-profile" aria-controls="kp-profile" aria-selected="true" type="button"><svg class="ic" aria-hidden="true"><use href="#i-paw"/></svg> Pet profile</button>
+    <button role="tab" id="k-nutri" aria-controls="kp-nutri" aria-selected="false" tabindex="-1" type="button"><svg class="ic" aria-hidden="true"><use href="#i-bowl"/></svg> Nutrition</button>
+    <button role="tab" id="k-rout" aria-controls="kp-rout" aria-selected="false" tabindex="-1" type="button"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg> Routines</button>
+    <button role="tab" id="k-guide" aria-controls="kp-guide" aria-selected="false" tabindex="-1" type="button"><svg class="ic" aria-hidden="true"><use href="#i-file"/></svg> Care guide</button>
+   </div>
+   <div class="tk-panel" role="tabpanel" id="kp-profile" aria-labelledby="k-profile">
+    <h3>Create a sample pet profile</h3>
+    <form id="f-profile" class="formgrid" novalidate>
+     <div><label for="pp-name">Pet's name</label><input id="pp-name" placeholder="e.g. Bruno" required></div>
+     <div><label for="pp-type">Pet type</label><select id="pp-type"><option>Dog</option><option>Cat</option></select></div>
+     <div><label for="pp-age">Age</label><select id="pp-age"><option>Under 1 year</option><option selected>1-3 years</option><option>4-7 years</option><option>8+ years</option></select></div>
+     <div><label for="pp-breed">Breed (optional)</label><input id="pp-breed" placeholder="e.g. Indie"></div>
+     <div style="grid-column:1/-1"><button class="btn" type="submit">Create sample profile</button></div>
+    </form>
+    <div class="result" id="r-profile" aria-live="polite"></div>
+   </div>
+   <div class="tk-panel" role="tabpanel" id="kp-nutri" aria-labelledby="k-nutri" hidden>
+    <h3>Preview a general feeding plan</h3>
+    <form id="f-nutri" class="formgrid" novalidate>
+     <div><label for="n-pet">Pet type</label><select id="n-pet"><option>Dog</option><option>Cat</option></select></div>
+     <div><label for="n-age">Age</label><select id="n-age"><option>Puppy / kitten (under 1 year)</option><option selected>Young adult (1-3 years)</option><option>Adult (4-7 years)</option><option>Senior (8+ years)</option></select></div>
+     <div><label for="n-act">Activity level</label><select id="n-act"><option>Low</option><option selected>Moderate</option><option>High</option></select></div>
+     <div><label for="n-diet">Dietary preference</label><select id="n-diet"><option>No preference</option><option>Vegetarian-leaning (dogs only)</option><option>Grain-free</option><option>Sensitive stomach</option><option>Home-cooked (with vet guidance)</option><option>Fresh / premium food</option></select></div>
+     <div style="grid-column:1/-1"><button class="btn" type="submit">Preview nutrition plan</button></div>
+    </form>
+    <div class="result" id="r-nutri" aria-live="polite"></div>
+   </div>
+   <div class="tk-panel" role="tabpanel" id="kp-rout" aria-labelledby="k-rout" hidden>
+    <h3>Daily routines</h3>
+    <div class="chips" role="group" aria-label="Pet"><button class="chip" type="button" data-rp="Dog" aria-pressed="true">Dog</button><button class="chip" type="button" data-rp="Cat" aria-pressed="false">Cat</button></div>
+    <div class="chips" role="group" aria-label="Filter" id="r-filters"></div>
+    <div class="rbar"><i id="r-bar"></i></div><div class="small" id="r-txt" aria-live="polite"></div>
+    <div id="r-list"></div>
+   </div>
+   <div class="tk-panel" role="tabpanel" id="kp-guide" aria-labelledby="k-guide" hidden>
+    <h3>Pet care quick guide</h3>
+    <div class="chips" role="group" aria-label="Topic" id="g-chips"></div>
+    <div class="result show" id="r-guide" aria-live="polite"></div>
+    <p class="small" style="margin-top:var(--s3)">For symptoms, illness or urgent concerns, contact a qualified veterinarian. This guide is educational and not a substitute for professional care.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- VETS -->
+<section class="vets" id="vets">
+ <div class="wrap">
+  <div class="head rv"><span class="eyebrow"><svg class="ic" aria-hidden="true"><use href="#i-steth"/></svg> Vets in Ahmedabad</span><h2>Find veterinary support <em class="h">in your area.</em></h2><p class="lead">Pick your area to see clinics from public listings, call them and get directions. Verified PawPulse vet partners are still being onboarded.</p></div>
+  <div class="vbar"><label class="sr-only" for="v-area">Area</label><select id="v-area"></select><a class="btn" id="v-near" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=veterinary+clinic+near+me"><svg class="ic" aria-hidden="true"><use href="#i-pin"/></svg> Vets near me</a></div>
+  <div id="v-list" aria-live="polite"></div>
+  <p class="small" style="margin-top:var(--s4)">Clinic details were gathered from public listings (Google Business, Yappe, Drlogy, ThreeBestRated) and ratings may be out of date. These clinics are not PawPulse partners. Please confirm hours and phone numbers before visiting. This is not a complete directory. For emergencies, call the nearest clinic directly.</p>
+ </div>
+</section>
+<!-- PROMISE -->
+<section id="promise" style="background:linear-gradient(180deg,var(--cream),var(--mint))">
+ <div class="wrap">
+  <div class="head rv"><span class="eyebrow"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg> Our promise</span><h2>The band is the star. <em class="h">Your records stay yours.</em></h2><p class="lead">The band's records live in the app, not in the band. The app works without the band, and a band is never a lock-in.</p></div>
+  <div class="grid3">
+   <article class="card rv"><h3>Records stay yours</h3><p style="margin:0">Everything the band sends, and everything you add, sits in your pet's profile in the app.</p></article>
+   <article class="card rv" style="--d:.1s"><h3>Always exportable</h3><p style="margin:0">You can export your pet's full history whenever you want (the export button in the demo is a placeholder, not built yet).</p></article>
+   <article class="card rv" style="--d:.2s"><h3>The app outlives any band</h3><p style="margin:0">If a band stops working, the app keeps working and your history stays with you. You can also use the app with no band at all.</p></article>
+  </div>
+  <div class="notes">
+   <div class="note l rv"><h3><svg class="ic" aria-hidden="true"><use href="#i-alert"/></svg> Lesson from Whistle</h3><p style="margin:0">Whistle trackers were shut down on 31 Aug 2025 after an acquisition by Tractive. That is why PawPulse promises data export and an app that works without the band.</p></div>
+   <div class="note rv" style="--d:.1s"><h3><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg> What we will not claim</h3><p style="margin:0">PawPulse gives wellness trends, not medical diagnosis. We will not say a band can detect or treat disease or behaviour problems, and we will say so in the product too.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+ <div class="wrap">
+  <div class="head rv"><span class="eyebrow">The problem</span><h2>Pet care in India is <em class="h">still scattered.</em></h2><p class="lead">Records on paper, reminders in someone's head, a vet that is far away or hard to reach. Care slips through the gaps, not because people do not care.</p></div>
+  <div class="grid4">
+   <article class="card stat rv" style="--d:0s"><div class="num"><span data-count="3" data-suffix=" in 10">0</span></div><div class="meter"><i style="--w:30%"></i></div><p>Indian pet parents face challenges accessing veterinary services.</p><p class="src">Source: Supertails survey of ~400 pet parents</p></article>
+   <article class="card stat rv" style="--d:.1s"><div class="num"><span data-count="35" data-suffix="%">0</span></div><div class="meter"><i style="--w:35%"></i></div><p>of dog parents (and <b>32%</b> of cat parents) keep regular 3-month check-ups.</p><p class="src">Source: Supertails survey of ~400 pet parents</p></article>
+   <article class="card stat rv" style="--d:.2s"><div class="num"><span data-count="16" data-suffix="%">0</span></div><div class="meter"><i style="--w:16%"></i></div><p>use online vet consultations today, though about <b>50%</b> are inclined to.</p><p class="src">Source: Supertails survey of ~400 pet parents</p></article>
+   <article class="card stat rv" style="--d:.3s"><div class="num"><span data-count="14000" data-prefix="1:" data-sep="1">0</span></div><div class="meter"><i style="--w:8%"></i></div><p>estimated vet-to-pet ratio in many Tier 2/3 towns.</p><p class="src">Source: Deccan Chronicle (estimate)</p></article>
+  </div>
+  <div class="callout rv"><span style="color:var(--amber)"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg></span><p style="margin:0">The gap is not only access. It is <b>continuity</b>: someone who remembers the last dose, the last vaccine and what was normal for this particular animal. That is the job the BioBand and the app share.</p></div>
+ </div>
+</section>
+
+<!-- WHY -->
+<section id="why">
+ <div class="wrap">
+  <div class="head rv"><span class="eyebrow">Compare</span><h2>How BioBand <em class="h">compares.</em></h2><p class="lead">We say this plainly: GPS trackers and vet-app platforms already exist. BioBand's wedge is a wearable that feeds a care-continuity app, built for Indian pet parents.</p></div>
+  <div class="tablewrap rv" tabindex="0" role="region" aria-label="Comparison table, scrolls sideways on small screens">
+   <table>
+    <caption class="sr-only">Comparison of GPS trackers, vet apps and PawPulse BioBand with the app (planned)</caption>
+    <thead><tr><th scope="col">What matters</th><th scope="col">GPS trackers (Tractive-style)</th><th scope="col">Vet apps (e.g. Supertails, Vetic)</th><th scope="col" class="us">BioBand + PawPulse app (planned)</th></tr></thead>
+    <tbody>
+     <tr><th scope="row">Continuous location</th><td><span class="y">Yes,</span> with a paid subscription. Basic plan about $108/yr.</td><td><span class="n">Not in the offerings we reviewed.</span></td><td class="us"><span class="p">Planned</span> with the BioBand GPS model.</td></tr>
+     <tr><th scope="row">Long-term health and medicine records</th><td><span class="n">Not in the offerings we reviewed.</span></td><td><span class="y">Yes.</span> Vetic offers digital records and reminders. Supertails offers a pharmacy.</td><td class="us"><span class="p">Planned</span> in the app, beside the band's data.</td></tr>
+     <tr><th scope="row">Vet teleconsult or clinic</th><td><span class="n">Not in the offerings we reviewed.</span></td><td><span class="y">Yes.</span> Supertails: online consults (250,000+ in a year) and a first clinic in Feb 2025. Vetic: appointments and video consults. DrPetsApp: 24x7 telemedicine.</td><td class="us"><span class="p">Planned</span> with verified partners, onboarding in Ahmedabad.</td></tr>
+     <tr><th scope="row">India pricing in rupees</th><td><span class="p">Partly.</span> Tractive tracker retails about Rs 5,000 to 6,000 in India; Fi Mini about Rs 7,000 to 8,000. The subscription is quoted in dollars.</td><td><span class="y">Indian platforms.</span> See each app for current prices.</td><td class="us"><span class="p">Proposed</span> in rupees, pre-launch.</td></tr>
+     <tr><th scope="row">Still useful without the device</th><td><span class="n">No.</span> Tractive trackers need a paid subscription to work.</td><td><span class="y">Yes,</span> they are app-based.</td><td class="us"><span class="y">Yes.</span> Free Starter plan, app only; band records stay in the app.</td></tr>
+     <tr><th scope="row">Wearable health trends</th><td><span class="p">Limited.</span> PetPace's health collar fully works only in North America and EU.</td><td><span class="n">Not in the offerings we reviewed.</span></td><td class="us"><span class="p">Proposed,</span> subject to hardware validation.</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p class="small" style="margin-top:var(--s3)">Based on the public information we reviewed; it may be incomplete or out of date. Heads Up For Tails and DogSpot are pet-care brands and are not compared here.</p>
+  <div class="notes" style="grid-template-columns:1fr">
+   <div class="note rv" style="--d:.1s"><h3><svg class="ic" aria-hidden="true"><use href="#i-shield"/></svg> What we will not claim</h3><p style="margin:0">PawPulse gives wellness trends, not medical diagnosis. We will not say a band can detect or treat disease, and we will say so in the product too.</p></div>
+  </div>
+ </div>
+</section>
+
+<!-- MARKET -->
+<section class="market" id="market">
+ <div class="wrap">
+  <div class="head rv"><span class="eyebrow">Market</span><h2>A large, <em class="h">growing</em> category.</h2><p class="lead">Figures are third-party estimates and projections, not our own measurements. Sources are listed below.</p></div>
+  <div class="grid5">
+   <article class="card stat rv"><div class="num">Rs <span data-count="11000" data-suffix="+ cr" data-sep="1">0</span></div><p>India pet care market projected above Rs 11,000 crore by 2031, at ~8% CAGR 2026 to 2031 (projection).</p><p class="src">Euromonitor, via CII India Petcare Summit</p></article>
+   <article class="card stat rv" style="--d:.1s"><div class="num">Rs <span data-count="50000" data-sep="1">0</span></div><p>average yearly spend per pet parent, roughly, with over half going to services.</p><p class="src">Redseer, via Upstox (estimate)</p></article>
+   <article class="card stat rv" style="--d:.2s"><div class="num"><span data-count="43.9" data-dec="1" data-suffix=" M">0</span></div><p>estimated pet dogs in India by 2026.</p><p class="src">Industry estimate</p></article>
+   <article class="card stat rv"><div class="num">Rs <span data-count="3152" data-sep="1">0</span> cr</div><p>India pet insurance in 2025, projected to reach Rs 9,478 crore by 2034.</p><p class="src">Business Standard / Mint reports (projection)</p></article>
+   <article class="card stat rv" style="--d:.1s"><div class="num">$<span data-count="3.14" data-dec="2">0</span>B</div><p>global pet wearables in 2025, projected to USD 7.23B by 2031 at 15.2% CAGR. Value is shifting to software, subscriptions and clinical data layers.</p><p class="src">Mordor Intelligence (projection)</p></article>
+  </div>
+  <div class="chart rv" id="chart">
+   <h3 style="font-size:1.1rem">Projected growth, selected segments</h3>
+   <svg viewBox="0 0 640 300" role="img" aria-label="Bar chart. India pet insurance rises from Rs 3,152 crore in 2025 to Rs 9,478 crore by 2034. Global pet wearables rise from USD 3.14 billion in 2025 to USD 7.23 billion by 2031.">
+    <g font-family="DM Sans,system-ui,sans-serif" font-size="13" fill="#1d2b25">
+     <line x1="20" y1="240" x2="620" y2="240" stroke="#c9d6cd"/>
+     <rect class="bar" x="70" y="161" width="90" height="79" rx="8" fill="#9fcdb5"/><rect class="bar" x="190" y="3" width="90" height="237" rx="8" fill="#1d6b50" style="transition-delay:.2s"/>
+     <text x="115" y="152" text-anchor="middle" font-weight="700">3,152</text>
+     <text x="235" y="22" text-anchor="middle" font-weight="700" fill="#fff">9,478</text>
+     <text x="115" y="260" text-anchor="middle">2025</text><text x="235" y="260" text-anchor="middle">2034 (proj.)</text>
+     <text x="175" y="284" text-anchor="middle" font-weight="700">India pet insurance, Rs crore</text>
+     <rect class="bar" x="360" y="149" width="90" height="91" rx="8" fill="#f7cfa5"/><rect class="bar" x="480" y="30" width="90" height="210" rx="8" fill="#d9733a" style="transition-delay:.2s"/>
+     <text x="405" y="140" text-anchor="middle" font-weight="700">$3.14B</text><text x="525" y="22" text-anchor="middle" font-weight="700">$7.23B</text>
+     <text x="405" y="260" text-anchor="middle">2025</text><text x="525" y="260" text-anchor="middle">2031 (proj.)</text>
+     <text x="465" y="284" text-anchor="middle" font-weight="700">Global pet wearables, USD</text>
+    </g>
+   </svg>
+   <p class="small" style="margin:0">Each pair is scaled on its own axis. Projections from the sources in the footer.</p>
+  </div>
+ </div>
+</section>
+
+<!-- BUSINESS -->
+<section id="model">
+ <div class="wrap">
+  <div class="head rv"><span class="eyebrow">Business model</span><h2>The band is the on-ramp. <em class="h">The subscription is the engine.</em></h2><p class="lead">The BioBand is how most people start, sold near cost. The subscription keeps it useful and pays for the business, and the app still works if someone never buys a band.</p></div>
+  <div class="flow rv">
+   <div><b>BioBand</b>Clips on any collar, sold near cost</div>
+   <div><b>PawPulse app</b>Band records live here; works without a band</div>
+   <div><b>Paid care plan</b>Medicines, routines, vet access</div>
+   <div><b>Vet and partner services</b>Consults, check-ups</div>
+  </div>
+  <div class="calc rv" id="calc">
+   <div>
+    <h3>Unit-economics calculator</h3>
+    <p class="small"><span class="tag">Illustrative assumptions, not validated</span> Move the sliders to see how the band subsidy and plan margin interact.</p>
+    <div class="sl"><label for="c-bp">Band price to customer <output id="o-bp" for="c-bp"></output></label><input type="range" id="c-bp" min="0" max="6000" step="50" value="1300"></div>
+    <div class="sl"><label for="c-bc">Band cost to us <output id="o-bc" for="c-bc"></output></label><input type="range" id="c-bc" min="0" max="6000" step="50" value="1500"></div>
+    <div class="sl"><label for="c-pp">Monthly plan price <output id="o-pp" for="c-pp"></output></label><input type="range" id="c-pp" min="0" max="999" step="1" value="199"></div>
+    <div class="sl"><label for="c-ch">Monthly churn <output id="o-ch" for="c-ch"></output></label><input type="range" id="c-ch" min="0" max="30" step="0.5" value="4"></div>
+    <div class="sl" style="margin:0"><label for="c-cs">Monthly cost to serve per user <output id="o-cs" for="c-cs"></output></label><input type="range" id="c-cs" min="0" max="400" step="5" value="70"></div>
+   </div>
+   <div>
+    <div class="outs" aria-live="polite">
+     <div class="out" id="x-sub"><div class="k">Band subsidy</div><div class="v" id="v-sub"></div></div>
+     <div class="out" id="x-mar"><div class="k">Monthly margin</div><div class="v" id="v-mar"></div></div>
+     <div class="out wide" id="x-pay"><div class="k">Payback (adjusted for churn)</div><div class="v" id="v-pay"></div></div>
+     <div class="out" id="x-12"><div class="k">12-month gross margin / customer</div><div class="v" id="v-12"></div></div>
+     <div class="out" id="x-24"><div class="k">24-month gross margin / customer</div><div class="v" id="v-24"></div></div>
+    </div>
+    <p class="small" id="c-note" style="margin-top:var(--s3)"></p>
+    <p class="small">Simplified model for customers who buy the band: band subsidy = band cost minus band price; margins count only customers still subscribed each month. Ignores acquisition cost, tax, returns and vet revenue share.</p>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" style="background:var(--paper)">
+ <div class="wrap">
+  <div class="head center rv"><span class="eyebrow">Band + plan bundles</span><h2>Pick a band, <em class="h">pick a plan.</em></h2><p class="lead">Proposed, pre-launch prices in rupees. The band is the on-ramp; the plan is what keeps it useful. Nothing can be bought today and no payments are collected.</p></div>
+  <div class="price-grid">
+   <article class="card plan rv"><h3>Starter</h3><div class="amt">Free</div><p class="small">App only. Works without a band.</p><ul><li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Pet health profile</li><li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Vaccine and medicine reminders</li><li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Routines and care guide</li><li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Records you can export</li></ul><a class="btn ghost" href="#waitlist">Join the waitlist</a></article>
+   <article class="card plan rv" style="--d:.1s"><h3>Care</h3><div class="amt">Rs 199<small> / month</small></div><p class="small">The plan for any BioBand you buy separately.</p><ul><li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Everything in Starter</li><li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Shared care with family</li><li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Nutrition and activity tracking</li><li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Vet access and booking help (planned)</li></ul><a class="btn ghost" href="#waitlist">Join the waitlist</a></article>
+   <article class="card plan pop rv" style="--d:.2s"><span class="ribbon">Most complete</span><h3>Care + Band</h3><div class="amt">Rs 499<small> / month</small></div><p class="small">BioBand Lite bundled in, priced near cost.</p><ul><li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Everything in Care</li><li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Activity and sleep trends</li><li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Weekly vet-shareable report</li><li><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg>Upgrade to GPS model for safe-zone alerts</li></ul><a class="btn" href="#waitlist">Join the waitlist</a></article>
+  </div>
+  <h3 style="margin-top:var(--s7)">Bands bought separately (target prices)</h3>
+  <div class="addons rv"><div><span>BioBand Lite</span><b>Rs 999 to 1,499</b></div><div><span>BioBand GPS</span><b>Rs 2,499 to 3,999</b></div><div><span>BioBand Cam</span><b>Rs 3,499 to 4,999</b></div></div>
+  <h3 style="margin-top:var(--s7)">Add-ons, as needed</h3>
+  <div class="addons rv">
+   <div><span>Personalised nutrition plan</span><b>Rs 299</b></div>
+   <div><span>Pet health check-up package</span><b>Rs 799 to 1,499</b></div>
+   <div><span>One-time vet consultation</span><b>Rs 299 to 599</b></div>
+  </div>
+  <p class="small" style="margin-top:var(--s4)">All prices are proposed and pre-launch. Vet benefits are subject to partner availability and final terms. Band prices are target prices (see the <a href="#explore">band explorer</a>). Bundle prices for the GPS and Cam models are not set yet.</p>
+ </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap">
+ <div class="wrap">
+  <div class="head rv"><span class="eyebrow">Roadmap</span><h2>Honest about <em class="h">where we are.</em></h2></div>
+  <div class="road">
+   <article class="card stage-card now rv"><span class="vs"><svg class="ic" aria-hidden="true"><use href="#i-check"/></svg> Done, not yet user-tested</span><h3 style="margin-top:var(--s3)">Now</h3><ul><li>BioBand concept and positioning</li><li>Working app prototype (this site) showing what the band feeds</li><li>Market and competitor research</li></ul><p class="small">Validation status: assumptions not yet tested with pet parents.</p></article>
+   <article class="card stage-card next rv" style="--d:.1s"><span class="vs pl"><svg class="ic" aria-hidden="true"><use href="#i-clock"/></svg> Planned</span><h3 style="margin-top:var(--s3)">Next</h3><ul><li>Interviews with pet parents and vets in Ahmedabad</li><li>Request supplier quotes for BioBand modules</li><li>Pilot the app with a small group</li><li>Onboard first verified vet partners</li></ul><p class="small">Validation status: not started. Success means people use it weekly.</p></article>
+   <article class="card stage-card later rv" style="--d:.2s"><span class="vs nv"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg> Needs validation</span><h3 style="margin-top:var(--s3)">Later</h3><ul><li>BioBand pilot with supplier-tested units</li><li>Test the Harness mount and Nudge mode concepts</li><li>Sensor validation for heart rate and temperature</li><li>Wider cities, if the pilot works</li></ul><p class="small">Validation status: depends on supplier quotes and hardware testing.</p></article>
+  </div>
+ </div>
+</section>
+
+<!-- COMMUNITY + WAITLIST -->
+<section style="padding-top:0">
+ <div class="wrap">
+  <div class="club rv">
+   <div><span class="eyebrow"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg> Community</span><h2 style="font-size:clamp(1.7rem,3.4vw,2.4rem)">Join the PawPulse Pet Parents Club</h2><p>A friendly WhatsApp community for Ahmedabad pet owners to swap tips, hear about wellness events and get early news on PawPulse.</p><a class="btn wa" href="https://chat.whatsapp.com/CxyblT8yKpNFlzCpUJV9xM" target="_blank" rel="noopener">Join the community on WhatsApp</a><p class="small" style="margin-top:var(--s3)">Please be kind and respectful. Members share general experiences, not veterinary advice. Joining shares your WhatsApp number with other members.</p></div>
+   <ul><li><svg class="ic" aria-hidden="true"><use href="#i-paw"/></svg> Local pet-parent meetups and walks</li><li><svg class="ic" aria-hidden="true"><use href="#i-steth"/></svg> Vet Q&amp;A sessions and awareness events</li><li><svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg> Early access news</li><li><svg class="ic" aria-hidden="true"><use href="#i-cam"/></svg> Share your pet's photos and milestones</li></ul>
+  </div>
+  <div class="wait rv" id="waitlist">
+   <div style="position:relative;z-index:1"><span class="eyebrow" style="background:rgba(255,255,255,.12);color:#cfeedd">Waitlist</span><h2>Be among the first.</h2><p style="font-size:1.1rem">Tell us a little about your pet and we would use it to shape what we build first.</p><p class="small" style="color:#b9d4c6"><svg class="ic" aria-hidden="true"><use href="#i-lock"/></svg> This is a demo form. Nothing you type is stored or sent anywhere.</p></div>
+   <form id="wl" novalidate>
+    <div><label for="w-name">Your name</label><input id="w-name" autocomplete="name"><div class="err" id="e-name"></div></div>
+    <div><label for="w-email">Email</label><input id="w-email" type="email" autocomplete="email"><div class="err" id="e-email"></div></div>
+    <div><label for="w-pet">Pet type</label><select id="w-pet"><option value="">Choose</option><option>Dog</option><option>Cat</option><option>Other</option></select><div class="err" id="e-pet"></div></div>
+    <div><label for="w-city">City</label><input id="w-city" placeholder="e.g. Ahmedabad" autocomplete="address-level2"><div class="err" id="e-city"></div></div>
+    <button class="btn" type="submit">Join the waitlist</button>
+   </form>
+   <div class="ok" id="wl-ok" hidden style="position:relative;z-index:1;background:#fff;color:var(--ink);border-radius:var(--r2)" tabindex="-1"><svg class="ic" aria-hidden="true"><use href="#i-heart"/></svg><h3 id="ok-t">Thank you!</h3><p id="ok-s"></p></div>
+  </div>
+ </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+ <div class="wrap">
+  <div class="head center rv"><span class="eyebrow">FAQ</span><h2>Questions, answered <em class="h">plainly.</em></h2></div>
+  <div class="faq rv" id="faq-list"></div>
+ </div>
+</section>
+</main>
+
+<footer>
+ <div class="wrap">
+  <div class="fgrid">
+   <div>
+    <h3 style="display:flex;align-items:center;gap:10px"><svg viewBox="10 6 80 88" width="30" height="33" aria-hidden="true"><use href="#logo-mark"/></svg>PawPulse</h3>
+    <p><b>Concept prototype.</b> Not a live veterinary service. No real bookings, payments or data storage. PawPulse provides wellness trends, not medical diagnosis; for symptoms or emergencies, contact a qualified vet. Heart-rate and temperature sensing are proposed, subject to hardware validation. Band specs are targets and prices are proposed, pre-launch.</p>
+   </div>
+   <div>
+    <h3>Sources</h3>
+    <ul>
+     <li>Supertails survey of ~400 pet parents, reported by <a href="https://globalpetindustry.com/article/ost-and-lack-awareness-challenges-around-vet-consultations-india/" target="_blank" rel="noopener">Global Pet Industry</a></li>
+     <li>Vet-to-pet ratio estimate: Deccan Chronicle</li>
+     <li>India pet care market (Euromonitor), via CII India Petcare Summit, reported by <a href="https://theprint.in/ani-press-releases/science-standards-and-collaboration-drive-discussions-at-cii-india-petcare-summit-as-indias-pet-care-market-eyes-rs-11000-crore-by-2031/3010460/" target="_blank" rel="noopener">ThePrint</a></li>
+     <li>India pet insurance: Business Standard and Mint reports</li>
+     <li>Pet owner spend (Redseer), via Upstox</li>
+     <li>Global pet wearables: <a href="https://www.mordorintelligence.com/industry-reports/pet-wearable-market" target="_blank" rel="noopener">Mordor Intelligence</a>, pet wearable market report</li>
+     <li>43.9 million pet dogs by 2026: industry estimate</li>
+     <li>Competitor facts: public company and press information (Tractive, Fi, PetPace, Supertails, Vetic, DrPetsApp, Whistle)</li>
+    </ul>
+    <p class="small" style="color:#a9c9b8;margin-top:var(--s3)">Market figures are estimates and projections from third parties, not verified by PawPulse.</p>
+   </div>
+  </div>
+  <div class="copy"><span>PawPulse concept, 2026</span><span>Made with care in Ahmedabad.</span></div>
+ </div>
+</footer>
+<script>
+(function(){
+'use strict';
+var $=function(s,r){return (r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var RM=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+var inr=function(n){return 'Rs '+Math.round(n).toLocaleString('en-IN')};
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function ic(n){return '<svg class="ic" aria-hidden="true"><use href="#i-'+n+'"/></svg>'}
+
+/* nav */
+var nav=$('#nav');function onScroll(){nav.classList.toggle('scrolled',window.scrollY>24)}
+window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+var burger=$('#burger'),menu=$('#menu');
+burger.addEventListener('click',function(){var o=menu.classList.toggle('open');burger.setAttribute('aria-expanded',o);burger.setAttribute('aria-label',o?'Close menu':'Open menu');burger.innerHTML=ic(o?'x':'menu')});
+$$('#menu a').forEach(function(a){a.addEventListener('click',function(){menu.classList.remove('open');burger.setAttribute('aria-expanded','false');burger.innerHTML=ic('menu')})});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&menu.classList.contains('open')){menu.classList.remove('open');burger.setAttribute('aria-expanded','false');burger.focus()}});
+
+/* count up */
+function fmt(v,el){var d=+el.dataset.dec||0,t=d?v.toFixed(d):Math.round(v);if(el.dataset.sep||(v>=1000))t=Number(t).toLocaleString('en-IN',{minimumFractionDigits:d,maximumFractionDigits:d});return (el.dataset.prefix||'')+t+(el.dataset.suffix||'')}
+function count(el){var end=+el.dataset.count,t0=null,dur=1600;if(RM){el.textContent=fmt(end,el);return}
+ function f(ts){if(!t0)t0=ts;var p=Math.min(1,(ts-t0)/dur),e=1-Math.pow(1-p,3);el.textContent=fmt(end*e,el);if(p<1)requestAnimationFrame(f)}requestAnimationFrame(f)}
+$$('[data-count]').forEach(function(el){el.textContent=fmt(+el.dataset.count,el)});/* no-JS-animation fallback shows final number */
+/* reveal */
+var io=('IntersectionObserver' in window)?new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');$$('[data-count]',e.target).forEach(count);io.unobserve(e.target)}})},{threshold:.15}):null;
+$$('.rv').forEach(function(el){if(io)io.observe(el);else el.classList.add('in')});
+$$('.scribble').forEach(function(el){setTimeout(function(){el.classList.add('in')},300)});
+
+/* tabs helper */
+function tabs(list,show){var ts=$$('[role=tab]',list);function sel(t,focus){ts.forEach(function(x){var on=x===t;x.setAttribute('aria-selected',on);x.tabIndex=on?0:-1;var p=document.getElementById(x.getAttribute('aria-controls'));if(p)p.hidden=!on});if(focus)t.focus();if(show)show(t)}
+ ts.forEach(function(t,i){t.addEventListener('click',function(){sel(t)});t.addEventListener('keydown',function(e){var n=null;if(e.key==='ArrowRight')n=ts[(i+1)%ts.length];else if(e.key==='ArrowLeft')n=ts[(i-1+ts.length)%ts.length];else if(e.key==='Home')n=ts[0];else if(e.key==='End')n=ts[ts.length-1];if(n){e.preventDefault();sel(n,true)}})});
+ return function(id){sel(document.getElementById(id))}}
+
+/* hero live card */
+var steps=4218,bpm=84,medSecs=2*3600+14*60;
+function pad(n){return (n<10?'0':'')+n}
+function tick(){steps+=Math.floor(Math.random()*5);bpm=Math.max(76,Math.min(94,bpm+Math.round(Math.random()*4-2)));medSecs=medSecs>0?medSecs-1:0;
+ var s=$('#lv-steps');if(s){s.textContent=steps.toLocaleString('en-IN');$('#lv-bpm').textContent=bpm;$('#lv-med').textContent=Math.floor(medSecs/3600)+':'+pad(Math.floor(medSecs%3600/60))+':'+pad(medSecs%60)}}
+if(!RM){setInterval(function(){if(!document.hidden)tick()},1000)}
+
+/* DEMO */
+var meds=[{n:'Deworming tablet',t:'8:00 AM',d:true},{n:'Joint supplement',t:'1:00 PM',d:false},{n:'Ear drops',t:'8:00 PM',d:false}];
+var days=[62,70,58,66,74,64,68],S={due:-1,out:false,dip:false};
+var toastT,bannerKind='';
+var selTab=tabs($('#d-tabs'),function(t){if(t.id==='t-meds')$('#d-meds-dot').classList.remove('on')});
+function toast(t,s){var e=$('#d-toast');$('#d-toast-t').textContent=t;$('#d-toast-s').textContent=s||'';e.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){e.classList.remove('show')},3800)}
+function banner(kind,t,s,icn){bannerKind=kind;var b=$('#d-banner');$('#d-banner-t').textContent=t;$('#d-banner-s').textContent=s;$('#d-banner-ic').innerHTML=ic(icn||'alert');b.classList.add('show')}
+function hideBanner(){$('#d-banner').classList.remove('show');bannerKind=''}
+$('#d-banner-x').addEventListener('click',hideBanner);
+function drawBars(){var h='';days.forEach(function(v,i){var last=i===6;h+='<div class="'+(last?(S.dip?'dip':'today'):'')+'" style="height:'+(last&&S.dip?24:v)+'%"></div>'});$('#d-bars').innerHTML=h;
+ $('#d-act-cap').textContent=S.dip?'Today is about 60% below Bruno\'s usual for this time (illustrative).':'Steps today: about on track with Bruno\'s usual.';
+ $('#d-trend-t').textContent=S.dip?'Activity is well below his usual for several hours. A trend worth watching; if he seems unwell, call your vet. This is not a diagnosis.':'Steady this week. Nothing unusual to flag.'}
+function drawMeds(){var done=meds.filter(function(m){return m.d}).length;
+ $('#d-meds').innerHTML=meds.map(function(m,i){return '<li class="item'+(m.d?' done':'')+(S.due===i&&!m.d?' due':'')+'"><input class="chk" type="checkbox" id="m'+i+'" data-i="'+i+'"'+(m.d?' checked':'')+'><label for="m'+i+'" class="nm" style="margin:0;font-weight:500;cursor:pointer;flex:1">'+esc(m.n)+(S.due===i&&!m.d?' <span class="badge" style="margin:0">due now</span>':'')+'</label><span class="t">'+m.t+'</span></li>'}).join('');
+ $('#d-ring').style.setProperty('--p',done/meds.length*100);$('#d-ring-t').textContent=done+'/'+meds.length;
+ $('#d-ring-s').textContent=done===meds.length?'All doses given today. Well done.':'Tick each dose once it is given.';
+ var nx=meds.filter(function(m){return !m.d})[0];$('#d-next').textContent=nx?nx.n:'All done for today';$('#d-next-t').textContent=nx?nx.t:'';}
+$('#d-meds').addEventListener('change',function(e){var i=+e.target.dataset.i;if(isNaN(i))return;meds[i].d=e.target.checked;if(e.target.checked&&S.due===i){S.due=-1;$('#d-meds-dot').classList.remove('on');if(bannerKind==='med')hideBanner()}
+ drawMeds();if(e.target.checked)toast('Dose logged',meds[i].n+' saved to '+PET+'\'s history.');var el=$('#m'+i);if(el)el.focus()});
+function setLoc(){var d=$('#d-dot');d.style.transform=S.out?'translate(250px,40px)':'translate(150px,126px)';
+ $('#d-map').setAttribute('aria-label',S.out?'Map showing Bruno outside the dashed safe zone':'Map showing Bruno inside a dashed safe zone around home');
+ $('#d-map-cap').textContent=S.out?'Outside the safe zone, about 400 m north-east of Home (illustrative).':'Inside the safe zone around Home, Ahmedabad (illustrative).';
+ var st=$('#d-status');st.className='pill'+(S.out?' warn':'');st.lastChild.textContent=S.out?'Away':'Home'}
+$('#sim-med').addEventListener('click',function(){var i=meds.findIndex(function(m){return !m.d});selTab('t-today');
+ if(i<0){toast('All doses already given','Reset to try the reminder again.');return}
+ S.due=i;drawMeds();$('#d-meds-dot').classList.add('on');banner('med',meds[i].n+' is due','Open Medicines and tick it when given.','pill');toast('Medicine due',meds[i].n+', '+meds[i].t)});
+$('#sim-geo').addEventListener('click',function(){selTab('t-today');S.out=true;setLoc();banner('geo',PET+' left the safe zone','From '+PET+'\'s BioBand (GPS model, planned): last seen 400 m from Home.','pin');toast('Safe-zone alert','From '+PET+'\'s BioBand: left Home. Tap the map for the location.')});
+$('#sim-act').addEventListener('click',function(){selTab('t-today');S.dip=true;drawBars();banner('act','Activity dip','From '+PET+'\'s BioBand: much quieter than usual. Worth a look, not a diagnosis.','activity');toast('Activity dip noticed','Trend added to the Health tab.')});
+$('#sim-reset').addEventListener('click',function(){S.due=-1;S.out=false;S.dip=false;meds.forEach(function(m,i){m.d=(i===0)});hideBanner();$('#d-meds-dot').classList.remove('on');setLoc();drawBars();drawMeds();selTab('t-today');toast('Demo reset','Back to a normal day.')});
+$('#d-export').addEventListener('click',function(){toast('Export is part of the promise','In the real product you could download Bruno\'s full history. Not built yet.')});
+/* care tab */
+var AREAS=["Ambawadi","Asarwa","Bapunagar","Bodakdev","Bopal","Chandkheda","Ellis Bridge","Ghatlodia","Gota","Gurukul","Isanpur","Jodhpur","Juhapura","Kalupur","Maninagar","Meghaninagar","Memnagar","Motera","Naranpura","Naroda","Navrangpura","Nikol","Odhav","Paldi","Prahlad Nagar","Ranip","Sabarmati","Sarkhej","SG Highway","Satellite","Science City","Shahibaug","Shilaj","South Bopal","Thaltej","Vastral","Vastrapur","Vatva","Vejalpur"];
+$('#d-area').innerHTML=AREAS.map(function(a){return '<option'+(a==='Satellite'?' selected':'')+'>'+a+'</option>'}).join('');
+var SL=['Today, 6:00 PM','Tomorrow, 10:00 AM','Tomorrow, 5:30 PM','Saturday, 11:00 AM'],slot=-1;
+$('#d-slots').innerHTML=SL.map(function(s,i){return '<button type="button" class="slot" aria-pressed="false" data-i="'+i+'">'+s+'</button>'}).join('');
+$('#d-slots').addEventListener('click',function(e){var b=e.target.closest('.slot');if(!b)return;slot=+b.dataset.i;$$('.slot').forEach(function(x){x.setAttribute('aria-pressed',x===b)})});
+$('#d-book').addEventListener('click',function(){var r=$('#d-book-r');if(slot<0){r.textContent='Please pick a slot first.';return}r.textContent='Request noted for '+SL[slot]+' in '+$('#d-area').value+'. Demo only: no real booking is made and no vet is notified.';toast('Request noted (demo)','No real booking was made.')});
+$('#d-chatf').addEventListener('submit',function(e){e.preventDefault();var i=$('#d-msg'),v=i.value.trim();if(!v)return;var c=$('#d-chat');c.insertAdjacentHTML('beforeend','<div class="bub me">'+esc(v)+'</div>');i.value='';setTimeout(function(){c.insertAdjacentHTML('beforeend','<div class="bub vet">Thanks. This is a demo, so no vet will reply. For anything urgent please call a clinic directly.</div>');var b=$('#d-body');b.scrollTop=b.scrollHeight},700);var b=$('#d-body');b.scrollTop=b.scrollHeight});
+drawBars();drawMeds();setLoc();
+/* ===== band-centric additions ===== */
+function radios(group,onSel){var rs=$$('[role=radio]',group);function sel(r,focus){rs.forEach(function(x){var on=x===r;x.setAttribute('aria-checked',on);x.tabIndex=on?0:-1});if(focus)r.focus();onSel(r)}
+ rs.forEach(function(r,i){r.addEventListener('click',function(){sel(r)});r.addEventListener('keydown',function(e){var n=null;if(e.key==='ArrowRight'||e.key==='ArrowDown')n=rs[(i+1)%rs.length];else if(e.key==='ArrowLeft'||e.key==='ArrowUp')n=rs[(i-1+rs.length)%rs.length];else if(e.key==='Home')n=rs[0];else if(e.key==='End')n=rs[rs.length-1];if(n){e.preventDefault();sel(n,true)}})})}
+/* explorer */
+var MODELS={
+ lite:{n:'BioBand Lite',d:'Activity, play, rest and sleep trends over Bluetooth. The lightest band, and the simplest way to start.',p:'Rs 999 to 1,499',rows:[['Weight','~18 g'],['Battery','up to ~7 days'],['Connects via','Bluetooth'],['Sensors','Motion'],['Location','Not included'],['Heart rate and temperature','Proposed, needs validation']]},
+ gps:{n:'BioBand GPS',d:'Everything in Lite, plus live location and safe-zone alerts in the app.',p:'Rs 2,499 to 3,999',rows:[['Weight','~35 g'],['Battery','up to ~3 days'],['Connects via','Bluetooth + mobile network'],['Sensors','Motion + GPS'],['Location','Live, with safe-zone alerts'],['Heart rate and temperature','Proposed, needs validation']]},
+ cam:{n:'BioBand Cam',d:'Everything in Lite, plus a compact low-cost camera. Short motion-triggered clips sync to your phone.',p:'Rs 3,499 to 4,999',rows:[['Weight','~45 g'],['Battery','up to ~2 days'],['Connects via','Bluetooth + Wi-Fi'],['Sensors','Motion + basic HD camera'],['Location','Not specified yet'],['Camera','Triggered or owner-requested only'],['Heart rate and temperature','Proposed, needs validation']]}};
+function setModel(k){var m=MODELS[k],s=$('#ex-svg');s.setAttribute('data-m',k);s.setAttribute('aria-label',m.n+' concept illustration'+(k==='gps'?', with a GPS antenna':k==='cam'?', with a camera lens':''));
+ $('#ex-name').textContent=m.n;$('#ex-desc').textContent=m.d;$('#ex-price').textContent=m.p;$('#xv-stage').setAttribute('data-m',k);
+ $('#ex-spec').innerHTML=m.rows.map(function(r){return '<div><span>'+r[0]+(r[1].indexOf('Proposed')===0?' <span class="badge" style="margin:0">proposed</span>':'')+'</span><span>'+r[1]+'</span></div>'}).join('')+'<div><span>Specs</span><span>Target, not final</span></div>'}
+radios($('#ex-sel'),function(r){setModel(r.dataset.m)});setModel('lite');
+/* exploded view */
+var XP={1:['Shell and light','A soft, rounded shell with a pulse light that shows the band is on and syncing. Concept design, not final industrial design.',['Concept']],
+ 2:['Sensors','A motion sensor feeds steps, play, rest and sleep trends. Heart-rate and temperature sensors are proposed for later, subject to hardware validation. Wellness trends only, not diagnosis.',['Motion: target','Heart rate, temperature: proposed']],
+ 3:['GPS or camera module','The GPS model adds a GPS module for live location and safe-zone alerts. The Cam model adds a compact camera instead, recording only when triggered or requested by the owner. Lite has neither (shown dimmed).',['GPS and Cam models only']],
+ 4:['Battery','Target battery life: up to ~7 days (Lite), ~3 days (GPS), ~2 days (Cam). Final figures depend on supplier quotes and testing.',['Target specs']],
+ 5:['Clip','A clip loop that attaches to a collar your pet already wears. Target fit: necks 20 to 72 cm (sizes XS to XL), to be tested. The Harness mount is a separate concept prototype.',['Target fit']]};
+var hots=$$('.hot');
+hots.forEach(function(h){h.addEventListener('click',function(){var p=h.dataset.p;hots.forEach(function(x){x.setAttribute('aria-pressed',x===h)});$$('.xp').forEach(function(g){g.classList.toggle('sel',g.dataset.p===p)});
+ $('#xv-t').textContent=p+'. '+XP[p][0];$('#xv-d').textContent=XP[p][1];$('#xv-tags').innerHTML=XP[p][2].map(function(t){return '<span class="tag">'+t+'</span>'}).join('')})});
+/* app: band tab */
+var PET='Bruno',MODES={everyday:'Everyday: balanced updates through the day.',walk:'Walk: more frequent location updates while you are out (GPS model).',rest:'Rest: fewer updates to save battery overnight.',nudge:'Nudge: gentle activity nudges and a daily movement goal for you, with a paw-shaped light pattern. Concept prototype, not a medical tool.'};
+function setPet(n){PET=n;$$('.pn').forEach(function(e){e.textContent=n})}
+radios($('#bn-modes'),function(r){$('#bn-mode-d').textContent=MODES[r.dataset.k];toast('Band mode: '+r.textContent,'Demo only. Nothing is sent to a real band.')});
+$('#bn-mode-d').textContent=MODES.everyday;
+var wearT=0;$('#bn-wear-btn').addEventListener('click',function(){$('#bn-wear').textContent='Checking...';$('#bn-wear-s').textContent='';setTimeout(function(){$('#bn-wear').textContent='Snug fit';$('#bn-wear-s').textContent='checked just now';toast('Wear check passed','The band sits snugly on '+PET+' (simulated).')},RM?0:900)});
+var syncS=0;setInterval(function(){if(RM||document.hidden)return;syncS=(syncS+1)%50;$('#bn-sync').textContent=syncS<5?'Just now':syncS+' s ago'},1000);
+var fl={step:0,mount:'Collar',name:'Bruno'},FL=[
+ function(){return ['Switch on the band','<p style="font-size:.9rem">Slide the switch on. A light on the band pulses when it is ready to pair (concept).</p><div style="display:grid;place-items:center;background:var(--deep);border-radius:16px;padding:14px"><svg viewBox="0 0 120 60" width="130" aria-hidden="true"><rect x="10" y="10" width="100" height="40" rx="20" fill="#e4f0e8"/><rect x="26" y="20" width="68" height="20" rx="10" fill="#0a241b"/><circle cx="60" cy="30" r="5" fill="#f2a65a"><animate attributeName="opacity" values="1;.25;1" dur="1.4s" repeatCount="indefinite"/></circle></svg></div>']},
+ function(){return ['Clip to a collar or harness','<fieldset style="border:0;padding:0;margin:0"><legend class="sr-only">Where will the band sit?</legend><label class="bn-opt"><input type="radio" name="mnt" value="Collar"'+(fl.mount==='Collar'?' checked':'')+'><span>BioBand Collar<small>Clips onto your pet\'s collar (default)</small></span></label><label class="bn-opt"><input type="radio" name="mnt" value="Harness mount"'+(fl.mount!=='Collar'?' checked':'')+'><span>BioBand Harness mount <span class="badge" style="margin:0">concept</span><small>Sits on a harness, no neck pressure</small></span></label></fieldset>']},
+ function(){return ['Name your pet','<label for="bn-pn">Pet\'s name</label><input id="bn-pn" autocomplete="off" value="'+esc(fl.name)+'"><div class="err" id="bn-pe" role="alert"></div>']}];
+function drawFlow(){var f=FL[fl.step]();$('#bn-ft').textContent=(fl.step+1)+' of 3. '+f[0];$('#bn-fb').innerHTML=f[1];$$('#bn-dots i').forEach(function(d,i){d.classList.toggle('on',i<=fl.step)});$('#bn-back').style.visibility=fl.step?'visible':'hidden';$('#bn-next').textContent=fl.step===2?'Pair band':'Next';$('#bn-ft').focus()}
+function openFlow(){$('#bn-status').hidden=true;$('#bn-flow').hidden=false;fl.step=0;drawFlow()}
+function closeFlow(){$('#bn-flow').hidden=true;$('#bn-status').hidden=false}
+$('#bn-pair').addEventListener('click',openFlow);
+$('#sim-pair').addEventListener('click',function(){selTab('t-band');openFlow()});
+$('#bn-back').addEventListener('click',function(){if(fl.step>0){fl.step--;drawFlow()}});
+$('#bn-next').addEventListener('click',function(){
+ if(fl.step===1){var c=$('input[name=mnt]:checked');fl.mount=c?c.value:'Collar'}
+ if(fl.step===2){var v=$('#bn-pn').value.trim();if(!v){$('#bn-pe').textContent='Please name your pet.';$('#bn-pn').setAttribute('aria-invalid','true');$('#bn-pn').focus();return}fl.name=v;setPet(v);$('#bn-model').textContent='BioBand '+fl.mount+', paired just now (demo)';closeFlow();toast('Band paired (demo)',v+'\'s BioBand is connected. Nothing was stored.');return}
+ fl.step++;drawFlow()});
+
+
+/* TOOLKIT */
+tabs($('#tk-tabs'));
+$('#f-profile').addEventListener('submit',function(e){e.preventDefault();var n=$('#pp-name'),r=$('#r-profile');if(!n.value.trim()){n.setAttribute('aria-invalid','true');n.focus();r.className='result show';r.innerHTML='Please add your pet\'s name.';return}n.removeAttribute('aria-invalid');
+ var t=$('#pp-type').value,b=$('#pp-breed').value.trim();r.className='result show';r.innerHTML='<h3 style="margin-bottom:6px">'+esc(n.value.trim())+'</h3><p>'+esc(t)+' · '+esc($('#pp-age').value)+(b?' · '+esc(b):'')+'</p><ul><li>Vaccine and deworming reminders ready to set up</li><li>Medicine and routine checklist created</li><li>Records can be exported any time</li></ul><p class="small" style="margin:0">Sample only. Nothing is saved.</p>'});
+$('#f-nutri').addEventListener('submit',function(e){e.preventDefault();var pet=$('#n-pet').value,age=$('#n-age').value,act=$('#n-act').value,diet=$('#n-diet').value,y=age.indexOf('Puppy')===0,sn=age.indexOf('Senior')===0;
+ var items=['<b>Meals:</b> '+(y?'3 to 4 small meals a day':sn?'2 smaller meals a day':'2 meals a day')+'.','<b>Food type:</b> '+(y?'a complete growth formula':sn?'an easy-to-digest senior formula':'a complete adult formula')+' for '+pet.toLowerCase()+'s.','<b>Energy:</b> '+(act==='High'?'active pets may need more calories; adjust gradually and watch weight.':act==='Low'?'lower activity means watching portions to avoid weight gain.':'keep portions steady and review weight monthly.'),'<b>Water:</b> fresh water available all day.'],notes=[];
+ if(diet.indexOf('Vegetarian')===0)notes.push(pet==='Cat'?'Cats are obligate carnivores, so vegetarian diets are not suitable. Ask a vet for options.':'Vegetarian diets for dogs need a vet or nutritionist to cover protein, B12 and other nutrients.');
+ if(diet==='Grain-free')notes.push('Grain-free is not automatically healthier; ask your vet whether it suits your pet.');
+ if(diet==='Sensitive stomach')notes.push('Introduce new food gradually over 7 to 10 days and talk to a vet if upset continues.');
+ if(diet.indexOf('Home')===0)notes.push('Home-cooked meals must be balanced; get a vet-approved recipe.');
+ if(diet.indexOf('Fresh')===0)notes.push('Transition slowly and check the food is complete and balanced.');
+ notes.push(pet==='Dog'?'Avoid onion, garlic, grapes, chocolate and xylitol.':'Avoid onion, garlic and chocolate; cats need taurine.');
+ var r=$('#r-nutri');r.className='result show';r.innerHTML='<h3>'+pet+' nutrition preview</h3><p class="small">'+esc(age)+' · '+act+' activity · '+esc(diet)+'</p><b>Feeding guidance</b><ul>'+items.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul><b>Notes</b><ul>'+notes.map(function(x){return '<li>'+x+'</li>'}).join('')+'</ul><p class="small" style="margin:0">General education only, not veterinary advice.</p>'});
+var R={Dog:[['7:00 AM','Feeding','Breakfast and fresh water'],['7:30 AM','Exercise','Morning walk (20 to 30 min)'],['12:30 PM','Wellness','Water refill and bathroom break'],['5:30 PM','Exercise','Play or training session'],['7:00 PM','Feeding','Dinner'],['8:30 PM','Grooming','Quick brush and paw wipe'],['Weekly','Grooming','Bath, ear check, nail check as needed'],['Weekly','Wellness','Weight and body-condition check'],['Monthly','Wellness','Flea/tick and deworming reminder per vet']],
+Cat:[['7:30 AM','Feeding','Breakfast and fresh water'],['9:00 AM','Wellness','Scoop litter box'],['11:00 AM','Exercise','Interactive play (10 to 15 min)'],['6:00 PM','Feeding','Dinner'],['8:00 PM','Exercise','Evening play session'],['9:00 PM','Grooming','Brush coat, check eyes and ears'],['Weekly','Grooming','Nail trim as needed'],['Weekly','Wellness','Weight and body-condition check'],['Monthly','Wellness','Parasite prevention reminder per vet']]};
+var rp='Dog',rf='All',rd={};
+$('#r-filters').innerHTML=['All','Feeding','Exercise','Grooming','Wellness'].map(function(f){return '<button class="chip" type="button" data-rf="'+f+'" aria-pressed="'+(f==='All')+'">'+f+'</button>'}).join('');
+function drawR(){var all=R[rp];$('#r-list').innerHTML=all.map(function(x,i){return {x:x,i:i}}).filter(function(o){return rf==='All'||o.x[1]===rf}).map(function(o){var k=rp+o.i;return '<label class="ritem'+(rd[k]?' done':'')+'"><input class="chk" type="checkbox" data-k="'+k+'"'+(rd[k]?' checked':'')+'><span class="t">'+o.x[0]+'</span><span class="x">'+o.x[2]+'</span></label>'}).join('');
+ var n=all.filter(function(x,i){return rd[rp+i]}).length;$('#r-bar').style.width=(n/all.length*100)+'%';$('#r-txt').textContent=n+' of '+all.length+' routine items done'}
+$('#kp-rout').addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;if(b.dataset.rp){rp=b.dataset.rp;rd={};$$('[data-rp]').forEach(function(x){x.setAttribute('aria-pressed',x===b)})}else if(b.dataset.rf){rf=b.dataset.rf;$$('[data-rf]').forEach(function(x){x.setAttribute('aria-pressed',x===b)})}drawR()});
+$('#r-list').addEventListener('change',function(e){var k=e.target.dataset.k;if(!k)return;rd[k]=e.target.checked;drawR();var el=$('[data-k="'+k+'"]');if(el)el.focus()});drawR();
+var G={routine:['Daily wellness routine','Keep a consistent routine for meals, exercise, rest and fresh water. Watch for changes in appetite, energy and behaviour.'],food:['Food and hydration','Provide fresh water and a complete, age-appropriate diet. Change food gradually and ask a vet about individual needs.'],groom:['Grooming basics','Use tools suited to the coat, check ears and paws regularly, and introduce brushing calmly. Ask a groomer or vet about breed-specific needs.'],vet:['When to contact a vet','Contact a vet for unusual behaviour, appetite changes or persistent discomfort. Seek urgent care for breathing difficulty, collapse, seizures or suspected poisoning.']};
+$('#g-chips').innerHTML=Object.keys(G).map(function(k,i){return '<button class="chip" type="button" data-g="'+k+'" aria-pressed="'+(i===0)+'">'+G[k][0]+'</button>'}).join('');
+function showG(k){$('#r-guide').innerHTML='<h3 style="margin-bottom:6px">'+G[k][0]+'</h3><p style="margin:0">'+G[k][1]+'</p>'}showG('routine');
+$('#g-chips').addEventListener('click',function(e){var b=e.target.closest('.chip');if(!b)return;$$('#g-chips .chip').forEach(function(x){x.setAttribute('aria-pressed',x===b)});showG(b.dataset.g)});
+
+/* VETS */
+var V=[["Dr. C.M.'s Pet Clinic","South Bopal","+91 73596 23508","4.9 (137 Google reviews)","General check-ups, vaccination, skin and ear care, microchipping, health certificates","D-159, SOBO Center, Gala Gymkhana Road, South Bopal"],["PetVet","Maninagar","+91 99789 00538","4.6 (234 reviews)","Veterinary consultation and medicines","Nandanvan Complex, Bhairavnath Rd, Kalpana Colony, Rambagh, Maninagar"],["Dr Mevada's Pet Hospital & VPH Consultancy","Meghaninagar","+91 96872 81125","4.8 (148 reviews)","Vaccination, diagnostics, veterinary dermatology","Shop 5, Gujarat Housing Board Colony, Meghani Road, Meghaninagar, Asarwa"],["BlueCross Pet Clinic","Satellite","+91 99131 43333","","General consultation, Mon to Sat 9-1 and 4-9","R-11, Kenyug Shopping Center, Manek Baug Road, Satellite"],["Sneh Pet HosPETaL","Thaltej","","","Pet hospital","103-104 Trinity Complex, Hebatpur Road, Thaltej"]];
+var vs=$('#v-area');vs.innerHTML='<option value="All">All areas (listed clinics)</option>'+AREAS.map(function(a){return '<option>'+a+'</option>'}).join('');
+function mq(q){return 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(q)}
+function drawV(){var a=vs.value,list=V.filter(function(v){return a==='All'||v[1]===a||(a==='Bopal'&&v[1]==='South Bopal')||(a==='South Bopal'&&v[1]==='Bopal')});
+ var h=list.map(function(v){return '<div class="card clinic"><div><h3>'+esc(v[0])+'</h3><p>'+esc(v[5])+', Ahmedabad</p><p>'+(v[3]?'<b style="color:var(--terra-text)">'+esc(v[3])+'</b> · ':'')+(v[2]?esc(v[2]):'Phone not listed')+'</p><p>'+esc(v[4])+'</p></div><div class="acts">'+(v[2]?'<a class="btn ghost sm" href="tel:'+v[2].replace(/\s/g,'')+'">'+ic('phone')+' Call</a>':'')+'<a class="btn sm" target="_blank" rel="noopener" href="'+mq(v[0]+', '+v[5]+', Ahmedabad')+'">'+ic('pin')+' Directions</a></div></div>'}).join('');
+ if(a!=='All')h+='<div class="empty">'+(list.length?'Looking for more options? ':'No clinic listed for '+esc(a)+' yet. ')+'<a href="'+mq('veterinary clinic in '+a+', Ahmedabad')+'" target="_blank" rel="noopener"><b>Search all vets in '+esc(a)+'</b></a></div>';$('#v-list').innerHTML=h}
+vs.addEventListener('change',drawV);drawV();
+
+/* CALCULATOR */
+var C={bp:$('#c-bp'),bc:$('#c-bc'),pp:$('#c-pp'),ch:$('#c-ch'),cs:$('#c-cs')};
+function money(n){return (n<0?'-':'')+inr(Math.abs(n))}
+function lgm(N,m,c,sub){var months=c>0?(1-Math.pow(1-c,N))/c:N;return m*months-sub}
+function calc(){var bp=+C.bp.value,bc=+C.bc.value,pp=+C.pp.value,c=+C.ch.value/100,cs=+C.cs.value;
+ $('#o-bp').textContent=inr(bp);$('#o-bc').textContent=inr(bc);$('#o-pp').textContent=inr(pp)+'/mo';$('#o-ch').textContent=C.ch.value+'%';$('#o-cs').textContent=inr(cs)+'/mo';
+ var sub=bc-bp,m=pp-cs,pay,never=false,msg='';
+ if(sub<=0)pay=0;else if(m<=0)never=true;else if(c===0)pay=sub/m;else{var a=1-sub*c/m;if(a<=0)never=true;else pay=Math.log(a)/Math.log(1-c)}
+ $('#v-sub').textContent=sub>0?money(sub):(sub<0?'None (band earns '+money(-sub)+')':'None');
+ $('#v-mar').textContent=money(m)+'/mo';
+ var P=$('#v-pay');if(never){P.textContent='Never pays back';msg=m<=0?'The plan earns nothing after serving costs, so the band subsidy is never recovered.':'With this churn, customers leave before the subsidy is recovered. Lower churn, raise the plan price or cut the subsidy.'}else if(pay===0){P.textContent='Immediately';msg='The band covers its own cost, so there is no subsidy to recover.'}else{P.textContent=(pay<1?'Under 1 month':pay.toFixed(1)+' months');msg='Expected months until the average customer has repaid the band subsidy.'}
+ var a12=lgm(12,m,c,Math.max(sub,0))+(sub<0?-sub:0),a24=lgm(24,m,c,Math.max(sub,0))+(sub<0?-sub:0);
+ $('#v-12').textContent=money(a12);$('#v-24').textContent=money(a24);
+ $('#x-pay').classList.toggle('bad',never);$('#x-12').classList.toggle('bad',a12<0);$('#x-24').classList.toggle('bad',a24<0);$('#x-mar').classList.toggle('bad',m<0);$('#x-sub').classList.toggle('bad',sub>bp&&sub>0&&false);
+ $('#c-note').textContent=msg}
+Object.keys(C).forEach(function(k){C[k].addEventListener('input',calc)});calc();
+
+/* WAITLIST */
+var wl=$('#wl');
+function setErr(id,m,inp){$('#e-'+id).textContent=m;var i=$(inp);if(m)i.setAttribute('aria-invalid','true');else i.removeAttribute('aria-invalid')}
+wl.addEventListener('submit',function(e){e.preventDefault();var n=$('#w-name').value.trim(),em=$('#w-email').value.trim(),p=$('#w-pet').value,c=$('#w-city').value.trim(),ok=true,first=null;
+ function chk(cond,id,m,inp){setErr(id,cond?'':m,inp);if(!cond){ok=false;if(!first)first=$(inp)}}
+ chk(n.length>1,'name','Please tell us your name.','#w-name');chk(/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(em),'email','Please enter a valid email address.','#w-email');chk(!!p,'pet','Please choose a pet type.','#w-pet');chk(c.length>1,'city','Please tell us your city.','#w-city');
+ if(!ok){first.focus();return}
+ wl.hidden=true;var o=$('#wl-ok');o.hidden=false;$('#ok-t').textContent='Thank you, '+n.split(' ')[0]+'!';$('#ok-s').textContent='If this were live, you would be on the list for '+c+', with a '+p.toLowerCase()+' to look after. This is a demo: nothing was stored or sent.';o.focus()});
+
+/* FAQ */
+var FQ=[['What is the BioBand?','A small clip-on band, concept stage, that attaches to a collar and sends location and activity to the PawPulse app. Heart rate and temperature are proposed for later, subject to hardware validation. It is the star of PawPulse, and the app is the service that makes it useful.'],['What is the band family?','BioBand Collar is the default and clips onto a collar. The Harness mount (for strong pullers and reactive dogs, no neck pressure) and Nudge mode (gentle activity nudges and a daily movement goal for low-activity dogs) are concept prototypes we want to test. The band tracks your pet; it does not treat aggression or any medical condition.'],['Is PawPulse a medical device?','No. PawPulse gives wellness trends and organises care. It does not diagnose or treat. If your pet seems unwell, call a vet.'],['Does it work without the band?','Yes. Your records live in the app, and the app works without a band: profile, medicines, routines, records and vet access. The band is what adds live data.'],['What happens if the band stops working?','Your pet\'s history stays in the app and stays exportable. A broken or discontinued band should never take your records with it.'],['Which cities?','We are starting with Ahmedabad. Other cities would follow only after we learn from pet parents and vets there.'],['What data do you collect?','In this prototype, none: the forms store and send nothing. A real product would collect only what care needs (pet profile, medicines, and location if you add a GPS band), let you export it, and be reviewed against India\'s data-protection law before launch.'],['How accurate is health tracking?','Activity and location come from standard sensors. Heart rate and temperature are proposed and subject to hardware validation, so we make no accuracy claims yet. Trends are for conversation with your vet, not diagnosis.'],['What will it cost?','Proposed and pre-launch. Bands (target): Lite Rs 999 to 1,499, GPS Rs 2,499 to 3,999, Cam Rs 3,499 to 4,999. Plans: Starter is free, Care is Rs 199 a month, Care + Band (Lite included) is Rs 499 a month, with add-ons from Rs 299. These may change after we talk to pet parents.'],['Can I really try it today?','You can try the demo on this page. There is no live app or band yet, and the waitlist stores nothing.']];
+$('#faq-list').innerHTML=FQ.map(function(q,i){return '<div class="q"><h3><button type="button" aria-expanded="false" aria-controls="fa'+i+'" id="fq'+i+'"><span>'+q[0]+'</span>'+ic('plus')+'</button></h3><div class="a" id="fa'+i+'" role="region" aria-labelledby="fq'+i+'"><div><p>'+q[1]+'</p></div></div></div>'}).join('');
+$('#faq-list').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var o=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',!o);document.getElementById(b.getAttribute('aria-controls')).classList.toggle('open',!o)});
+})();
+</script>
+</body>
+</html>

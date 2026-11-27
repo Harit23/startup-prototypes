@@ -8,6 +8,7 @@ Live, no-login prototypes by **Harit Shah (Harit23)**.
 |---|---|---|
 | **GroupDrive** | Group buying of cars, bikes, trucks and buses. The admin starts a group deal; dealers bid live from their phones; the lowest price wins. | `groupdrive/` |
 | **SiteCrew** | "Amazon for builders": sellers list everything a construction site needs (cement, bricks, steel, electricals, trucks, skilled crews) and builders order to their site. | `sitecrew/` |
+| **PawPulse** | Concept site for BioBand, a clip-on smart band for pet collars, plus the care app it feeds. Interactive band explorer, app demo, market numbers and a unit-economics calculator. Concept only, no payments. | `pawpulse/` |
 
 ## How the live demo works
 - Open the home page and pick a role (Admin / Dealer, Builder / Seller). No login.
