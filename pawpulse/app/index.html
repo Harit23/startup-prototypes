@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#123f31">
+<title>PawPulse app demo (concept, sample data)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#fbfaf6;--paper:#f6f3ea;--mint:#eaf5ef;--mint2:#d7ecdf;--green:#1d6b50;--deep:#123f31;--amber:#f2a65a;--terra:#d9733a;--terra-text:#a64f1d;--ink:#1d2b25;--muted:#54635b;--line:#e2e8e2;--white:#fff;--danger:#b3402a;--blue:#2f6f8f;
+--display:'Fraunces',Georgia,'Times New Roman',serif;--body:'DM Sans',system-ui,-apple-system,'Segoe UI',Roboto,Arial,sans-serif;
+--shadow:0 1px 2px rgba(18,63,49,.06),0 12px 32px -14px rgba(18,63,49,.22);--ease:cubic-bezier(.2,.7,.2,1)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font-family:var(--body);color:var(--ink);background:var(--cream);font-size:15px;line-height:1.45;overflow:hidden}
+h1,h2,h3,h4{font-family:var(--display);font-weight:600;line-height:1.15;letter-spacing:-.01em;margin:0 0 8px;color:var(--deep)}
+p{margin:0 0 8px}button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none;padding:0}
+:focus-visible{outline:3px solid var(--green);outline-offset:2px;border-radius:8px}
+.dk :focus-visible{outline-color:#fff}
+[hidden]{display:none!important}
+input[type=range]{accent-color:var(--green);width:100%;min-height:32px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.small{font-size:.82rem;color:var(--muted)}.mut{color:var(--muted)}
+/* frame */
+.stage{height:100%;display:grid;place-items:center}
+.app{position:relative;width:100%;max-width:430px;height:100%;background:var(--cream);display:flex;flex-direction:column;overflow:hidden;isolation:isolate;overflow:clip}
+@media(min-width:700px){body{background:radial-gradient(1200px 600px at 20% 0,#d7ecdf 0,#eef4ee 45%,#f6f3ea 100%)}
+.app{height:min(860px,calc(100vh - 32px));border-radius:46px;border:10px solid #14201b;box-shadow:0 40px 80px -30px rgba(18,63,49,.5),0 0 0 2px #2b3a33}}
+/* header */
+.hd{padding:calc(10px + env(safe-area-inset-top)) 16px 8px;display:flex;align-items:center;gap:10px;background:var(--cream);flex:none}
+.brand{display:flex;align-items:center;gap:7px;font-family:var(--display);font-weight:700;color:var(--deep);font-size:1.15rem}
+.brand svg{width:24px;height:26px}
+.hd .sp{flex:1}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:28px;padding:3px 10px;border-radius:99px;background:var(--mint);color:var(--deep);font-size:.78rem;font-weight:700;border:1px solid var(--mint2);white-space:nowrap}
+.chip.amb{background:#fdf0e0;border-color:#f6d9b6;color:#7a3f10}
+.chip.red{background:#fbe9e3;border-color:#f1c4b6;color:#8c2f1b}
+.chip.dkc{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);color:#fff}
+.dot{width:8px;height:8px;border-radius:50%;background:#2fa36f;display:inline-block;flex:none}
+.dot.live{animation:pls 1.8s infinite}
+@keyframes pls{0%{box-shadow:0 0 0 0 rgba(47,163,111,.55)}100%{box-shadow:0 0 0 8px rgba(47,163,111,0)}}
+.ribbon{background:#fdf0e0;color:#7a3f10;font-size:.74rem;font-weight:700;text-align:center;padding:4px 10px;border-block:1px solid #f6d9b6;flex:none;letter-spacing:.01em}
+/* panels */
+.panels{position:relative;flex:1;min-height:0}
+.panel{position:absolute;inset:0;overflow-y:auto;overscroll-behavior:contain;padding:14px 16px 24px;display:flex;flex-direction:column;gap:14px;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .28s var(--ease),transform .28s var(--ease),visibility 0s .28s;scrollbar-width:thin}
+.panel.on{opacity:1;visibility:visible;transform:none;transition:opacity .28s var(--ease),transform .28s var(--ease)}
+.panel>*{flex:none}
+.ph{display:flex;align-items:flex-end;justify-content:space-between;gap:8px}
+.ph h2{font-size:1.6rem;margin:0}
+/* tabbar */
+.tabs{flex:none;display:grid;grid-template-columns:repeat(5,1fr);background:#fff;border-top:1px solid var(--line);padding:6px 6px calc(6px + env(safe-area-inset-bottom));box-shadow:0 -8px 24px -18px rgba(18,63,49,.4)}
+.tab{position:relative;min-height:52px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:.7rem;font-weight:700;color:var(--muted);border-radius:14px;transition:color .2s,background .2s}
+.tab[aria-selected=true]{color:var(--deep);background:var(--mint)}
+.tab[aria-selected=true] .ic{stroke:var(--green)}
+.badge{position:absolute;top:3px;left:calc(50% + 6px);min-width:18px;height:18px;border-radius:9px;background:var(--terra-text);color:#fff;font-size:.68rem;display:grid;place-items:center;padding:0 5px;font-weight:700}
+.badge[hidden]{display:none}
+/* cards */
+.card{background:#fff;border:1px solid var(--line);border-radius:22px;padding:16px;box-shadow:var(--shadow)}
+.card h3{font-size:1.1rem;margin:0 0 4px}
+.card .hrow{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tag{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:99px;background:#fdf0e0;color:#7a3f10;border:1px solid #f6d9b6;vertical-align:middle}
+.tag.g{background:var(--mint);color:var(--deep);border-color:var(--mint2)}
+.btn{min-height:44px;padding:10px 16px;border-radius:14px;background:var(--green);color:#fff;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .15s,background .2s}
+.btn:active{transform:scale(.97)}.btn:hover{background:var(--deep)}
+.btn.sec{background:var(--mint);color:var(--deep);border:1px solid var(--mint2)}.btn.sec:hover{background:var(--mint2)}
+.btn.wh{background:#fff;color:var(--deep)}.btn.warn{background:#fff;color:var(--danger);border:1px solid #f1c4b6}
+.btn.sm{min-height:44px;padding:6px 12px;font-size:.88rem}
+.btn.full{width:100%}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.field{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.field label{font-size:.78rem;font-weight:700;color:var(--muted)}
+.inp{min-height:44px;border:1.5px solid #c9d6cd;background:#fff;border-radius:12px;padding:8px 12px;width:100%}
+textarea.inp{min-height:84px;resize:vertical}
+.seg{display:flex;background:var(--mint);border-radius:14px;padding:3px;gap:3px;border:1px solid var(--mint2)}
+.seg button{flex:1;min-height:44px;border-radius:11px;font-weight:700;font-size:.88rem;color:var(--muted);padding:4px 6px}
+.seg button[aria-pressed=true],.seg button[aria-checked=true]{background:#fff;color:var(--deep);box-shadow:0 1px 4px rgba(18,63,49,.2)}
+.sw{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px;width:100%;text-align:left}
+.sw .tg{width:46px;height:28px;border-radius:14px;background:#b9c6bd;position:relative;flex:none;transition:background .2s}
+.sw .tg:after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:transform .2s var(--ease);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.sw[aria-checked=true] .tg{background:var(--green)}.sw[aria-checked=true] .tg:after{transform:translateX(18px)}
+.sw[aria-disabled=true]{opacity:.55;cursor:not-allowed}
+/* hero */
+.hero{background:radial-gradient(120% 90% at 85% 0,#1f7a5b 0,#123f31 62%);color:#fff;border-radius:28px;padding:18px 16px 16px;box-shadow:0 18px 40px -18px rgba(18,63,49,.7);position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-60px;top:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(242,166,90,.28),transparent 65%)}
+.hero .top{display:flex;align-items:center;gap:10px;position:relative;z-index:1}
+.hero h2{color:#fff;margin:0;font-size:1.25rem}
+.ringwrap{position:relative;width:196px;height:196px;margin:8px auto 4px;z-index:1}
+.ringwrap svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ringwrap .tr{stroke:rgba(255,255,255,.14)}
+.ringwrap .pr{stroke:url(#gr);transition:stroke-dashoffset 1s var(--ease)}
+.ringc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.ringc b{font-family:var(--display);font-size:3.4rem;line-height:1;font-weight:700}
+.ringc span{font-size:.78rem;color:#cfe8dc;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.ringc em{font-style:normal;margin-top:4px;font-size:.7rem;background:rgba(242,166,90,.2);color:#ffd9b0;padding:1px 8px;border-radius:99px;font-weight:700}
+.parts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;position:relative;z-index:1}
+.part{background:rgba(255,255,255,.09);border-radius:14px;padding:8px 10px}
+.part small{display:block;color:#cfe8dc;font-size:.7rem;font-weight:700}
+.part b{font-size:1.1rem}.part i{display:block;height:4px;border-radius:2px;background:rgba(255,255,255,.18);margin-top:5px;overflow:hidden}
+.part i u{display:block;height:100%;background:var(--amber);border-radius:2px;transition:width .8s var(--ease)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;position:relative;z-index:1}
+.tile .k{display:flex;align-items:center;gap:6px;font-size:.78rem;font-weight:700;color:var(--muted)}
+.tile .v{font-family:var(--display);font-size:1.9rem;font-weight:700;color:var(--deep);font-variant-numeric:tabular-nums;line-height:1.1;margin-top:2px}
+.tile .v small{font-family:var(--body);font-size:.75rem;font-weight:500;color:var(--muted)}
+.bar{height:6px;background:var(--mint2);border-radius:3px;overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:var(--green);border-radius:3px;transition:width .6s var(--ease)}
+.pulse{width:100%;height:46px;margin-top:6px;display:block}
+.pulse polyline{fill:none;stroke:var(--terra);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.heart{color:var(--terra-text);display:inline-flex}.heart.b{animation:beat 1s infinite}
+@keyframes beat{50%{transform:scale(1.2)}}
+/* map */
+.map{position:relative;border-radius:18px;overflow:hidden;border:1px solid var(--line);background:#eaf5ef}
+.map svg{display:block;width:100%;height:auto}
+.map .lock{position:absolute;inset:0;background:rgba(251,250,246,.88);backdrop-filter:blur(3px);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;gap:8px;font-weight:700;color:var(--deep)}
+.map .lock[hidden]{display:none}
+.zonering{transition:fill .4s,stroke .4s}
+.petdot .halo{transform-box:fill-box;transform-origin:center;animation:halo 1.8s infinite}
+@keyframes halo{0%{transform:scale(.6);opacity:.7}100%{transform:scale(2.3);opacity:0}}
+.geo{margin-top:12px;padding:12px;border-radius:16px;background:var(--paper);font-size:.88rem}
+.geo .out{margin-top:8px;font-variant-numeric:tabular-nums}
+/* lists */
+.list{display:flex;flex-direction:column;gap:10px}
+.item{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:#fff;border:1px solid var(--line);border-radius:18px;padding:12px;box-shadow:var(--shadow);min-height:44px;position:relative;overflow:hidden}
+.item:before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:var(--sev,#9db3a6)}
+.item.done{opacity:.62}
+.sev-high{--sev:var(--danger)}.sev-med{--sev:var(--amber)}.sev-low{--sev:#2fa36f}.sev-info{--sev:var(--blue)}
+.ibox{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:var(--mint);color:var(--deep);flex:none}
+.sev-high .ibox{background:#fbe9e3;color:var(--danger)}.sev-med .ibox{background:#fdf0e0;color:#7a3f10}.sev-info .ibox{background:#e4f0f6;color:#1f5673}
+.item h4{font-family:var(--body);font-size:.95rem;margin:0 0 2px;font-weight:700;color:var(--ink)}
+.item p{font-size:.84rem;color:var(--muted);margin:0}
+.item .meta{display:flex;gap:8px;align-items:center;margin-top:4px;font-size:.74rem;color:var(--muted);font-weight:700}
+.sevlab{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:1px 7px;border-radius:99px;background:#eef2ef;color:var(--ink)}
+.sev-high .sevlab{background:#fbe9e3;color:#8c2f1b}.sev-med .sevlab{background:#fdf0e0;color:#7a3f10}.sev-info .sevlab{background:#e4f0f6;color:#1f5673}.sev-low .sevlab{background:var(--mint);color:var(--deep)}
+.simrow{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;scrollbar-width:none;margin:0 -16px;padding-inline:16px}
+.simrow::-webkit-scrollbar{display:none}
+.simrow .btn{flex:none;font-size:.82rem;padding:6px 12px}
+.empty{text-align:center;padding:24px 10px;color:var(--muted)}
+/* care */
+.crow{display:flex;align-items:center;gap:12px;width:100%;text-align:left;min-height:56px;padding:6px 0;border-bottom:1px solid var(--line)}
+.crow:last-child{border-bottom:0}
+.crow .tx{flex:1;min-width:0}.crow b{display:block;font-size:.95rem}.crow small{color:var(--muted);font-size:.8rem}
+.chk{width:30px;height:30px;border-radius:50%;border:2px solid #9db3a6;display:grid;place-items:center;flex:none;color:#fff;transition:all .2s}
+.chk .ic{width:16px;height:16px;stroke-width:3;opacity:0}
+.crow[aria-checked=true] .chk{background:var(--green);border-color:var(--green)}.crow[aria-checked=true] .chk .ic{opacity:1}
+.crow[aria-checked=true] b{text-decoration:line-through;text-decoration-color:rgba(29,107,80,.5)}
+.crow.over .chk{border-color:var(--danger)}.crow.over small{color:var(--danger);font-weight:700}
+.rings{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}
+.mr{position:relative;width:78px;height:78px;margin:0 auto}
+.mr svg{width:100%;height:100%;transform:rotate(-90deg)}.mr .tr{stroke:var(--mint2)}.mr .pr{stroke:var(--green);transition:stroke-dashoffset .7s var(--ease)}
+.mr b{position:absolute;inset:0;display:grid;place-items:center;font-size:.95rem}
+.rings small{display:block;font-weight:700;font-size:.78rem;margin-top:4px}
+.streak{display:flex;align-items:center;gap:10px;background:#fdf0e0;border:1px solid #f6d9b6;border-radius:16px;padding:10px 12px;color:#5c3010;font-weight:700}
+.streak b{font-family:var(--display);font-size:1.6rem;color:#7a3f10}
+.tl{position:relative;margin:0;padding:0 0 0 22px;list-style:none}
+.tl:before{content:"";position:absolute;left:7px;top:6px;bottom:6px;width:2px;background:var(--mint2)}
+.tl li{position:relative;padding:0 0 14px}.tl li:last-child{padding-bottom:0}
+.tl li:before{content:"";position:absolute;left:-21px;top:4px;width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--green)}
+.tl li.due:before{border-color:var(--terra)}.tl li.plan:before{border-color:#9db3a6}
+.tl b{display:block}.tl .d{font-size:.78rem;color:var(--muted);font-weight:700}
+/* family */
+.mem{padding:12px 0;border-bottom:1px solid var(--line)}.mem:last-child{border-bottom:0}
+.mhead{display:flex;gap:10px;align-items:center}
+.av{width:42px;height:42px;border-radius:50%;background:var(--mint);color:var(--deep);display:grid;place-items:center;font-weight:700;font-family:var(--display);flex:none}
+.role{font-size:.7rem;font-weight:700;padding:2px 9px;border-radius:99px;text-transform:uppercase;letter-spacing:.04em}
+.r-Owner{background:var(--deep);color:#fff}.r-Family{background:var(--mint);color:var(--deep)}.r-Vet{background:#e4f0f6;color:#1f5673}.r-Walker{background:#fdf0e0;color:#7a3f10}
+.perms{margin-top:6px;padding-left:52px}
+.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:1.9rem;letter-spacing:.2em;font-weight:700;color:var(--deep);background:var(--mint);border:2px dashed var(--green);border-radius:16px;text-align:center;padding:10px;margin:10px 0}
+/* profile */
+.petcard{display:flex;gap:14px;align-items:center}
+.pav{width:68px;height:68px;border-radius:22px;background:linear-gradient(145deg,#d7ecdf,#eaf5ef);display:grid;place-items:center;flex:none;border:1px solid var(--mint2)}
+.bandcard svg.bd{width:100%;height:auto;display:block;background:var(--mint);border-radius:16px}
+.mcards{display:grid;gap:8px;margin-top:10px}
+.mc{display:block;width:100%;text-align:left;border:1.5px solid var(--line);border-radius:16px;padding:10px 12px;background:#fff;min-height:44px}
+.mc[aria-checked=true]{border-color:var(--green);background:var(--mint)}
+.mc b{display:flex;justify-content:space-between;gap:8px}
+.mc small{color:var(--muted)}
+.note{background:var(--paper);border-radius:14px;padding:10px 12px;font-size:.84rem;color:var(--muted);border:1px solid #ebe4d2}
+.hist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.hist li{border:1px solid var(--line);border-radius:16px;padding:12px;background:#fff}
+.hist .d{font-size:.76rem;font-weight:700;color:var(--green)}
+.hist .why{font-weight:700;margin:2px 0}
+.hist .vs{font-size:.86rem;color:var(--muted)}
+.adm{border:2px dashed var(--terra);background:#fff8f1}
+.recs{margin:10px 0 0;padding:0;list-style:none;font-size:.86rem}
+.recs li{display:flex;justify-content:space-between;gap:8px;padding:7px 0;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.recs li:last-child{border:0}
+/* sheet + toast */
+.sheetw{position:absolute;inset:0;z-index:50;display:flex;align-items:flex-end;visibility:hidden;transition:visibility 0s .3s}
+.sheetw.on{visibility:visible;transition:none}
+.scrim{position:absolute;inset:0;background:rgba(18,63,49,.5);opacity:0;transition:opacity .3s}
+.sheetw.on .scrim{opacity:1}
+.sheet{position:relative;width:100%;max-height:86%;overflow-y:auto;background:var(--cream);border-radius:26px 26px 0 0;padding:10px 18px calc(22px + env(safe-area-inset-bottom));transform:translateY(100%);transition:transform .34s var(--ease);box-shadow:0 -20px 50px -20px rgba(0,0,0,.4)}
+.sheetw.on .sheet{transform:none}
+.grab{width:42px;height:5px;border-radius:3px;background:#c9d6cd;margin:0 auto 10px}
+.sh-h{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;margin-bottom:8px}
+.sh-h h3{font-size:1.3rem;margin:0}
+.x{width:44px;height:44px;border-radius:50%;background:var(--mint);display:grid;place-items:center;flex:none;margin:-6px -8px 0 0}
+pre.json{background:#14201b;color:#d7ecdf;border-radius:14px;padding:12px;font-size:.72rem;line-height:1.5;max-height:46vh;overflow:auto;white-space:pre-wrap;word-break:break-word;margin:8px 0 12px;tab-size:2}
+.toast{position:absolute;left:12px;right:12px;top:calc(10px + env(safe-area-inset-top));z-index:60;transform:translateY(-140%);transition:transform .45s var(--ease);pointer-events:none}
+.toast.on{transform:none;pointer-events:auto}
+.toast button{width:100%;text-align:left;display:flex;gap:12px;align-items:center;background:var(--deep);color:#fff;border-radius:20px;padding:12px 14px;box-shadow:0 18px 40px -12px rgba(0,0,0,.5);min-height:56px;border-left:6px solid var(--amber)}
+.toast.sev-high button{border-left-color:#ef7b5f}.toast.sev-info button{border-left-color:#7fc0de}
+.toast b{display:block;font-size:.92rem}.toast span.t{font-size:.8rem;color:#cfe8dc;display:block}
+.toast .ibox{background:rgba(255,255,255,.14);color:#fff}
+.toast.plain button{border-left-color:var(--mint2)}
+/* pair */
+.pair{position:absolute;inset:0;z-index:80;background:radial-gradient(120% 70% at 80% 0,#1f7a5b 0,#123f31 70%);color:#fff;display:flex;flex-direction:column;padding:calc(28px + env(safe-area-inset-top)) 22px calc(22px + env(safe-area-inset-bottom));overflow-y:auto;transition:opacity .5s,visibility 0s .5s}
+.pair.off{opacity:0;visibility:hidden;pointer-events:none}
+.pair h1{color:#fff;font-size:2.1rem;margin:14px 0 4px}
+.pair .lg{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:1.4rem}
+.pair .lg svg{width:34px;height:37px;background:#fbfaf6;border-radius:12px;padding:5px}
+.steps{list-style:none;margin:16px 0;padding:0;display:flex;flex-direction:column;gap:10px}
+.steps li{display:flex;gap:12px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:18px;padding:12px}
+.steps .n{width:32px;height:32px;border-radius:50%;background:var(--amber);color:#3a1d05;display:grid;place-items:center;font-weight:700;flex:none}
+.steps b{display:block}.steps small{color:#cfe8dc}
+.pair .inp{background:rgba(255,255,255,.95);color:var(--ink);margin-top:8px}
+.pair .btn{background:var(--amber);color:#2b1503}.pair .btn:hover{background:#f7b877}
+.pair .skip{color:#cfe8dc;text-decoration:underline;min-height:44px;margin-top:6px;font-weight:700}
+.led{animation:led 1.6s infinite}@keyframes led{50%{opacity:.35}}
+.spin{width:18px;height:18px;border-radius:50%;border:3px solid rgba(43,21,3,.3);border-top-color:#2b1503;animation:rot .8s linear infinite}@keyframes rot{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition-duration:.01ms!important;transition-delay:0s!important}.panel{transform:none}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+<defs>
+<linearGradient id="gr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f2a65a"/><stop offset="1" stop-color="#8fe0b9"/></linearGradient>
+<linearGradient id="g-strap" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e08a4f"/><stop offset="1" stop-color="#a64f1d"/></linearGradient>
+<linearGradient id="g-body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f8a69"/><stop offset="1" stop-color="#123f31"/></linearGradient>
+<linearGradient id="g-glass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0d2a21"/><stop offset="1" stop-color="#17493a"/></linearGradient>
+</defs>
+<symbol id="logo-mark" viewBox="10 6 80 88"><ellipse cx="22" cy="40" rx="7" ry="9.5" transform="rotate(-22 22 40)" fill="#1d6b50"/><ellipse cx="38" cy="23" rx="8" ry="10.5" transform="rotate(-8 38 23)" fill="#1d6b50"/><ellipse cx="62" cy="23" rx="8" ry="10.5" transform="rotate(8 62 23)" fill="#1d6b50"/><ellipse cx="78" cy="40" rx="7" ry="9.5" transform="rotate(22 78 40)" fill="#1d6b50"/><path d="M50 46C63 46 77 58 79 71C81 83 70 89 60 87C55 86 53 85 50 85C47 85 45 86 40 87C30 89 19 83 21 71C23 58 37 46 50 46Z" fill="#1d6b50"/><path d="M30 70H41L46 60L54 80L59 70H70" fill="none" stroke="#fbfaf6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-live" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M5.6 5.6a9 9 0 0 0 0 12.8M18.4 5.6a9 9 0 0 1 0 12.8"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 21h4"/></symbol>
+<symbol id="i-care" viewBox="0 0 24 24"><rect x="3" y="9" width="18" height="7" rx="3.5" transform="rotate(-35 12 12.5)"/><path d="M9.2 7.7l7.1 7.1"/></symbol>
+<symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c.5-3.2 3-5 6-5s5.500 1.800 6 5M16 5.200a3 3 0 0 1 0 5.600M18 14.300c1.700.7 2.800 2.300 3 4.700"/></symbol>
+<symbol id="i-paw" viewBox="0 0 24 24"><circle cx="5.500" cy="11" r="1.800"/><circle cx="9.500" cy="6.500" r="1.800"/><circle cx="14.500" cy="6.500" r="1.800"/><circle cx="18.500" cy="11" r="1.800"/><path d="M12 11c3 0 5.500 3 5.500 5.300 0 2-1.700 2.700-3 2.300-1-.3-1.500-.6-2.500-.6s-1.500.3-2.500.6c-1.300.4-3-.3-3-2.300C6.500 14 9 11 12 11z"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6 7-11.500A7 7 0 0 0 5 9.500C5 15 12 21 12 21z"/><circle cx="12" cy="9.500" r="2.500"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-8-4.800-8-10.500A4.500 4.500 0 0 1 12 7a4.500 4.500 0 0 1 8 2.500C20 15.200 12 20 12 20z"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 4.500-3.400 8-8 9-4.600-1-8-4.500-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-bat" viewBox="0 0 24 24"><rect x="2" y="7" width="17" height="10" rx="3"/><path d="M22 10.500v3M6 10v4"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.500l4.500 4.500L19 7.500"/></symbol>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="3"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.500 1.500a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></symbol>
+<symbol id="i-share" viewBox="0 0 24 24"><circle cx="6" cy="12" r="2.500"/><circle cx="18" cy="6" r="2.500"/><circle cx="18" cy="18" r="2.500"/><path d="M8.200 10.800l7.600-3.600M8.200 13.200l7.600 3.600"/></symbol>
+<symbol id="i-steps" viewBox="0 0 24 24"><path d="M3 17h5l3-4 3 2 3-6 4 8"/><path d="M3 20h18"/></symbol>
+<symbol id="i-bowl" viewBox="0 0 24 24"><path d="M3 11h18a9 8 0 0 1-18 0zM8 7c0-1 1-1.500 1-3M13 7c0-1 1-1.500 1-3"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><rect x="3.500" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.500 10h17"/></symbol>
+<symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.500A8 8 0 0 1 9.500 4 8 8 0 1 0 20 14.500z"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16zM13.500 6.500l4 4"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 8h10M18 8h2M4 16h2M10 16h10"/><circle cx="16" cy="8" r="2"/><circle cx="8" cy="16" r="2"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c.7-4 4-6 8-6s7.300 2 8 6"/></symbol>
+</svg>
+
+<div class="stage"><div class="app" id="app">
+ <header class="hd">
+  <div class="brand"><svg viewBox="10 6 80 88" aria-hidden="true"><use href="#logo-mark"/></svg><span>PawPulse</span></div>
+  <span class="sp"></span>
+  <span class="chip red" id="admchip" hidden>Founder mode</span>
+  <span class="chip" id="hdchip"><span class="dot live"></span><span data-pet>Bruno</span></span>
+ </header>
+ <div class="ribbon" role="note">Concept demo, sample data. Nothing is sent anywhere.</div>
+ <main class="panels" id="panels">
+  <section class="panel" id="p-live" role="tabpanel" aria-labelledby="t-live" tabindex="-1"></section>
+  <section class="panel" id="p-alerts" role="tabpanel" aria-labelledby="t-alerts" tabindex="-1"></section>
+  <section class="panel" id="p-care" role="tabpanel" aria-labelledby="t-care" tabindex="-1"></section>
+  <section class="panel" id="p-family" role="tabpanel" aria-labelledby="t-family" tabindex="-1"></section>
+  <section class="panel" id="p-profile" role="tabpanel" aria-labelledby="t-profile" tabindex="-1"></section>
+ </main>
+ <nav class="tabs" id="tabs" role="tablist" aria-label="PawPulse sections">
+  <button class="tab" role="tab" id="t-live" data-tab="live" aria-controls="p-live"><svg class="ic" aria-hidden="true"><use href="#i-live"/></svg>Live</button>
+  <button class="tab" role="tab" id="t-alerts" data-tab="alerts" aria-controls="p-alerts"><svg class="ic" aria-hidden="true"><use href="#i-bell"/></svg>Alerts<span class="badge" id="abadge" hidden>0</span></button>
+  <button class="tab" role="tab" id="t-care" data-tab="care" aria-controls="p-care"><svg class="ic" aria-hidden="true"><use href="#i-care"/></svg>Care</button>
+  <button class="tab" role="tab" id="t-family" data-tab="family" aria-controls="p-family"><svg class="ic" aria-hidden="true"><use href="#i-users"/></svg>Family</button>
+  <button class="tab" role="tab" id="t-profile" data-tab="profile" aria-controls="p-profile"><svg class="ic" aria-hidden="true"><use href="#i-paw"/></svg>Profile</button>
+ </nav>
+ <div class="toast" id="toast" role="status" aria-live="polite"></div>
+ <div class="sheetw" id="sheetw"><div class="scrim" data-act="closeSheet"></div><div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-t" tabindex="-1"></div></div>
+ <div class="pair dk" id="pair" role="dialog" aria-modal="true" aria-labelledby="pair-t"></div>
+</div></div>
+
+<script>
+(function(){
+'use strict';
+var KEY='pawpulse-app-demo-v1';
+var $=function(s,r){return(r||document).querySelector(s)},$$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var RM=false;try{RM=window.matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function ic(n,c){return '<svg class="ic'+(c?' '+c:'')+'" aria-hidden="true"><use href="#i-'+n+'"/></svg>'}
+function fmtD(d){try{return new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}catch(e){return d}}
+var NOW=Date.now();
+function seedState(){
+ var n=Date.now();
+ return{v:1,paired:false,tab:'live',admin:false,vibe:true,
+ pet:{name:'Bruno',breed:'Indie',age:'3 years',weight:'18.5'},
+ band:{model:'gps',mount:'collar',nudge:false,battery:78},
+ steps:4218,goal:8000,rest:0.8,streakBase:6,
+ home:'law',
+ meds:[{id:'m1',name:'Deworming tablet',dose:'1 tablet with food',time:'08:30',done:true},{id:'m2',name:'Joint supplement (sample)',dose:'1 chew after the walk',time:'13:00',done:false},{id:'m3',name:'Ear drops (sample)',dose:'2 drops, left ear',time:'20:00',done:false}],
+ vacc:[{id:'v1',name:'Rabies booster',date:'12 Mar 2026',st:'done'},{id:'v2',name:'DHPPi booster',date:'02 Jun 2026',st:'done'},{id:'v3',name:'Leptospirosis booster',date:'14 Dec 2026',st:'due'},{id:'v4',name:'Kennel cough (optional)',date:'Mar 2027',st:'plan'}],
+ feed:[{id:'f1',name:'Breakfast',time:'07:30',detail:'1 cup kibble + curd',done:true},{id:'f2',name:'Lunch snack',time:'13:00',detail:'Boiled egg, small',done:false},{id:'f3',name:'Dinner',time:'19:30',detail:'1 cup kibble + rice',done:false}],
+ walk:[{id:'w1',name:'Morning walk',time:'06:45',detail:'30 min, Sabarmati side',done:true},{id:'w2',name:'Evening walk',time:'18:15',detail:'25 min, park loop',done:false},{id:'w3',name:'Night stroll',time:'21:30',detail:'10 min, near home',done:false}],
+ alerts:[{id:'a1',type:'vet',sev:'info',ts:n-3600e3*5,status:'new',d:{}},{id:'a2',type:'med',sev:'med',ts:n-60e3*35,status:'new',d:{mid:'m2'}},{id:'a3',type:'battery',sev:'low',ts:n-3600e3*26,status:'done',d:{pct:42}}],
+ members:[{id:'u1',name:'Harit Shah',role:'Owner',perms:{loc:true,health:true,edit:true},you:true},{id:'u2',name:'Family member 1',role:'Family',perms:{loc:true,health:true,edit:false}},{id:'u3',name:'Dr. Demo Vet (concept, not a real clinician)',role:'Vet',perms:{loc:false,health:true,edit:false}}],
+ codes:[],invN:1,
+ history:[{id:'h1',date:'2026-11-12',why:'Scratching the left ear more than usual',vet:'Dr. Demo Vet (concept) suggested a routine ear check and cleaning. Sample note.'},{id:'h2',date:'2026-09-20',why:'Annual check-up and rabies booster',vet:'Weight steady. Keep regular walks and book the next vaccine. Sample note.'},{id:'h3',date:'2026-06-02',why:'Limping after a long park run',vet:'Suggested shorter walks for a few days and to report back if it continues. Sample note.'}]}
+}
+var S=seedState();
+function load(){try{var r=localStorage.getItem(KEY);if(r){var o=JSON.parse(r);if(o&&o.v===1){S=Object.assign(seedState(),o);S.pet=Object.assign(seedState().pet,o.pet);S.band=Object.assign(seedState().band,o.band)}}}catch(e){}}
+var saveT=0;
+function save(){clearTimeout(saveT);saveT=setTimeout(function(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}},150)}
+var HOMES={law:{n:'Law Garden, Ahmedabad (sample point)',lat:23.0300,lng:72.5545},riv:{n:'Sabarmati Riverfront (sample point)',lat:23.0545,lng:72.5800},kan:{n:'Kankaria Lake (sample point)',lat:23.0063,lng:72.6010}};
+var VET_NO='+91 00000 00000 (placeholder, not a real number)';
+function N(){return S.pet.name||'Your pet'}
+function P(){return '<span data-pet>'+esc(N())+'</span>'}
+function medsDone(){var d=0;S.meds.forEach(function(m){if(m.done)d++});return d}
+function overdue(m){if(m.done)return false;if(m.forceMissed)return true;var p=m.time.split(':'),t=new Date();t.setHours(+p[0],+p[1],0,0);return false}
+function score(){var a=Math.min(1,S.steps/S.goal),m=S.meds.length?medsDone()/S.meds.length:1;S.meds.forEach(function(x){if(x.forceMissed&&!x.done)m=Math.max(0,m-.15)});return{a:Math.round(a*100),m:Math.round(m*100),r:Math.round(S.rest*100),t:Math.round((a*.4+m*.35+S.rest*.25)*100)}}
+/* ---------- alerts ---------- */
+var SEVL={high:'Urgent',med:'Soon',low:'Info',info:'Follow-up'};
+function atext(a){var n=N(),d=a.d||{},m;
+ switch(a.type){
+ case'med':m=S.meds.filter(function(x){return x.id===d.mid})[0]||S.meds[0]||{name:'medicine',dose:'',time:''};return{icon:'care',title:'Medicine due: '+m.name,body:n+"'s "+m.name+' ('+m.dose+') is due at '+m.time+'. Tap Mark done once it is given.'};
+ case'missed':m=S.meds.filter(function(x){return x.id===d.mid})[0]||S.meds[0]||{name:'medicine',dose:'',time:''};return{icon:'care',title:'Medicine missed: '+m.name,body:'The '+m.time+' dose for '+n+' has not been ticked off. Give it if appropriate and mark done, or ask your vet what to do about a missed dose.'};
+ case'zone':return{icon:'pin',title:n+' left the safe zone',body:'The band reported a position about '+(d.m||160)+' m from Home, outside the safe zone (simulated). Open the Live tab to see the map. Safe-zone alerts are a feature of the GPS and Cam models.'};
+ case'activity':return{icon:'steps',title:'Low activity nudge',body:n+' has moved less than usual for this time of day (sample logic). This is a wellness trend, not a diagnosis. A short walk may help. Nudge mode (a concept) could send a gentle reminder to the band.'};
+ case'battery':return{icon:'bat',title:'Band battery low ('+(d.pct||15)+'%)',body:'Charge the BioBand soon so tracking continues. Target battery life is up to about 7 days on Lite, not yet validated on hardware.'};
+ default:return{icon:'cal',title:'Vet follow-up: Leptospirosis booster',body:'Dr. Demo Vet (concept) noted the next booster on 14 Dec 2026. Book a visit with your own vet. This is sample data.'}}}
+function addAlert(type,sev,d,quiet){var a={id:'a'+Date.now()+Math.floor(Math.random()*99),type:type,sev:sev,ts:Date.now(),status:'new',d:d||{}};S.alerts.unshift(a);save();renderAlerts();badge();if(!quiet)toast(a);return a}
+function ago(ts){var s=Math.max(0,Math.round((Date.now()-ts)/1000));if(s<45)return'just now';if(s<3600)return Math.round(s/60)+' min ago';if(s<86400)return Math.round(s/3600)+' h ago';return Math.round(s/86400)+' d ago'}
+function badge(){var c=S.alerts.filter(function(a){return a.status==='new'}).length,b=$('#abadge');b.textContent=c;b.hidden=!c;b.setAttribute('aria-label',c+' new alerts')}
+var toastT=0;
+function toast(a){var el=$('#toast');if(typeof a==='string'){el.className='toast plain on';el.innerHTML='<button type="button" data-act="hideToast"><span class="ibox">'+ic('check')+'</span><span><b>'+esc(a)+'</b></span></button>';clearTimeout(toastT);toastT=setTimeout(hideToast,3200);return}
+ var t=atext(a);el.className='toast sev-'+a.sev+' on';el.innerHTML='<button type="button" data-act="openAlert" data-id="'+a.id+'"><span class="ibox">'+ic(t.icon)+'</span><span><b>'+esc(t.title)+'</b><span class="t">New alert, tap for details</span></span></button>';
+ el.setAttribute('aria-live',a.sev==='high'?'assertive':'polite');
+ if(S.vibe){try{if(navigator.vibrate)navigator.vibrate(a.sev==='high'?[90,50,90,50,160]:[70])}catch(e){}}
+ clearTimeout(toastT);toastT=setTimeout(hideToast,5200)}
+function hideToast(){$('#toast').classList.remove('on')}
+/* ---------- sheet ---------- */
+var lastFocus=null;
+function openSheet(title,html,after){lastFocus=document.activeElement;var sh=$('#sheet');sh.innerHTML='<div class="grab"></div><div class="sh-h"><h3 id="sheet-t">'+esc(title)+'</h3><button class="x" type="button" data-act="closeSheet" aria-label="Close">'+ic('x')+'</button></div>'+html;$('#sheetw').classList.add('on');['panels','tabs'].forEach(function(i){var e=document.getElementById(i);e.setAttribute('inert','');e.setAttribute('aria-hidden','true')});hideToast();sh.scrollTop=0;setTimeout(function(){sh.focus()},30);if(after)after(sh)}
+function closeSheet(){$('#sheetw').classList.remove('on');['panels','tabs'].forEach(function(i){var e=document.getElementById(i);e.removeAttribute('inert');e.removeAttribute('aria-hidden')});try{if(lastFocus&&document.contains(lastFocus))lastFocus.focus()}catch(e){}}
+document.addEventListener('keydown',function(e){var on=$('#sheetw').classList.contains('on');if(e.key==='Escape'&&on)closeSheet();
+ if(e.key==='Tab'&&on){var f=$$('button,input,select,textarea,[tabindex="0"]',$('#sheet')).filter(function(x){return!x.disabled&&x.offsetParent!==null});if(!f.length)return;var a=f[0],z=f[f.length-1];if(e.shiftKey&&(document.activeElement===a||document.activeElement===$('#sheet'))){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}});
+function openAlert(id){var a=S.alerts.filter(function(x){return x.id===id})[0];if(!a)return;var t=atext(a),done=a.status==='done';
+ var acts='<div class="row" style="margin-top:12px">'+(done?'<span class="chip">'+ic('check')+' Marked done</span>':'<button class="btn" type="button" data-act="alertDone" data-id="'+a.id+'">'+ic('check')+'Mark done</button>')+'<button class="btn sec" type="button" data-act="callVet">'+ic('phone')+'Call vet</button><button class="btn sec" type="button" data-act="shareAlert" data-id="'+a.id+'">'+ic('share')+'Share with family</button></div>'+
+ (a.type==='activity'?'<div class="row" style="margin-top:8px"><button class="btn sec" type="button" data-act="nudgeOn">Turn on Nudge mode (concept)</button></div>':'')+
+ (a.type==='zone'?'<div class="row" style="margin-top:8px"><button class="btn sec" type="button" data-act="goLive">Open live map</button></div>':'')+
+ '<div id="vetline" class="note" style="margin-top:10px" hidden></div>';
+ openSheet(t.title,'<div class="item sev-'+a.sev+'" style="box-shadow:none;margin-bottom:10px"><span class="ibox">'+ic(t.icon)+'</span><div><span class="sevlab">'+SEVL[a.sev]+'</span><div class="meta">'+ago(a.ts)+' · '+new Date(a.ts).toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})+'</div></div></div><p>'+esc(t.body)+'</p><p class="small">Wellness trends and reminders, not a diagnosis or medical advice.</p>'+acts)}
+function renderAlerts(){var p=$('#p-alerts'),nn=S.alerts.filter(function(a){return a.status==='new'}).length;
+ var h='<div class="ph"><div><h2>Alerts</h2><div class="small">'+nn+' new for '+P()+'</div></div>'+(nn?'<button class="btn sec sm" type="button" data-act="allRead">Mark all done</button>':'')+'</div>'+
+ '<div><div class="small" style="font-weight:700;margin-bottom:4px">Simulate an alert (demo)</div><div class="simrow" role="group" aria-label="Simulate an alert">'+
+ [['zone','Leaves safe zone'],['med','Medicine due'],['missed','Medicine missed'],['activity','Low activity'],['battery','Battery low'],['vet','Vet follow-up']].map(function(x){return '<button class="btn sec" type="button" data-act="sim" data-k="'+x[0]+'">'+x[1]+'</button>'}).join('')+'</div></div><div class="list" aria-live="off">';
+ if(!S.alerts.length)h+='<div class="empty">'+ic('shield')+'<p>No alerts. Try a simulate button above.</p></div>';
+ S.alerts.forEach(function(a){var t=atext(a);h+='<button class="item sev-'+a.sev+(a.status==='done'?' done':'')+'" type="button" data-act="openAlert" data-id="'+a.id+'" aria-label="'+esc(t.title+', '+SEVL[a.sev]+', '+ago(a.ts)+(a.status==='done'?', done':''))+'"><span class="ibox">'+ic(t.icon)+'</span><span style="flex:1;min-width:0"><h4>'+esc(t.title)+'</h4><p>'+esc(t.body.length>96?t.body.slice(0,94)+'...':t.body)+'</p><span class="meta"><span class="sevlab">'+SEVL[a.sev]+'</span>'+ago(a.ts)+(a.status==='done'?' · Done':'')+'</span></span></button>'});
+ p.innerHTML=h+'</div>'}
+/* ---------- scenarios ---------- */
+function sc(k){
+ if(k==='zone'){if(S.band.model==='lite'){toast('Safe-zone alerts need the GPS or Cam band. Switch the model in Profile.');return}petOut();return}
+ if(k==='med'){var m=S.meds.filter(function(x){return!x.done})[0];if(!m){toast('All medicines are already ticked. Untick one in Care.');return}addAlert('med','med',{mid:m.id});return}
+ if(k==='missed'){var m2=S.meds.filter(function(x){return!x.done})[0];if(!m2){toast('All medicines are already ticked. Untick one in Care.');return}m2.forceMissed=true;save();addAlert('missed','high',{mid:m2.id});renderCare();syncLive();return}
+ if(k==='activity'){S.steps=Math.min(S.steps,1200);S.rest=0.93;addAlert('activity','low',{});syncLive();return}
+ if(k==='battery'){S.band.battery=15;save();addAlert('battery','med',{pct:15});syncLive();renderProfile();return}
+ if(k==='vet'){addAlert('vet','info',{});return}}
+/* ---------- tabs ---------- */
+var TABS=['live','alerts','care','family','profile'];
+function setTab(t,focus){S.tab=t;TABS.forEach(function(k){var on=k===t;$('#p-'+k).classList.toggle('on',on);var b=$('#t-'+k);b.setAttribute('aria-selected',on);b.tabIndex=on?0:-1;if(on)$('#p-'+k).scrollTop=$('#p-'+k).scrollTop});if(focus)$('#t-'+t).focus();if(t==='alerts')renderAlerts();save()}
+$('#tabs').addEventListener('keydown',function(e){var i=TABS.indexOf(S.tab);if(e.key==='ArrowRight'){e.preventDefault();setTab(TABS[(i+1)%5],true)}if(e.key==='ArrowLeft'){e.preventDefault();setTab(TABS[(i+4)%5],true)}});
+/* ---------- LIVE ---------- */
+var C=2*Math.PI*84;
+function buildLive(){var p=$('#p-live');
+ p.innerHTML='<section class="hero dk" aria-labelledby="hero-t"><div class="top"><h2 id="hero-t">Today for '+P()+'</h2><span class="sp" style="flex:1"></span><span class="chip dkc"><span class="dot live"></span>Live</span></div>'+
+ '<div class="ringwrap" role="img" id="ringimg"><svg viewBox="0 0 200 200" aria-hidden="true"><circle class="tr" cx="100" cy="100" r="84" fill="none" stroke-width="14"/><circle class="pr" id="ringp" cx="100" cy="100" r="84" fill="none" stroke-width="14" stroke-linecap="round" stroke-dasharray="'+C+'" stroke-dashoffset="'+C+'"/></svg><div class="ringc"><span>Care Score</span><b id="scn">0</b><em>illustrative</em></div></div>'+
+ '<div class="parts"><div class="part"><small>Activity</small><b id="pa">0%</b><i><u id="pab"></u></i></div><div class="part"><small>Medicine</small><b id="pm">0%</b><i><u id="pmb"></u></i></div><div class="part"><small>Rest</small><b id="pr">0%</b><i><u id="prb"></u></i></div></div>'+
+ '<div class="chips"><span class="chip dkc" id="cConn"></span><span class="chip dkc" id="cBat"></span><span class="chip dkc" id="cSync"></span></div>'+
+ '<p class="small" style="color:#cfe8dc;margin:10px 0 0;position:relative;z-index:1">Care Score blends activity (40%), medicine adherence (35%) and rest (25%). An illustrative wellness number, not a diagnosis.</p></section>'+
+ '<div class="grid2"><div class="card tile"><div class="k">'+ic('steps')+'Steps today</div><div class="v" id="stv">0</div><div class="bar" aria-hidden="true"><i id="stb"></i></div><div class="small" style="margin-top:4px" id="sts"></div></div>'+
+ '<div class="card tile"><div class="k"><span class="heart" id="hrt">'+ic('heart')+'</span>Heart rate <span class="tag">Proposed</span></div><div class="v"><span id="bpm">84</span> <small>bpm, demo</small></div><svg class="pulse" viewBox="0 0 120 40" preserveAspectRatio="none" role="img" aria-label="Simulated pulse line, demo only"><polyline id="pline" points=""/></svg><div class="small">Needs hardware validation.</div></div></div>'+
+ '<section class="card" aria-labelledby="map-t"><div class="hrow"><div><h3 id="map-t">Live location</h3><div class="small" id="mapsub"></div></div><span class="chip" id="zchip"><span class="dot"></span>Inside zone</span></div>'+
+ '<div class="map" id="map"><svg viewBox="0 0 340 230" role="img" aria-label="Stylised map with a safe zone circle and a moving dot for the pet. Simulated, not a real location."><rect width="340" height="230" fill="#eaf5ef"/><path d="M-10 190C60 170 100 205 170 192S300 170 350 186V240H-10z" fill="#cfe6f0"/><path d="M10 40C40 10 90 8 120 30L100 70C70 78 30 76 10 60z" fill="#cfe8d4"/><path d="M240 150c30-14 70-4 88 18l-14 34c-30 6-70-2-84-22z" fill="#cfe8d4"/><g stroke="#fff" stroke-width="9" stroke-linecap="round" fill="none"><path d="M-10 118H350"/><path d="M170-10V240"/><path d="M-10 60L350 170"/><path d="M60-10L130 240"/><path d="M280-10L250 240"/></g><g stroke="#f6f3ea" stroke-width="3" fill="none"><path d="M-10 118H350M170-10V240" stroke-dasharray="6 8"/></g><circle id="zone" class="zonering" cx="170" cy="115" r="72" fill="rgba(29,107,80,.14)" stroke="#1d6b50" stroke-width="2.200" stroke-dasharray="7 6"/><path id="route" d="M170 62C215 58 238 90 226 122C215 154 180 170 150 160C118 150 104 118 118 92C128 72 150 64 170 62z" fill="none" stroke="rgba(18,63,49,.25)" stroke-width="2" stroke-dasharray="2 5"/><polyline id="trail" points="" fill="none" stroke="#d9733a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".7"/><g transform="translate(170 115)"><circle r="13" fill="#123f31"/><use href="#logo-mark" x="-8" y="-9" width="16" height="17" style="filter:brightness(0) invert(1)"/></g><g class="petdot" id="pdot"><circle class="halo" r="9" fill="#d9733a"/><circle r="8.500" fill="#d9733a" stroke="#fff" stroke-width="3"/></g><text x="170" y="150" text-anchor="middle" font-size="10" font-weight="700" fill="#123f31" font-family="DM Sans,system-ui,sans-serif">Home zone</text></svg>'+
+ '<div class="lock" id="mlock" hidden>'+ic('pin')+'<span>Live map needs the GPS or Cam band</span><button class="btn sm" type="button" data-act="goProfile">Change model in Profile</button></div></div>'+
+ '<div class="row" style="margin-top:10px;justify-content:space-between"><span class="small" id="mapinfo"></span><span class="small" id="sharecnt"></span></div>'+
+ '<div class="geo"><b>Try your phone\'s location</b><p class="small" style="margin:2px 0 8px">Optional. Compares your phone to a sample home point, in this tab only. Nothing is stored or sent.</p><div class="field"><label for="homesel">Home point</label><select class="inp" id="homesel">'+Object.keys(HOMES).map(function(k){return '<option value="'+k+'">'+HOMES[k].n+'</option>'}).join('')+'</select></div><button class="btn full" type="button" data-act="geo" id="geobtn">'+ic('pin')+'<span>Use my phone\'s location as '+P()+'</span></button><div class="out" id="geoout" aria-live="polite"></div></div></section>'+
+ '<p class="small" style="text-align:center">Concept demo. Route, steps and heart rate are simulated sample data.</p>';
+ $('#homesel').value=S.home;syncLive(true)}
+var pet={t:0,mode:'route',x:170,y:62,trail:[],alerted:false,outT:0};
+var routeEl=null,routeLen=0;
+function petPos(){if(!routeEl)return;if(pet.mode==='route'){pet.t=(pet.t+(RM?.02:.0035))%1;var q=routeEl.getPointAtLength(pet.t*routeLen);pet.x=q.x;pet.y=q.y}
+ else if(pet.mode==='out'){var tx=312,ty=34,dx=tx-pet.x,dy=ty-pet.y,d=Math.hypot(dx,dy);if(d>3){var s=RM?40:3.2;pet.x+=dx/d*Math.min(s,d);pet.y+=dy/d*Math.min(s,d)}}
+ else{var q0=routeEl.getPointAtLength(pet.t*routeLen),dx2=q0.x-pet.x,dy2=q0.y-pet.y,d2=Math.hypot(dx2,dy2);if(d2>4){var s2=RM?40:4;pet.x+=dx2/d2*Math.min(s2,d2);pet.y+=dy2/d2*Math.min(s2,d2)}else pet.mode='route'}
+ var dist=Math.hypot(pet.x-170,pet.y-115),out=dist>72;
+ if(out&&!pet.alerted){pet.alerted=true;addAlert('zone','high',{m:Math.round(dist*2.2)})}
+ if(!out&&pet.alerted&&dist<66)pet.alerted=false;
+ pet.trail.push(pet.x.toFixed(1)+','+pet.y.toFixed(1));if(pet.trail.length>26)pet.trail.shift();
+ var dot=$('#pdot');if(!dot)return;dot.setAttribute('transform','translate('+pet.x.toFixed(1)+' '+pet.y.toFixed(1)+')');$('#trail').setAttribute('points',pet.trail.join(' '));
+ var z=$('#zone');z.setAttribute('fill',out?'rgba(179,64,42,.14)':'rgba(29,107,80,.14)');z.setAttribute('stroke',out?'#b3402a':'#1d6b50');
+ var zc=$('#zchip');zc.className='chip'+(out?' red':'');zc.innerHTML='<span class="dot" style="background:'+(out?'#b3402a':'#2fa36f')+'"></span>'+(out?'Outside zone':'Inside zone');
+ $('#mapinfo').textContent=Math.round(dist*2.2)+' m from home (simulated)'}
+function petOut(){if(pet.mode==='out')return;pet.mode='out';clearTimeout(pet.outT);pet.outT=setTimeout(petBack,14000);toast('Simulating: '+N()+' is heading outside the zone')}
+function petBack(){pet.mode='back'}
+function syncLive(first){if(!$('#scn'))return;var s=score(),p=$('#ringp');
+ $('#scn').textContent=s.t;p.setAttribute('stroke-dashoffset',(C*(1-s.t/100)).toFixed(1));
+ $('#ringimg').setAttribute('aria-label','Care Score '+s.t+' out of 100, illustrative');
+ [['a',s.a],['m',s.m],['r',s.r]].forEach(function(x){$('#p'+x[0]).textContent=x[1]+'%';$('#p'+x[0]+'b').style.width=x[1]+'%'});
+ $('#stv').textContent=S.steps.toLocaleString('en-IN');$('#stb').style.width=Math.min(100,S.steps/S.goal*100)+'%';$('#sts').textContent='Goal '+S.goal.toLocaleString('en-IN')+' (sample) · about '+Math.round(S.steps/160)+' min active';
+ var bt=S.band.battery;$('#cConn').innerHTML='<span class="dot"></span>Band connected';$('#cBat').innerHTML=ic('bat')+bt+'% battery'+(bt<=20?' (low)':'');$('#cSync').textContent='Synced '+(sync<5?'just now':sync+'s ago');
+ var gps=S.band.model!=='lite';$('#mlock').hidden=gps;$('#mapsub').textContent=(S.band.model.toUpperCase())+' band · '+(S.band.mount==='harness'?'harness mount (concept)':'collar band')+(S.band.nudge?' · Nudge mode on (concept)':'');
+ var sh=S.members.filter(function(m){return m.perms.loc}).length;$('#sharecnt').textContent='Location shared with '+sh+' '+(sh===1?'person':'people');
+ $$('.hdr').forEach(function(){});}
+var sync=0,bpm=84,beatPh=0,buf=[];
+function ecg(ph){if(ph<.08)return .1*Math.sin(ph/.08*Math.PI);if(ph<.16)return 0;if(ph<.19)return -.12;if(ph<.23)return 1;if(ph<.27)return -.28;if(ph<.38)return 0;if(ph<.5)return .22*Math.sin((ph-.38)/.12*Math.PI);return 0}
+function tickFast(){if(!$('#pline'))return;beatPh+=(bpm/60)*(RM?1:.1)*(1/ (RM?1:1));if(beatPh>=1)beatPh-=1;buf.push(ecg(beatPh));if(buf.length>60)buf.shift();
+ $('#pline').setAttribute('points',buf.map(function(v,i){return(i*2).toFixed(0)+','+(30-v*24).toFixed(1)}).join(' '))}
+function tickMap(){petPos()}
+function tickSec(){sync++;if(sync>30)sync=0;
+ if(S.steps<S.goal*1.4)S.steps+=Math.round(Math.random()*3);
+ bpm=Math.max(68,Math.min(104,bpm+Math.round((Math.random()-.5)*4)));var b=$('#bpm');if(b)b.textContent=bpm;
+ if(Math.random()<.2){S.rest=Math.max(.5,Math.min(.95,S.rest+(Math.random()-.5)*.01))}
+ syncLive();$$('#p-alerts .meta').length&&0;if(S.tab==='profile'&&Math.random()<.2)0;save()}
+/* ---------- CARE ---------- */
+function ringSvg(pct,lab,sub){var r=32,c=2*Math.PI*r;return '<div><div class="mr" role="img" aria-label="'+esc(sub+' '+pct+' percent')+'"><svg viewBox="0 0 80 80" aria-hidden="true"><circle class="tr" cx="40" cy="40" r="'+r+'" fill="none" stroke-width="8"/><circle class="pr" cx="40" cy="40" r="'+r+'" fill="none" stroke-width="8" stroke-linecap="round" stroke-dasharray="'+c.toFixed(1)+'" stroke-dashoffset="'+(c*(1-pct/100)).toFixed(1)+'"/></svg><b>'+lab+'</b></div><small>'+esc(sub)+'</small></div>'}
+function frac(a){var d=a.filter(function(x){return x.done}).length;return{d:d,n:a.length,p:a.length?Math.round(d/a.length*100):0}}
+function crow(kind,x,extra){return '<button class="crow'+(extra&&extra.over?' over':'')+'" type="button" role="checkbox" aria-checked="'+(!!x.done)+'" data-act="tick" data-k="'+kind+'" data-id="'+x.id+'"><span class="chk">'+ic('check')+'</span><span class="tx"><b>'+esc(x.name)+'</b><small>'+esc(x.time)+' · '+esc(x.dose||x.detail||'')+(extra&&extra.over?' · missed, not ticked':'')+'</small></span></button>'}
+function renderCare(){var m=frac(S.meds),f=frac(S.feed),w=frac(S.walk),streak=S.streakBase+(m.d===m.n&&m.n?1:0);
+ $('#p-care').innerHTML='<div class="ph"><div><h2>Care</h2><div class="small">Medicines and routines for '+P()+'</div></div></div>'+
+ '<div class="card"><div class="rings">'+ringSvg(m.p,m.d+'/'+m.n,'Medicine')+ringSvg(f.p,f.d+'/'+f.n,'Meals')+ringSvg(w.p,w.d+'/'+w.n,'Walks')+'</div></div>'+
+ '<div class="streak"><b>'+streak+'</b><span>day adherence streak'+(m.d===m.n&&m.n?' (today counted)':'. Tick every dose today to extend it.')+'</span></div>'+
+ '<section class="card"><div class="hrow"><h3>Medicine schedule</h3><span class="tag">Sample</span></div>'+S.meds.map(function(x){return crow('med',x,{over:x.forceMissed&&!x.done})}).join('')+'<p class="small" style="margin:8px 0 0">Reminders only. Follow your own vet\'s instructions.</p></section>'+
+ '<section class="card"><div class="hrow"><h3>Vaccination timeline</h3></div><ol class="tl">'+S.vacc.map(function(v){return '<li class="'+v.st+'"><b>'+esc(v.name)+'</b><span class="d">'+esc(v.date)+' · '+(v.st==='done'?'Done':v.st==='due'?'Due soon':'Planned')+'</span></li>'}).join('')+'</ol></section>'+
+ '<section class="card"><div class="hrow"><h3>'+ic('bowl')+' Feeding</h3><span class="small">'+f.d+' of '+f.n+'</span></div>'+S.feed.map(function(x){return crow('feed',x)}).join('')+'</section>'+
+ '<section class="card"><div class="hrow"><h3>'+ic('steps')+' Walks</h3><span class="small">'+w.d+' of '+w.n+'</span></div>'+S.walk.map(function(x){return crow('walk',x)}).join('')+'</section>'}
+/* ---------- FAMILY ---------- */
+function ini(n){return n.replace(/[^A-Za-z ]/g,'').split(' ').filter(Boolean).slice(0,2).map(function(w){return w[0]}).join('').toUpperCase()||'?'}
+function genCode(){var a='ABCDEFGHJKMNPQRSTUVWXYZ23456789',o='';var r=new Uint32Array(6);try{crypto.getRandomValues(r)}catch(e){for(var i=0;i<6;i++)r[i]=Math.floor(Math.random()*1e6)}for(var j=0;j<6;j++)o+=a[r[j]%a.length];return o}
+var invRole='Family',lastCode='';
+function renderFamily(){var h='<div class="ph"><div><h2>Family and vets</h2><div class="small">People who share '+P()+'\'s profile</div></div></div><section class="card"><div class="hrow"><h3>Members ('+S.members.length+')</h3><span class="tag">Demo</span></div>';
+ S.members.forEach(function(m){var own=m.role==='Owner';h+='<div class="mem"><div class="mhead"><span class="av" aria-hidden="true">'+esc(ini(m.name))+'</span><div style="flex:1;min-width:0"><b>'+esc(m.name)+(m.you?' (you)':'')+'</b><div><span class="role r-'+m.role+'">'+m.role+'</span></div></div>'+(own?'':'<button class="btn sec sm" type="button" data-act="rmMember" data-id="'+m.id+'" aria-label="Remove '+esc(m.name)+'">'+ic('x')+'</button>')+'</div><div class="perms">'+
+  [['loc','See location'],['health','See health'],['edit','Edit records']].map(function(p){return '<button class="sw" type="button" role="switch" aria-checked="'+(!!m.perms[p[0]])+'" '+(own?'aria-disabled="true"':'')+' data-act="perm" data-id="'+m.id+'" data-p="'+p[0]+'"><span>'+p[1]+'</span><span class="tg"></span></button>'}).join('')+'</div></div>'});
+ h+='</section><section class="card"><h3>Invite someone</h3><p class="small">Generate a 6-character code. In this demo it only works inside this page.</p><div class="field"><label>Role for the invite</label><div class="seg" role="radiogroup" aria-label="Role">'+['Family','Vet','Walker'].map(function(r){return '<button type="button" role="radio" aria-checked="'+(invRole===r)+'" data-act="invRole" data-r="'+r+'">'+r+'</button>'}).join('')+'</div></div><button class="btn full" type="button" data-act="genCode">'+ic('plus')+'Generate invite code</button>'+
+ (lastCode?'<div class="code" aria-label="Invite code '+lastCode.split('').join(' ')+'">'+lastCode+'</div><button class="btn sec full" type="button" data-act="copyCode">'+ic('copy')+'Copy code</button><p class="small" style="margin-top:8px">Role: '+invRole+'. Paste it below to simulate a family member joining.</p>':'')+'</section>'+
+ '<section class="card"><h3>Join with a code</h3><p class="small">Type a 6-character code to simulate joining '+P()+'\'s profile.</p><div class="field"><label for="joincode">Invite code</label><input class="inp" id="joincode" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="e.g. K7M2QX" style="letter-spacing:.2em;text-transform:uppercase;font-weight:700"></div><div class="small" id="joinmsg" role="status" style="min-height:20px;margin-bottom:8px"></div><button class="btn full" type="button" data-act="join">Join (demo)</button></section>'+
+ '<div class="note">Roles: Owner manages everything. Family can see what you allow. Vet access is a concept: a real vet would need to be verified first. Walker sees location only.</div>';
+ $('#p-family').innerHTML=h}
+/* ---------- PROFILE ---------- */
+function rng(seed){return function(){seed|=0;seed=seed+0x6D2B79F5|0;var t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+var rec=null;function mkRec(){var r=rng(7),days=[];for(var i=29;i>=0;i--){var d=new Date();d.setDate(d.getDate()-i);var st=Math.round(5200+r()*5200);days.push({d:d,steps:st,act:Math.round(st/160),rest:+(10.5+r()*2.5).toFixed(1)})}rec={days:days}}
+var range='day';
+function chart(vals,labs,goal,unit){var W=340,H=160,L=30,B=22,T=10,n=vals.length,mx=Math.max.apply(null,vals.concat([goal||0]))*1.1||1,bw=(W-L-4)/n,s='';
+ for(var g=0;g<=2;g++){var y=T+(H-T-B)*(1-g/2);s+='<line x1="'+L+'" x2="'+W+'" y1="'+y+'" y2="'+y+'" stroke="#e2e8e2"/><text x="'+(L-4)+'" y="'+(y+3.5)+'" text-anchor="end" font-size="10" fill="#54635b">'+(mx*g/2>=1000?(mx*g/2/1000).toFixed(1)+'k':Math.round(mx*g/2))+'</text>'}
+ vals.forEach(function(v,i){var h=(H-T-B)*v/mx,x=L+i*bw+bw*.14,w=bw*.72;s+='<rect x="'+x.toFixed(1)+'" y="'+(H-B-h).toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+Math.max(0,h).toFixed(1)+'" rx="'+Math.min(4,w/2).toFixed(1)+'" fill="'+(i===n-1?'#d9733a':'#1d6b50')+'"/>'});
+ labs.forEach(function(l,i){if(l!=='')s+='<text x="'+(L+i*bw+bw/2).toFixed(1)+'" y="'+(H-6)+'" text-anchor="middle" font-size="10" fill="#54635b">'+l+'</text>'});
+ if(goal){var gy=T+(H-T-B)*(1-goal/mx);s+='<line x1="'+L+'" x2="'+W+'" y1="'+gy+'" y2="'+gy+'" stroke="#d9733a" stroke-dasharray="4 4"/><text x="'+W+'" y="'+(gy-3)+'" text-anchor="end" font-size="10" fill="#a64f1d" font-weight="700">goal</text>'}
+ return '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto;display:block" role="img" aria-label="'+esc(unit)+' bar chart, sample data">'+s+'</svg>'}
+function chartFor(){if(!rec)mkRec();var days=rec.days.slice();days[days.length-1]=Object.assign({},days[days.length-1],{steps:S.steps});var v,l,goal,sum,list='';var DN=['S','M','T','W','T','F','S'];
+ if(range==='day'){var hr=new Date().getHours(),w=[0,0,0,0,0,2,6,9,5,2,1,1,2,2,1,1,2,4,8,7,4,2,1,0],tw=0;for(var i=0;i<=hr;i++)tw+=w[i];v=[];for(var j=0;j<24;j++)v.push(j<=hr?Math.round(S.steps*w[j]/tw):0);l=v.map(function(x,i){return i%6===0?String(i):''});goal=null;sum='Today by hour: '+S.steps.toLocaleString('en-IN')+' steps so far (sample).';
+  list=days.slice(-5).reverse().map(function(d){return '<li><span>'+d.d.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short'})+'</span><span>'+d.steps.toLocaleString('en-IN')+' steps · '+d.act+' min active · '+d.rest+' h rest</span></li>'}).join('')}
+ else if(range==='week'){var wk=days.slice(-7);v=wk.map(function(d){return d.steps});l=wk.map(function(d){return DN[d.d.getDay()]});goal=S.goal;sum='7-day average '+Math.round(v.reduce(function(a,b){return a+b},0)/7).toLocaleString('en-IN')+' steps (sample).';
+  list=[0,1,2,3].map(function(k){var seg=days.slice(Math.max(0,days.length-7*(k+1)),days.length-7*k);var avg=Math.round(seg.reduce(function(a,d){return a+d.steps},0)/seg.length);return '<li><span>'+(k===0?'This week':k+' week'+(k>1?'s':'')+' ago')+'</span><span>avg '+avg.toLocaleString('en-IN')+' steps/day</span></li>'}).join('')}
+ else{v=days.map(function(d){return d.steps});l=days.map(function(d,i){return i%5===4?String(d.d.getDate()):''});goal=S.goal;sum='30-day average '+Math.round(v.reduce(function(a,b){return a+b},0)/30).toLocaleString('en-IN')+' steps (sample).';
+  var r=rng(11),M=['Nov','Oct','Sep','Aug','Jul','Jun'];list=M.map(function(m,k){var a=k===0?Math.round(v.reduce(function(x,y){return x+y},0)/30):Math.round(5600+r()*2800);return '<li><span>'+m+' 2026</span><span>avg '+a.toLocaleString('en-IN')+' steps/day</span></li>'}).join('')}
+ return{svg:chart(v,l,goal,range+' steps'),sum:sum,list:list}}
+function renderProfile(){var b=S.band,pr=S.pet,c=chartFor(),a=b.model==='lite'?'#2fa36f':b.model==='gps'?'#f2a65a':'#4aa3c8';
+ var M={lite:['BioBand Lite','Activity, rest and battery. No GPS.','Rs 2,499'],gps:['BioBand GPS','Adds live location and safe-zone alerts.','Rs 3,999'],cam:['BioBand Cam','GPS included, plus a small camera (concept).','Rs 6,000 to 7,000']};
+ var h='<div class="ph"><div><h2>Profile</h2><div class="small">'+P()+' and the BioBand</div></div></div>'+
+ '<section class="card"><div class="petcard"><div class="pav" aria-hidden="true"><svg viewBox="10 6 80 88" width="44" height="48"><use href="#logo-mark"/></svg></div><div><h3 style="font-size:1.5rem;margin:0" data-pet>'+esc(N())+'</h3><div class="small"><span data-pbreed>'+esc(pr.breed)+'</span> · <span data-page>'+esc(pr.age)+'</span> · <span data-pw>'+esc(pr.weight)+'</span> kg</div></div></div>'+
+ '<div class="grid2" style="margin-top:14px"><div class="field"><label for="f-name">Name</label><input class="inp" id="f-name" data-f="name" value="'+esc(pr.name)+'" maxlength="20" autocomplete="off"></div><div class="field"><label for="f-breed">Breed</label><input class="inp" id="f-breed" data-f="breed" value="'+esc(pr.breed)+'" maxlength="24" autocomplete="off"></div><div class="field"><label for="f-age">Age</label><input class="inp" id="f-age" data-f="age" value="'+esc(pr.age)+'" maxlength="16" autocomplete="off"></div><div class="field"><label for="f-weight">Weight (kg)</label><input class="inp" id="f-weight" data-f="weight" inputmode="decimal" value="'+esc(pr.weight)+'" maxlength="6" autocomplete="off"></div></div><div class="small">Saved as you edit, on this device only.</div></section>'+
+ '<section class="card bandcard"><div class="hrow"><h3>BioBand</h3><span class="tag">Concept prototype</span></div>'+
+ '<svg class="bd" viewBox="0 0 400 200" role="img" aria-label="Illustration of the BioBand clip-on band on a collar strap"><g transform="translate(0 -30)"><rect x="-10" y="92" width="420" height="50" rx="6" fill="url(#g-strap)"/><path d="M0 99H400M0 135H400" stroke="#fff" stroke-opacity=".4" stroke-width="1.600" stroke-dasharray="7 7" fill="none"/>'+(b.mount==='harness'?'<path d="M200 142V215M150 142L120 215M250 142L280 215" stroke="url(#g-strap)" stroke-width="22" stroke-linecap="round"/>':'')+'<rect x="84" y="78" width="30" height="78" rx="12" fill="none" stroke="#173f31" stroke-width="8"/><rect x="286" y="78" width="30" height="78" rx="12" fill="none" stroke="#173f31" stroke-width="8"/><rect x="100" y="64" width="200" height="106" rx="53" fill="url(#g-body)"/><rect x="100" y="64" width="200" height="106" rx="53" fill="none" stroke="'+a+'" stroke-width="5"/><path d="M130 84Q200 66 270 84" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity=".85"/><rect x="124" y="86" width="152" height="64" rx="32" fill="url(#g-glass)"/><path d="M140 120H168l8-12 10 24 9-32 10 26 7-6h50" fill="none" stroke="'+a+'" stroke-width="2.400" stroke-linecap="round" stroke-linejoin="round" opacity=".55"/><circle class="led" cx="200" cy="118" r="6.500" fill="'+a+'"/>'+(b.model==='cam'?'<circle cx="262" cy="104" r="5" fill="#0d2a21" stroke="#4aa3c8" stroke-width="2"/>':'')+'</g></svg>'+
+ '<div class="mcards" role="radiogroup" aria-label="Band model (target prices)">'+['lite','gps','cam'].map(function(k){return '<button class="mc" type="button" role="radio" aria-checked="'+(b.model===k)+'" data-act="model" data-k="'+k+'"><b><span>'+M[k][0]+'</span><span>'+M[k][2]+'</span></b><small>'+M[k][1]+'</small></button>'}).join('')+'</div><p class="small" style="margin-top:8px">Prices are targets, not final. GPS is included in Cam. Battery target: up to about 7 days on Lite, not yet validated.</p>'+
+ '<div class="field" style="margin-top:6px"><label>Mount (concept)</label><div class="seg" role="radiogroup" aria-label="Mount"><button type="button" role="radio" aria-checked="'+(b.mount==='collar')+'" data-act="mount" data-k="collar">Collar band (default)</button><button type="button" role="radio" aria-checked="'+(b.mount==='harness')+'" data-act="mount" data-k="harness">Harness mount</button></div></div>'+
+ '<button class="sw" type="button" role="switch" aria-checked="'+b.nudge+'" data-act="nudge"><span><b>Nudge mode</b> <span class="tag">Concept</span><br><span class="small">A gentle activity reminder on the band. Not a treatment, and no claim about behaviour or any medical condition.</span></span><span class="tg"></span></button></section>'+
+ '<section class="card"><div class="hrow"><h3>Activity records</h3><span class="tag">Sample data</span></div><div class="seg" role="group" aria-label="Range">'+['day','week','month'].map(function(r){return '<button type="button" aria-pressed="'+(range===r)+'" data-act="range" data-r="'+r+'">'+r[0].toUpperCase()+r.slice(1)+'</button>'}).join('')+'</div><div style="margin-top:10px">'+c.svg+'</div><p class="small" style="margin:6px 0 0">'+c.sum+'</p><ul class="recs">'+c.list+'</ul></section>'+
+ '<section class="card"><div class="hrow"><h3>Health history</h3><button class="btn sec sm" type="button" data-act="addHist">'+ic('plus')+'Add note</button></div><ul class="hist">'+S.history.slice().sort(function(a,b){return a.date<b.date?1:-1}).map(function(x){return '<li><div class="row" style="justify-content:space-between"><span class="d">'+fmtD(x.date)+'</span><button class="btn sec sm" type="button" data-act="editHist" data-id="'+x.id+'" aria-label="Edit note from '+fmtD(x.date)+'">'+ic('edit')+'Edit</button></div><div class="why">Why: '+esc(x.why)+'</div><div class="vs">Vet suggested: '+esc(x.vet)+'</div></li>'}).join('')+'</ul></section>'+
+ '<section class="card"><h3>Settings</h3><button class="sw" type="button" role="switch" aria-checked="'+S.vibe+'" data-act="vibe"><span>Vibrate on new alerts</span><span class="tg"></span></button><button class="sw" type="button" role="switch" aria-checked="'+S.admin+'" data-act="admin"><span><b>Founder demo mode</b><br><span class="small">Edit details and trigger scenarios live.</span></span><span class="tg"></span></button><div class="row" style="margin-top:10px"><button class="btn sec" type="button" data-act="export">Export JSON preview</button><button class="btn warn" type="button" data-act="reset">Reset demo</button></div></section>'+
+ '<div class="note"><b>Wellness trends, not diagnosis.</b> PawPulse does not give medical advice. Heart rate and temperature are proposed features that need hardware validation. This is a concept demo with sample data: no real clinics, vets or testimonials, and nothing is sent or stored anywhere except this browser\'s local storage.</div>';
+ var pe=$('#p-profile');var st=pe.scrollTop;pe.innerHTML=(S.admin?adminHtml():'')+h;pe.scrollTop=st}
+function adminHtml(){var B=S.band.battery;return '<section class="card adm" aria-labelledby="adm-t"><div class="hrow"><h3 id="adm-t">Founder panel</h3><span class="tag">Admin</span></div>'+
+ '<div class="small" style="margin-bottom:6px;font-weight:700">Scenarios (update every tab live)</div><div class="grid2" style="margin-bottom:12px"><button class="btn sec" type="button" data-act="sim" data-k="zone">Leaves safe zone</button><button class="btn sec" type="button" data-act="sim" data-k="missed">Medicine missed</button><button class="btn sec" type="button" data-act="sim" data-k="activity">Low activity, suggest Nudge</button><button class="btn sec" type="button" data-act="sim" data-k="battery">Battery low</button></div>'+
+ '<div class="field"><label for="a-bat">Battery: '+B+'%</label><input type="range" id="a-bat" min="5" max="100" value="'+B+'" data-act="batRange"></div><div class="field"><label for="a-steps">Steps today</label><input type="range" id="a-steps" min="0" max="12000" step="100" value="'+S.steps+'" data-act="stepsRange"></div>'+
+ '<form data-form="addMember"><div class="small" style="font-weight:700;margin-bottom:4px">Add a vet or family member</div><div class="field"><label for="am-n">Name (no real people or clinics)</label><input class="inp" id="am-n" name="n" maxlength="40" required placeholder="e.g. Family member 2"></div><div class="field"><label for="am-r">Role</label><select class="inp" id="am-r" name="r"><option>Family</option><option>Vet</option><option>Walker</option></select></div><button class="btn full" type="submit">'+ic('plus')+'Add member</button></form><hr style="border:0;border-top:1px solid #f1c4b6;margin:14px 0">'+
+ '<form data-form="addHist"><div class="small" style="font-weight:700;margin-bottom:4px">Add a history entry</div><div class="field"><label for="ah-d">Date</label><input class="inp" id="ah-d" name="d" type="date" required value="'+new Date().toISOString().slice(0,10)+'"></div><div class="field"><label for="ah-w">Why</label><input class="inp" id="ah-w" name="w" maxlength="90" required></div><div class="field"><label for="ah-v">What the vet suggested</label><input class="inp" id="ah-v" name="v" maxlength="160"></div><button class="btn full" type="submit">'+ic('plus')+'Add entry</button></form></section>'}
+function histForm(x){var e=!!x;x=x||{date:new Date().toISOString().slice(0,10),why:'',vet:''};return '<form data-form="saveHist" data-id="'+(e?x.id:'')+'"><div class="field"><label for="hf-d">Date</label><input class="inp" id="hf-d" name="d" type="date" value="'+esc(x.date)+'" required></div><div class="field"><label for="hf-w">Why (reason for the visit or note)</label><input class="inp" id="hf-w" name="w" maxlength="90" value="'+esc(x.why)+'" required></div><div class="field"><label for="hf-v">What the vet suggested</label><textarea class="inp" id="hf-v" name="v" maxlength="240">'+esc(x.vet)+'</textarea></div><div class="row"><button class="btn" type="submit">Save</button>'+(e?'<button class="btn warn" type="button" data-act="delHist" data-id="'+x.id+'">Delete</button>':'')+'</div></form>'}
+function exportJson(){var o={concept_demo:true,note:'Sample data. Wellness trends, not diagnosis.',pet:S.pet,band:{model:S.band.model,mount:S.band.mount,nudge_mode_concept:S.band.nudge,battery_pct:S.band.battery},care_score_illustrative:score().t,steps_today:S.steps,medicines:S.meds.map(function(m){return{name:m.name,dose:m.dose,time:m.time,given:m.done}}),vaccinations:S.vacc,members:S.members.map(function(m){return{name:m.name,role:m.role,permissions:m.perms}}),history:S.history,alerts:S.alerts.map(function(a){return{type:a.type,severity:a.sev,status:a.status,at:new Date(a.ts).toISOString()}})};return JSON.stringify(o,null,2)}
+function copyText(t,done){function fb(){var ta=document.createElement('textarea');ta.value=t;ta.setAttribute('readonly','');ta.style.cssText='position:fixed;left:-999px;top:0';document.body.appendChild(ta);ta.select();var ok=false;try{ok=document.execCommand('copy')}catch(e){}document.body.removeChild(ta);done(ok)}
+ try{if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(function(){done(true)},fb)}else fb()}catch(e){fb()}}
+/* geolocation */
+function hav(a,b,c,d){var R=6371000,r=Math.PI/180,x=(c-a)*r,y=(d-b)*r,q=Math.sin(x/2)*Math.sin(x/2)+Math.cos(a*r)*Math.cos(c*r)*Math.sin(y/2)*Math.sin(y/2);return 2*R*Math.asin(Math.sqrt(q))}
+function geo(){var o=$('#geoout'),btn=$('#geobtn');if(!navigator.geolocation){o.innerHTML='<div class="note">This browser has no location support. The demo keeps using the simulated route.</div>';return}
+ o.textContent='Asking for permission...';btn.disabled=true;
+ try{navigator.geolocation.getCurrentPosition(function(p){btn.disabled=false;var h=HOMES[S.home],d=hav(p.coords.latitude,p.coords.longitude,h.lat,h.lng);o.innerHTML='<div class="note"><b>'+esc(N())+' (your phone) is at</b><br>'+p.coords.latitude.toFixed(5)+', '+p.coords.longitude.toFixed(5)+' (accuracy about '+Math.round(p.coords.accuracy)+' m)<br><b>'+(d<1000?Math.round(d)+' m':(d/1000).toFixed(1)+' km')+'</b> from '+esc(h.n)+'<br><span class="small">'+(d>150?'That would be outside a 150 m safe zone.':'That would be inside a 150 m safe zone.')+' Shown here only, not stored or sent.</span></div>'},function(e){btn.disabled=false;var m=e&&e.code===1?'Location permission was not granted, which is fine. Nothing was read or stored.':e&&e.code===3?'Location timed out.':'Location is not available right now.';o.innerHTML='<div class="note">'+m+' The demo keeps using the simulated route.</div>'},{enableHighAccuracy:true,timeout:9000,maximumAge:30000})}catch(e){btn.disabled=false;o.innerHTML='<div class="note">Location could not be requested. The demo keeps using the simulated route.</div>'}}
+/* ---------- actions ---------- */
+function allRender(){renderAlerts();renderCare();renderFamily();renderProfile();syncLive();syncNames();badge();$('#admchip').hidden=!S.admin}
+function syncNames(){$$('[data-pet]').forEach(function(e){if(e.tagName!=='INPUT')e.textContent=N()});$$('[data-pbreed]').forEach(function(e){e.textContent=S.pet.breed});$$('[data-page]').forEach(function(e){e.textContent=S.pet.age});$$('[data-pw]').forEach(function(e){e.textContent=S.pet.weight});document.title=N()+' · PawPulse app demo (concept)'}
+var A={
+ closeSheet:closeSheet,hideToast:hideToast,
+ openAlert:function(t){var s=$('#sheetw').classList.contains('on');if(s){closeSheet()}openAlert(t.dataset.id)},
+ alertDone:function(t){var a=S.alerts.filter(function(x){return x.id===t.dataset.id})[0];if(!a)return;a.status='done';if(a.type==='med'||a.type==='missed'){var m=S.meds.filter(function(x){return x.id===(a.d||{}).mid})[0];if(m){m.done=true;m.forceMissed=false}}if(a.type==='zone')petBack();if(a.type==='battery'&&S.band.battery<30)S.band.battery=100;save();closeSheet();allRender();toast('Marked done')},
+ callVet:function(){var e=$('#vetline');e.hidden=false;e.innerHTML='<b>Dr. Demo Vet (concept)</b><br>'+VET_NO+'<br><span class="small">Demo only. Nothing is dialled.</span>'},
+ shareAlert:function(){var n=S.members.filter(function(m){return!m.you}).length;closeSheet();toast('Shared with '+n+' '+(n===1?'member':'members')+' (demo, nothing is sent)')},
+ nudgeOn:function(){S.band.nudge=true;save();closeSheet();allRender();toast('Nudge mode on (concept)')},
+ goLive:function(){closeSheet();setTab('live')},goProfile:function(){setTab('profile')},
+ sim:function(t){sc(t.dataset.k)},
+ allRead:function(){S.alerts.forEach(function(a){a.status='done'});save();renderAlerts();badge()},
+ tick:function(t){var k=t.dataset.k,arr=k==='med'?S.meds:k==='feed'?S.feed:S.walk,x=arr.filter(function(y){return y.id===t.dataset.id})[0];if(!x)return;x.done=!x.done;if(x.done)x.forceMissed=false;save();var st=$('#p-care').scrollTop;renderCare();$('#p-care').scrollTop=st;syncLive();var nb=$('#p-care [data-id="'+x.id+'"]');if(nb)nb.focus()},
+ perm:function(t){var m=S.members.filter(function(x){return x.id===t.dataset.id})[0];if(!m||m.role==='Owner')return;m.perms[t.dataset.p]=!m.perms[t.dataset.p];save();var st=$('#p-family').scrollTop;renderFamily();$('#p-family').scrollTop=st;syncLive();var nb=$('#p-family [data-id="'+m.id+'"][data-p="'+t.dataset.p+'"]');if(nb)nb.focus()},
+ rmMember:function(t){S.members=S.members.filter(function(x){return x.id!==t.dataset.id});save();renderFamily();syncLive()},
+ invRole:function(t){invRole=t.dataset.r;renderFamily()},
+ genCode:function(){lastCode=genCode();S.codes.push({c:lastCode,r:invRole});save();renderFamily();var c=$('#p-family .code');if(c)c.scrollIntoView({block:'center',behavior:RM?'auto':'smooth'})},
+ copyCode:function(t){copyText(lastCode,function(ok){toast(ok?'Code '+lastCode+' copied':'Copy blocked here. Select the code and copy it by hand.')})},
+ join:function(){var i=$('#joincode'),v=(i.value||'').toUpperCase().replace(/\s/g,''),m=$('#joinmsg');if(!/^[A-Z0-9]{6}$/.test(v)){m.style.color='var(--danger)';m.textContent='Enter exactly 6 letters or numbers.';i.focus();return}
+  var f=S.codes.filter(function(x){return x.c===v})[0],role=f?f.r:'Family';S.codes=S.codes.filter(function(x){return x.c!==v});var n=0;S.members.forEach(function(x){if(/^(Family member|Vet|Walker)/.test(x.name))n++});S.invN++;
+  var nm=role==='Vet'?'Demo vet (invited)':role==='Walker'?'Dog walker '+S.invN:'Family member '+(S.invN+1);S.members.push({id:'u'+Date.now(),name:nm,role:role,perms:{loc:role!=='Vet',health:role!=='Walker',edit:false}});save();renderFamily();syncLive();toast(nm+' joined (demo state only)');$('#p-family').scrollTop=0},
+ model:function(t){S.band.model=t.dataset.k;save();renderProfile();syncLive()},mount:function(t){S.band.mount=t.dataset.k;save();renderProfile();syncLive()},
+ nudge:function(){S.band.nudge=!S.band.nudge;save();renderProfile();syncLive()},vibe:function(){S.vibe=!S.vibe;save();renderProfile();if(S.vibe){try{navigator.vibrate&&navigator.vibrate(40)}catch(e){}}},
+ range:function(t){range=t.dataset.r;var st=$('#p-profile').scrollTop;renderProfile();var b=$('#p-profile [data-r="'+range+'"]');if(b)b.focus()},
+ admin:function(){S.admin=!S.admin;save();$('#admchip').hidden=!S.admin;renderProfile();$('#p-profile').scrollTop=0;toast(S.admin?'Founder demo mode on':'Founder demo mode off')},
+ addHist:function(){openSheet('Add a health note',histForm(null))},
+ editHist:function(t){openSheet('Edit health note',histForm(S.history.filter(function(x){return x.id===t.dataset.id})[0]))},
+ delHist:function(t){S.history=S.history.filter(function(x){return x.id!==t.dataset.id});save();closeSheet();renderProfile()},
+ export:function(){var j=exportJson();openSheet('Export preview (JSON)','<p class="small">A preview only. Nothing is downloaded or sent. Copy it if you want to keep it.</p><pre class="json" id="jsonpre" tabindex="0">'+esc(j)+'</pre><button class="btn full" type="button" data-act="copyJson">'+ic('copy')+'Copy JSON</button>')},
+ copyJson:function(){copyText(exportJson(),function(ok){toast(ok?'JSON copied':'Copy blocked here. Select the text and copy it by hand.')})},
+ reset:function(){openSheet('Reset the demo?','<p>This clears the saved demo state on this device and returns to the pairing screen.</p><div class="row"><button class="btn warn" type="button" data-act="resetGo">Reset demo</button><button class="btn sec" type="button" data-act="closeSheet">Cancel</button></div>')},
+ resetGo:function(){try{localStorage.removeItem(KEY)}catch(e){}S=seedState();pet.mode='route';pet.alerted=false;pet.trail=[];rec=null;range='day';lastCode='';closeSheet();buildLive();allRender();setTab('live');showPair(true)},
+ geo:geo,pairGo:pairGo,pairSkip:function(){S.pet.name=S.pet.name||'Bruno';finishPair()}
+};
+document.addEventListener('click',function(e){var t=e.target.closest('[data-act]');if(!t||t.tagName==='INPUT')return;var f=A[t.dataset.act];if(f){e.preventDefault();f(t)}});
+document.addEventListener('click',function(e){var t=e.target.closest('[data-tab]');if(t)setTab(t.dataset.tab)});
+document.addEventListener('input',function(e){var t=e.target;if(t.dataset.f){var v=t.value;if(t.dataset.f==='name')v=v.slice(0,20);S.pet[t.dataset.f]=t.dataset.f==='name'&&!v.trim()?S.pet.name:v;if(!(t.dataset.f==='name'&&!v.trim())){syncNames();save()}}
+ if(t.dataset.act==='batRange'){S.band.battery=+t.value;t.previousElementSibling.textContent='Battery: '+t.value+'%';save();syncLive()}
+ if(t.dataset.act==='stepsRange'){S.steps=+t.value;save();syncLive()}
+ if(t.id==='joincode'){t.value=t.value.toUpperCase().replace(/[^A-Z0-9]/g,'')}});
+document.addEventListener('submit',function(e){var f=e.target;if(!f.dataset.form)return;e.preventDefault();var d=new FormData(f),k=f.dataset.form;
+ if(k==='addMember'){var n=(d.get('n')||'').trim(),r=d.get('r');if(!n)return;S.members.push({id:'u'+Date.now(),name:n,role:r,perms:{loc:r!=='Vet',health:r!=='Walker',edit:false}});save();renderFamily();syncLive();f.reset();toast(n+' added as '+r)}
+ if(k==='addHist'){S.history.push({id:'h'+Date.now(),date:d.get('d'),why:(d.get('w')||'').trim(),vet:(d.get('v')||'').trim()||'No suggestion recorded.'});save();var st=$('#p-profile').scrollTop;renderProfile();$('#p-profile').scrollTop=st;toast('History entry added')}
+ if(k==='saveHist'){var id=f.dataset.id;if(id){var x=S.history.filter(function(y){return y.id===id})[0];x.date=d.get('d');x.why=d.get('w').trim();x.vet=d.get('v').trim()}else S.history.push({id:'h'+Date.now(),date:d.get('d'),why:d.get('w').trim(),vet:d.get('v').trim()||'No suggestion recorded.'});save();closeSheet();renderProfile();toast('Note saved')}});
+document.addEventListener('change',function(e){if(e.target.id==='homesel'){S.home=e.target.value;save()}});
+/* ---------- pairing ---------- */
+function showPair(show){var p=$('#pair');if(!show){p.classList.add('off');return}p.classList.remove('off');
+ p.innerHTML='<div class="lg"><svg viewBox="10 6 80 88" aria-hidden="true"><use href="#logo-mark"/></svg>PawPulse</div><h1 id="pair-t">Pair your BioBand</h1><p style="color:#cfe8dc;margin:0">Three quick steps. This is a concept demo with sample data, no real band is needed.</p>'+
+ '<ol class="steps"><li><span class="n">1</span><div><b>Switch on the band</b><small>Press the side button until the light pulses.</small></div></li><li><span class="n">2</span><div><b>Clip it to the collar or harness</b><small>Collar band is the default. Harness mount is a concept.</small></div></li><li><span class="n">3</span><div style="flex:1"><b>Name your pet</b><label class="sr" for="pn">Pet name</label><input class="inp" id="pn" maxlength="20" value="'+esc(S.pet.name)+'" autocomplete="off" placeholder="Pet name"></div></li></ol>'+
+ '<button class="btn full" type="button" data-act="pairGo" id="pairbtn">Pair BioBand</button><button class="skip" type="button" data-act="pairSkip">Skip and use the demo pet</button><p class="small" style="color:#a9c9ba;margin-top:auto;padding-top:14px">Concept demo, sample data. Heart rate and temperature are proposed and need hardware validation.</p>';
+ setTimeout(function(){var i=$('#pn');if(i)i.focus({preventScroll:true})},60);$('#pn').addEventListener('keydown',function(e){if(e.key==='Enter')pairGo()})}
+function pairGo(){var v=($('#pn').value||'').trim();if(v)S.pet.name=v.slice(0,20);var b=$('#pairbtn');b.disabled=true;b.innerHTML='<span class="spin"></span>Looking for BioBand...';setTimeout(function(){b.innerHTML='Connected';setTimeout(finishPair,RM?100:600)},RM?200:1300)}
+function finishPair(){S.paired=true;save();showPair(false);allRender();var l=$('#t-live');setTimeout(function(){toast('BioBand paired with '+N()+' (demo)')},350)}
+/* ---------- init ---------- */
+load();
+document.addEventListener('DOMContentLoaded',init);
+function init(){buildLive();routeEl=$('#route');routeLen=routeEl.getTotalLength();allRender();setTab(TABS.indexOf(S.tab)>-1?S.tab:'live');showPair(!S.paired);
+ for(var i=0;i<60;i++)tickFast();for(var k=0;k<8;k++)petPos();
+ setInterval(tickFast,RM?1500:100);setInterval(tickMap,RM?1500:60);setInterval(tickSec,1000);
+ setInterval(function(){if(S.tab==='alerts'&&!$('#sheetw').classList.contains('on'))renderAlerts()},30000);
+ window.__pp={S:function(){return S},sc:sc}}
+})();
+</script>
+</body>
+</html>
